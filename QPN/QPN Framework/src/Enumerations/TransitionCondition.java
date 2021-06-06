@@ -14,16 +14,5 @@ public enum TransitionCondition implements Serializable{
 	NotContains,
 	IsNull,
 	NotNull,
-	HaveCarForMe,
-	CanAddCars,
-	CanNotAddCars,
-	HaveCar,
-	HaveREL,
-	SubPetriStopped,
-	
-	Equal_FloatFloat,   //the new transition conditions for floatfloat
-	MoreThan_FloatFloat,
-	MoreThanOrEqual_FloatFloat,
-	LessThan_FloatFloat,
-	LessThanOrEqual_FloatFloat,
+	SubPetriStopped
 }

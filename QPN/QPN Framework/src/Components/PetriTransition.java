@@ -2,15 +2,7 @@ package Components;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import DataObjects.DataCar;
-import DataObjects.DataCarQueue;
-import DataObjects.DataFloat;
-import DataObjects.DataFloatFloat;
-import DataObjects.DataInteger;
-import DataObjects.DataREL;
-import DataObjects.DataRELQueue;
-import DataObjects.DataString;
+import DataObjects.DataComplexVector;
 import DataObjects.DataSubPetriNet;
 import Enumerations.PetriObjectType;
 import Interfaces.PetriObject;
@@ -110,58 +102,7 @@ public class PetriTransition implements PetriObject, Serializable {
 			PetriObject currentInputPlace = util.GetPetriObjectByName(string, Parent.PlaceList);
 			PetriObject result = null;
 
-			if (currentInputPlace instanceof DataFloat) {
-				result = (PetriObject) ((DataFloat) currentInputPlace).clone();
-
-				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
-				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
-			}
-
-			if (currentInputPlace instanceof DataInteger) {
-				result = (PetriObject) ((DataInteger) currentInputPlace).clone();
-
-				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
-				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
-			}
-
-			if (currentInputPlace instanceof DataString) {
-				result = (DataString) ((DataString) currentInputPlace).clone();
-
-				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
-				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
-			}
-
-			if (currentInputPlace instanceof DataCar) {
-				result = (PetriObject) ((DataCar) currentInputPlace).clone();
-
-				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
-				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
-			}
-
-			if (currentInputPlace instanceof DataREL) {
-				result = (PetriObject) ((DataREL) currentInputPlace).clone();
-
-				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
-				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
-			}
-
-			if (currentInputPlace instanceof DataCarQueue) {
-				// nothing
-			}
-
-			if (currentInputPlace instanceof DataRELQueue) {
-				result = (PetriObject) ((DataRELQueue) currentInputPlace).clone();
-
-				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
-				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
-			}
-
+			
 			if (currentInputPlace instanceof DataSubPetriNet) {
 				result = (PetriObject) ((DataSubPetriNet) currentInputPlace).clone();
 
@@ -170,16 +111,13 @@ public class PetriTransition implements PetriObject, Serializable {
 				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
 			}
 			
-			//----------------------------DataFloatFloat Modification-----------------
-			if (currentInputPlace instanceof DataFloatFloat) {
-				result = (DataFloatFloat) ((DataFloatFloat) currentInputPlace).clone();
+				if (currentInputPlace instanceof DataComplexVector) {
+				result = (DataComplexVector) ((DataComplexVector) currentInputPlace).clone();
 
 				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
+				//currentInputPlace.SetValue(null);
 				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
 			}
-			//--------------------------------------------------------------------------
-			
 		}
 	}
 

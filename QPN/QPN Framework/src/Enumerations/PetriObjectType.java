@@ -19,5 +19,8 @@ public enum PetriObjectType implements Serializable{
 	PetriData,
 	DataBoolean,
 	
-	DataFloatFloat	//the new data type
+	DataFloatFloat,	//the new data type
+	DataComplex,
+	DataComplexVector,
+	DataArcMatrix
 }

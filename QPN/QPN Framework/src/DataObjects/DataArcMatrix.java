@@ -1,15 +1,22 @@
 package DataObjects;
 
 import java.io.Serializable;
-import DataOnly.CarQueue;
+
+import DataOnly.ArcMatrix;
 import Enumerations.PetriObjectType;
 import Interfaces.PetriObject;
 
-public class DataCarQueue implements Interfaces.PetriObject, Cloneable, Serializable {
+public class DataArcMatrix implements Interfaces.PetriObject, Cloneable, Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Override
+	public void AddElement(Object value) {
+		// TODO Auto-generated method stub
+
+	}
+
 	@Override
 	public void Execute() {
 		// TODO Auto-generated method stub
@@ -30,10 +37,10 @@ public class DataCarQueue implements Interfaces.PetriObject, Cloneable, Serializ
 
 	@Override
 	public PetriObjectType GetType() {
-		return PetriObjectType.DataCarQueue;
+		return PetriObjectType.DataArcMatrix;
 	}
 
-	public CarQueue Value = new CarQueue();
+	public ArcMatrix Value = null;
 
 	@Override
 	public Object GetValue() {
@@ -42,22 +49,31 @@ public class DataCarQueue implements Interfaces.PetriObject, Cloneable, Serializ
 
 	@Override
 	public void SetValue(Object value) {
-
+		if (value == null) {
+			Value = null;
+			SetToken(false);
+		}
+		if (value instanceof ArcMatrix) {
+			Value = (ArcMatrix) value;
+			SetToken(true);
+		}
 	}
 
 	// Overriding clone() method of Object class
 	public PetriObject clone() throws CloneNotSupportedException {
-		return (DataCarQueue) super.clone();
+		return (DataArcMatrix) super.clone();
 	}
 
 	public boolean Printable = true;
+
 	@Override
 	public boolean IsPrintable() {
 		return Printable;
 	}
+
 	public String toString() {
 		if (Value != null) {
-			return GetName() + "|" + Value.toString() + "|";
+			return GetName() + "(" + GetValue().toString() + ")";
 		} else {
 			return GetName() +"(Null)";
 		}
@@ -74,18 +90,6 @@ public class DataCarQueue implements Interfaces.PetriObject, Cloneable, Serializ
 	public void SetName(String name) {
 		this.name = name;
 	}
-
-	@Override
-	public void AddElement(Object value) {
-		if (value == null) {
-			Value = null;
-			SetToken(false);
-		}
-		if (value instanceof DataCar) {
-			Value.AddCar((DataCar) value);
-			SetToken(true);
-		}
-	}
 	
 	private boolean token;
 
@@ -99,3 +103,4 @@ public class DataCarQueue implements Interfaces.PetriObject, Cloneable, Serializ
 		return this.token;
 	}
 }
+

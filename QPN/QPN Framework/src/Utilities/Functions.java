@@ -8,13 +8,8 @@ import Components.Condition;
 import Components.GuardMapping;
 import Components.PetriNet;
 import Components.PetriTransition;
-import DataObjects.DataCar;
-import DataObjects.DataCarQueue;
-import DataObjects.DataFloat;
-import DataObjects.DataInteger;
-import DataObjects.DataREL;
-import DataObjects.DataRELQueue;
-import DataObjects.DataString;
+import DataObjects.DataArcMatrix;
+import DataObjects.DataComplexVector;
 import DataObjects.DataSubPetriNet;
 import DataObjects.DataTransfer;
 import DataOnly.TransferOperation;
@@ -160,51 +155,7 @@ public class Functions implements Serializable {
 		return false;
 	}
 
-	public boolean HaveCarForMe(PetriTransition t, ArrayList<DataCar> list) {
-		if (list == null)
-			return false;
-		if (t == null)
-			return false;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) != null && list.get(i).Value != null)
-				if (list.get(i).Value.Targets.contains(t.TransitionName))
-					return true;
-		}
-		return false;
-	}
 
-	public Integer CarIndexForMe(PetriTransition t, ArrayList<DataCar> list) {
-		if (list == null)
-			return -1;
-		if (t == null)
-			return -1;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) != null && list.get(i).Value != null)
-				if (list.get(i).Value.Targets.contains(t.TransitionName))
-					return i;
-		}
-		return -1;
-	}
-
-	public boolean HaveCar(ArrayList<DataCar> list) {
-		if (list == null)
-			return false;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) != null && list.get(i).Value != null)
-				return true;
-		}
-		return false;
-	}
-
-	public boolean HaveREL(ArrayList<DataREL> list) {
-		if (list == null)
-			return false;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) != null && list.get(i).Value != null)
-				return true;
-		}
-		return false;
-	}
 
 	public PetriNet PetriDataToPetriNet(PetriData pd) {
 		PetriNet pn = new PetriNet();
@@ -214,32 +165,12 @@ public class Functions implements Serializable {
 		for (Place p : pd.Places) {
 			PetriObject pls;
 			switch (p.Type) {
-			case DataFloat: {
-				pls = new DataFloat();
+			case DataComplexVector: {
+				pls = new DataComplexVector();
 				break;
 			}
-			case DataString: {
-				pls = new DataString();
-				break;
-			}
-			case DataInteger: {
-				pls = new DataInteger();
-				break;
-			}
-			case DataCar: {
-				pls = new DataCar();
-				break;
-			}
-			case DataCarQueue: {
-				pls = new DataCarQueue();
-				break;
-			}
-			case DataREL: {
-				pls = new DataREL();
-				break;
-			}
-			case DataRELQueue: {
-				pls = new DataRELQueue();
+			case DataArcMatrix: {
+				pls = new DataArcMatrix();
 				break;
 			}
 			case DataSubPetri: {
@@ -251,7 +182,7 @@ public class Functions implements Serializable {
 				break;
 			}
 			default:
-				pls = new DataFloat();
+				pls = new DataComplexVector();
 				break;
 			}
 
@@ -270,32 +201,12 @@ public class Functions implements Serializable {
 		for (Place p : pd.ConstantPlaces) {
 			PetriObject pls;
 			switch (p.Type) {
-			case DataFloat: {
-				pls = new DataFloat();
+			case DataComplexVector: {
+				pls = new DataComplexVector();
 				break;
 			}
-			case DataString: {
-				pls = new DataString();
-				break;
-			}
-			case DataInteger: {
-				pls = new DataInteger();
-				break;
-			}
-			case DataCar: {
-				pls = new DataCar();
-				break;
-			}
-			case DataCarQueue: {
-				pls = new DataCarQueue();
-				break;
-			}
-			case DataREL: {
-				pls = new DataREL();
-				break;
-			}
-			case DataRELQueue: {
-				pls = new DataRELQueue();
+			case DataArcMatrix: {
+				pls = new DataArcMatrix();
 				break;
 			}
 			case DataSubPetri: {
@@ -307,7 +218,7 @@ public class Functions implements Serializable {
 				break;
 			}
 			default:
-				pls = new DataFloat();
+				pls = new DataArcMatrix();
 				break;
 			}
 

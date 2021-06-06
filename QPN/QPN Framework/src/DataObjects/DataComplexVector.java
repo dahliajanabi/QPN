@@ -2,15 +2,16 @@ package DataObjects;
 
 import java.io.Serializable;
 
-import DataOnly.RELQueue;
+import DataOnly.ComplexVector;
 import Enumerations.PetriObjectType;
 import Interfaces.PetriObject;
 
-public class DataRELQueue implements Interfaces.PetriObject, Cloneable, Serializable{
+public class DataComplexVector implements Interfaces.PetriObject, Cloneable, Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void Execute() {
 		// TODO Auto-generated method stub
@@ -31,10 +32,10 @@ public class DataRELQueue implements Interfaces.PetriObject, Cloneable, Serializ
 
 	@Override
 	public PetriObjectType GetType() {
-		return PetriObjectType.DataRELQueue;
+		return PetriObjectType.DataComplexVector;
 	}
 
-	public RELQueue Value = new RELQueue();
+	public ComplexVector Value;
 
 	@Override
 	public Object GetValue() {
@@ -43,24 +44,33 @@ public class DataRELQueue implements Interfaces.PetriObject, Cloneable, Serializ
 
 	@Override
 	public void SetValue(Object value) {
-
+		if (value == null) {
+			Value = null;
+			SetToken(false);
+		}
+		if (value instanceof ComplexVector) {
+			Value = (ComplexVector) value;
+			SetToken(true);
+		}
 	}
 
 	// Overriding clone() method of Object class
 	public PetriObject clone() throws CloneNotSupportedException {
-		return (DataRELQueue) super.clone();
+		return (DataComplexVector) super.clone();
 	}
 
 	public boolean Printable = true;
+
 	@Override
 	public boolean IsPrintable() {
 		return Printable;
 	}
+
 	public String toString() {
 		if (Value != null) {
 			return GetName() + "|" + Value.toString() + "|";
 		} else {
-			return GetName() +"(Null)";
+			return GetName() + "(Null)";
 		}
 	}
 
@@ -78,16 +88,9 @@ public class DataRELQueue implements Interfaces.PetriObject, Cloneable, Serializ
 
 	@Override
 	public void AddElement(Object value) {
-		if (value == null) {
-			Value = null;
-			SetToken(false);
-		}
-		if (value instanceof DataREL) {
-			Value.AddREL((DataREL) value);
-			SetToken(true);
-		}
+
 	}
-	
+
 	private boolean token;
 
 	@Override

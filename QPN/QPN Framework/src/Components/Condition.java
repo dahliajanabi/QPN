@@ -2,10 +2,6 @@ package Components;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import DataOnly.CarQueue;
-import DataOnly.FloatFloat;
-import DataOnly.RELQueue;
 import DataOnly.SubPetri;
 import Enumerations.LogicConnector;
 import Enumerations.PetriNetState;
@@ -199,66 +195,6 @@ public class Condition implements Serializable {
 			}
 			break;
 		}
-		case HaveCarForMe: {
-			if (Value1 == null)
-				return false;
-			if (Value1.GetValue() == null)
-				return false;
-			if (Value1.GetType() == PetriObjectType.DataCarQueue) {
-				if (util.HaveCarForMe(Parent, ((CarQueue) Value1.GetValue()).Cars)) {
-					return true;
-				}
-			}
-			break;
-		}
-		case CanAddCars: {
-			if (Value1 == null)
-				return false;
-			if (Value1.GetValue() == null)
-				return false;
-			if (Value1.GetType() == PetriObjectType.DataCarQueue) {
-				if (((CarQueue) Value1.GetValue()).CanAddCar()) {
-					return true;
-				}
-			}
-			break;
-		}
-		case CanNotAddCars: {
-			if (Value1 == null)
-				return false;
-			if (Value1.GetValue() == null)
-				return false;
-			if (Value1.GetType() == PetriObjectType.DataCarQueue) {
-				if (((CarQueue) Value1.GetValue()).CanNotAddCar()) {
-					return true;
-				}
-			}
-			break;
-		}
-		case HaveREL: {
-			if (Value1 == null)
-				return false;
-			if (Value1.GetValue() == null)
-				return false;
-			if (Value1.GetType() == PetriObjectType.DataRELQueue) {
-				if (util.HaveREL(((RELQueue) Value1.GetValue()).RELs)) {
-					return true;
-				}
-			}
-			break;
-		}
-		case HaveCar: {
-			if (Value1 == null)
-				return false;
-			if (Value1.GetValue() == null)
-				return false;
-			if (Value1.GetType() == PetriObjectType.DataCarQueue) {
-				if (util.HaveCar(((CarQueue) Value1.GetValue()).Cars)) {
-					return true;
-				}
-			}
-			break;
-		}
 		case SubPetriStopped: {
 			if (Value1 == null)
 				return false;
@@ -271,60 +207,6 @@ public class Condition implements Serializable {
 			}
 			break;
 		}
-
-		// ---------------New Conditions for FloatFloat---------------------
-		case Equal_FloatFloat: {
-			if (Value1 == null || Value2 == null)
-				return false;
-			if (Value1.GetValue() == null || Value2.GetValue() == null)
-				return false;
-			if (((FloatFloat) Value1.GetValue()).V1 == ((FloatFloat) Value2.GetValue()).V1
-					&& ((FloatFloat) Value1.GetValue()).V2 == ((FloatFloat) Value2.GetValue()).V2)
-				return true;
-			break;
-		}
-		case MoreThan_FloatFloat: {
-			if (Value1 == null || Value2 == null)
-				return false;
-			if (Value1.GetValue() == null || Value2.GetValue() == null)
-				return false;
-			if (((FloatFloat) Value1.GetValue()).V1 > ((FloatFloat) Value2.GetValue()).V1
-					&& ((FloatFloat) Value1.GetValue()).V2 > ((FloatFloat) Value2.GetValue()).V2)
-				return true;
-			break;
-		}
-		case MoreThanOrEqual_FloatFloat: {
-			if (Value1 == null || Value2 == null)
-				return false;
-			if (Value1.GetValue() == null || Value2.GetValue() == null)
-				return false;
-			if (((FloatFloat) Value1.GetValue()).V1 >= ((FloatFloat) Value2.GetValue()).V1
-					&& ((FloatFloat) Value1.GetValue()).V2 >= ((FloatFloat) Value2.GetValue()).V2)
-				return true;
-			break;
-		}
-		case LessThan_FloatFloat: {
-			if (Value1 == null || Value2 == null)
-				return false;
-			if (Value1.GetValue() == null || Value2.GetValue() == null)
-				return false;
-			if (((FloatFloat) Value1.GetValue()).V1 < ((FloatFloat) Value2.GetValue()).V1
-					&& ((FloatFloat) Value1.GetValue()).V2 < ((FloatFloat) Value2.GetValue()).V2)
-				return true;
-			break;
-		}
-		case LessThanOrEqual_FloatFloat: {
-			if (Value1 == null || Value2 == null)
-				return false;
-			if (Value1.GetValue() == null || Value2.GetValue() == null)
-				return false;
-			if (((FloatFloat) Value1.GetValue()).V1 <= ((FloatFloat) Value2.GetValue()).V1
-					&& ((FloatFloat) Value1.GetValue()).V2 <= ((FloatFloat) Value2.GetValue()).V2)
-				return true;
-			break;
-		}
-		// ---------------------End of Modification-------------------------------
-
 		default:
 			break;
 		}
