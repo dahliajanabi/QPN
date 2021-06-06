@@ -10,7 +10,6 @@ import Components.PetriNet;
 import Components.PetriTransition;
 import DataObjects.DataArcMatrix;
 import DataObjects.DataComplexVector;
-import DataObjects.DataSubPetriNet;
 import DataObjects.DataTransfer;
 import DataOnly.TransferOperation;
 import Enumerations.PetriObjectType;
@@ -50,14 +49,14 @@ public class Functions implements Serializable {
 			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i) != null)
 					if (list.get(i).GetName().equals(placePath[0])) {
-						if (list.get(i).GetType() == PetriObjectType.DataSubPetri) {
-							DataSubPetriNet sp = (DataSubPetriNet) list.get(i);
-							for (int x = 0; x < sp.Value.Petri.PlaceList.size(); x++) {
-								if (sp.Value.Petri.PlaceList.get(x) != null)
-									if (sp.Value.Petri.PlaceList.get(x).GetName().equals(placePath[1]))
-										return x;
-							}
-						}
+//						if (list.get(i).GetType() == PetriObjectType.DataSubPetri) {
+//							DataSubPetriNet sp = (DataSubPetriNet) list.get(i);
+//							for (int x = 0; x < sp.Value.Petri.PlaceList.size(); x++) {
+//								if (sp.Value.Petri.PlaceList.get(x) != null)
+//									if (sp.Value.Petri.PlaceList.get(x).GetName().equals(placePath[1]))
+//										return x;
+//							}
+//						}
 					}
 			}
 		} else {
@@ -77,14 +76,14 @@ public class Functions implements Serializable {
 			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i) != null)
 					if (list.get(i).GetName().equals(placePath[0])) {
-						if (list.get(i).GetType() == PetriObjectType.DataSubPetri) {
-							DataSubPetriNet sp = (DataSubPetriNet) list.get(i);
-							for (int x = 0; x < sp.Value.Petri.PlaceList.size(); x++) {
-								if (sp.Value.Petri.PlaceList.get(x) != null)
-									if (sp.Value.Petri.PlaceList.get(x).GetName().equals(placePath[1]))
-										return sp.Value.Petri.PlaceList.get(x);
-							}
-						}
+//						if (list.get(i).GetType() == PetriObjectType.DataSubPetri) {
+//							DataSubPetriNet sp = (DataSubPetriNet) list.get(i);
+//							for (int x = 0; x < sp.Value.Petri.PlaceList.size(); x++) {
+//								if (sp.Value.Petri.PlaceList.get(x) != null)
+//									if (sp.Value.Petri.PlaceList.get(x).GetName().equals(placePath[1]))
+//										return sp.Value.Petri.PlaceList.get(x);
+//							}
+//						}
 					}
 			}
 		} else {
@@ -105,16 +104,16 @@ public class Functions implements Serializable {
 		if (name.contains("-")) {
 			String[] placePath = name.split("-");
 
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i) != null)
-					if (list.get(i).GetName().equals(placePath[0])) {
-						if (list.get(i).GetType() == PetriObjectType.DataSubPetri) {
-							DataSubPetriNet sp = (DataSubPetriNet) list.get(i);
-							sp.Value.Petri.PlaceList.set(index, data);
-							return true;
-						}
-					}
-			}
+//			for (int i = 0; i < list.size(); i++) {
+//				if (list.get(i) != null)
+//					if (list.get(i).GetName().equals(placePath[0])) {
+//						if (list.get(i).GetType() == PetriObjectType.DataSubPetri) {
+//							DataSubPetriNet sp = (DataSubPetriNet) list.get(i);
+//							sp.Value.Petri.PlaceList.set(index, data);
+//							return true;
+//						}
+//					}
+//			}
 		} else {
 			list.set(index, data);
 			return true;
@@ -130,16 +129,16 @@ public class Functions implements Serializable {
 		if (name.contains("-")) {
 			String[] placePath = name.split("-");
 
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i) != null)
-					if (list.get(i).GetName().equals(placePath[0])) {
-						if (list.get(i).GetType() == PetriObjectType.DataSubPetri) {
-							DataSubPetriNet sp = (DataSubPetriNet) list.get(i);
-							sp.Value.Petri.PlaceList.get(index).SetValue(null);
-							return true;
-						}
-					}
-			}
+//			for (int i = 0; i < list.size(); i++) {
+//				if (list.get(i) != null)
+//					if (list.get(i).GetName().equals(placePath[0])) {
+//						if (list.get(i).GetType() == PetriObjectType.DataSubPetri) {
+//							DataSubPetriNet sp = (DataSubPetriNet) list.get(i);
+//							sp.Value.Petri.PlaceList.get(index).SetValue(null);
+//							return true;
+//						}
+//					}
+//			}
 		} else {
 			list.get(index).SetValue(null);
 			return true;
@@ -173,14 +172,6 @@ public class Functions implements Serializable {
 				pls = new DataArcMatrix();
 				break;
 			}
-			case DataSubPetri: {
-				pls = new DataSubPetriNet();
-				break;
-			}
-			case DataTransfer: {
-				pls = new DataTransfer();
-				break;
-			}
 			default:
 				pls = new DataComplexVector();
 				break;
@@ -207,10 +198,6 @@ public class Functions implements Serializable {
 			}
 			case DataArcMatrix: {
 				pls = new DataArcMatrix();
-				break;
-			}
-			case DataSubPetri: {
-				pls = new DataSubPetriNet();
 				break;
 			}
 			case DataTransfer: {
@@ -362,9 +349,9 @@ public class Functions implements Serializable {
 							outputArcs += a.OutputPlaceNames.size();
 						}
 					}
-					if (a.Operation == TransitionOperation.ActivateSubPetri) {
-						Level = 2F;
-					}
+//					if (a.Operation == TransitionOperation.ActivateSubPetri) {
+//						Level = 2F;
+//					}
 				}
 			}
 		}

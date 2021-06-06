@@ -86,7 +86,7 @@ public class InputFloatFloat extends JFrame {
 		contentPane.add(txtPetriPort);
 
 		JTextPane txtTargetPlaceName = new JTextPane();
-		txtTargetPlaceName.setText("p4");
+		txtTargetPlaceName.setText("p1");
 		txtTargetPlaceName.setBounds(10, 7, 285, 20);
 		contentPane.add(txtTargetPlaceName);
 
@@ -98,7 +98,7 @@ public class InputFloatFloat extends JFrame {
 					s = new Socket(InetAddress.getByName("localhost"), Integer.parseInt(txtPetriPort.getText()));
 					ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
 					DataOverNetwork DataToSend = new DataOverNetwork();
-					DataToSend.petriObject = new DataComplexVector(); // change here
+
 					if (!txtReal1.getText().equals("null")) {
 
 						DataComplexVector p1 = new DataComplexVector();
@@ -108,7 +108,7 @@ public class InputFloatFloat extends JFrame {
 										Float.parseFloat(txtImaginary1.getText())),
 								new ComplexValue(Float.parseFloat(txtReal2.getText()),
 										Float.parseFloat(txtImaginary2.getText())));
-						DataToSend.petriObject.SetValue(p1);
+						DataToSend.petriObject = p1;
 					} else {
 						DataToSend.petriObject.SetValue(null);
 					}

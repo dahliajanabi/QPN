@@ -3,7 +3,6 @@ package Components;
 import java.io.Serializable;
 import java.util.ArrayList;
 import DataObjects.DataComplexVector;
-import DataObjects.DataSubPetriNet;
 import Enumerations.PetriObjectType;
 import Interfaces.PetriObject;
 import Utilities.Functions;
@@ -101,21 +100,12 @@ public class PetriTransition implements PetriObject, Serializable {
 		for (String string : InputPlaceName) {
 			PetriObject currentInputPlace = util.GetPetriObjectByName(string, Parent.PlaceList);
 			PetriObject result = null;
-
-			
-			if (currentInputPlace instanceof DataSubPetriNet) {
-				result = (PetriObject) ((DataSubPetriNet) currentInputPlace).clone();
-
-				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
-				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
-			}
 			
 				if (currentInputPlace instanceof DataComplexVector) {
 				result = (DataComplexVector) ((DataComplexVector) currentInputPlace).clone();
 
 				TempMarking.add(result);
-				//currentInputPlace.SetValue(null);
+				currentInputPlace.SetValue(null);
 				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
 			}
 		}

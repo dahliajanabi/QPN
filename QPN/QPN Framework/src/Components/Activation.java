@@ -8,7 +8,6 @@ import DataObjects.DataComplexVector;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
 import DataObjects.DataTransfer;
-import DataObjects.DataSubPetriNet;
 import Enumerations.TransitionOperation;
 import Interfaces.PetriObject;
 import Utilities.Functions;
@@ -78,12 +77,6 @@ public class Activation implements Serializable {
 
 		if (Operation == TransitionOperation.SendOverNetwork)
 			SendOverNetwork();
-
-		if (Operation == TransitionOperation.SendPetriNetOverNetwork)
-			SendPetriNetOverNetwork();
-
-		if (Operation == TransitionOperation.ActivateSubPetri)
-			ActivateSubPetri();
 
 		if (Operation == TransitionOperation.StopPetriNet)
 			Parent.Parent.Stop();
@@ -159,44 +152,5 @@ public class Activation implements Serializable {
 		if (temp instanceof DataComplexVector) {
 			result.SetValue((PetriObject) ((DataComplexVector) temp).clone());
 		}
-
-		if (temp instanceof DataSubPetriNet) {
-			result.SetValue((PetriObject) ((DataSubPetriNet) temp).clone());
-		}
-
 	}
-
-	private void SendPetriNetOverNetwork() throws CloneNotSupportedException {
-
-		PetriObject output = util.GetPetriObjectByName(OutputPlaceName, Parent.Parent.PlaceList);
-		Integer inputIndex = util.GetIndexByName(InputPlaceName, Parent.TempMarking);
-
-		PetriObject result = null;
-
-		if (output instanceof DataTransfer) {
-			result = (PetriObject) ((DataTransfer) output).clone();
-		}
-
-		if (inputIndex == -1)
-			return;
-
-		PetriObject temp = Parent.TempMarking.get(inputIndex);
-
-		if (temp instanceof DataSubPetriNet) {
-			PetriObject ob = ((DataSubPetriNet) temp).clone();
-			DataSubPetriNet sub = (DataSubPetriNet) ob;
-			result.SetValue((PetriObject) util.PetriNetToPetriData(sub.Value.Petri));
-		}
-	}
-
-	private void ActivateSubPetri() throws CloneNotSupportedException {
-		PetriObject temp = util.GetFromListByName(InputPlaceName, Parent.Parent.PlaceList);
-		if (temp == null)
-			return;
-
-		if (temp instanceof DataSubPetriNet) {
-			((DataSubPetriNet) temp).Value.StartSubPetri();
-		}
-	}
-
 }

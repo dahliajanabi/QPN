@@ -7,7 +7,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import DataObjects.DataSubPetriNet;
 import DataOnly.SubPetri;
 import Enumerations.PetriNetState;
 import Enumerations.PetriObjectType;
@@ -274,14 +273,14 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 						Integer index = net.util.GetIndexByName(net.inputdata.petriObject.GetName(), net.PlaceList);
 
 						if (net.inputdata.petriObject.GetType() == PetriObjectType.PetriData) {
-							Functions Fun = new Functions();
-
-							DataSubPetriNet sub = new DataSubPetriNet();
-							sub.SetName(net.inputdata.petriObject.GetName());
-							SubPetri sbb = new SubPetri(Fun.PetriDataToPetriNet((PetriData) net.inputdata.petriObject));
-							sub.SetValue(sbb);
-
-							net.PlaceList.set(index, sub);
+//							Functions Fun = new Functions();
+//
+//							DataSubPetriNet sub = new DataSubPetriNet();
+//							sub.SetName(net.inputdata.petriObject.GetName());
+//							SubPetri sbb = new SubPetri(Fun.PetriDataToPetriNet((PetriData) net.inputdata.petriObject));
+//							sub.SetValue(sbb);
+//
+//							net.PlaceList.set(index, sub);
 
 						} else {
 							net.PlaceList.set(index, net.inputdata.petriObject);

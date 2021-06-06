@@ -3,16 +3,7 @@ package Enumerations;
 import java.io.Serializable;
 
 public enum TransitionCondition implements Serializable{
-	Undefined,
-	Equal,
-	NotEqual,
-	MoreThan,
-	MoreThanOrEqual,
-	LessThan,
-	LessThanOrEqual,
-	Contains,
-	NotContains,
+	Undefined,	
 	IsNull,
-	NotNull,
-	SubPetriStopped
+	NotNull
 }
