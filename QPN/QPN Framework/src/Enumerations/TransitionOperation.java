@@ -7,5 +7,6 @@ public enum TransitionOperation implements Serializable{
 	SendOverNetwork,
 	StopPetriNet,
 	MakeNull,
-	UnitaryMatrix
+	UnitaryMatrix,
+	UnitaryMatrixJoin2by1
 }

@@ -24,8 +24,8 @@ public class ArcMatrix implements Cloneable, Serializable {
 		Matrix = new Float[rowCount][ColCount];
 		int index = 0;
 		if (arguments.length == rowCount * ColCount)
-			for (int i = 0; i < Matrix[0].length; i++) {
-				for (int j = 0; j < Matrix[1].length; j++) {
+			for (int i = 0; i < rowCount; i++) {
+				for (int j = 0; j < ColCount; j++) {
 					Matrix[i][j] = arguments[index++];
 				}
 			}
@@ -34,8 +34,8 @@ public class ArcMatrix implements Cloneable, Serializable {
 	public String toString() {
 		String toPrint = "";
 		ArrayList<String> temp1 = new ArrayList<String>();
-		for (int i = 0; i < Matrix[0].length; i++) {
-			for (int j = 0; j < Matrix[1].length; j++) {
+		for (int i = 0; i < Matrix.length; i++) {
+			for (int j = 0; j < Matrix[0].length; j++) {
 				if (Matrix[i][j] == null)
 					temp1.add("NULL");
 				else

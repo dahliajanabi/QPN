@@ -7,11 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import DataOnly.SubPetri;
 import Enumerations.PetriNetState;
 import Enumerations.PetriObjectType;
 import Interfaces.PetriObject;
-import PetriDataPackage.PetriData;
 import Utilities.DataOverNetwork;
 import Utilities.Functions;
 import MetricsClasses.Metrics;
@@ -19,12 +17,12 @@ import MetricsClasses.Metrics;
 public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable {
 
 	public Metrics Metrics = new Metrics();
-	public String PrintMatrics()
-	{
+
+	public String PrintMatrics() {
 		util.ComputeMatrics(this);
 		return Metrics.toString();
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -140,11 +138,12 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 
 			PrintPetri();
 			String conditionsStatus = "";
+			ArrayList<String> toNull = new ArrayList<String>();
 			for (int i = 0; i < Transitions.size(); ++i) {
 				if (!util.TransitionExist(Transitions.get(i).GetName(), ExecutionList)) {
 					if (Transitions.get(i).CheckConditions()) {
 						try {
-							Transitions.get(i).BookTokens();
+							toNull.addAll(Transitions.get(i).BookTokens());
 						} catch (CloneNotSupportedException e) {
 							msg = e.getMessage();
 							m_lDataLoadFinished.onDataLoadFinishedListener(msg);
@@ -177,6 +176,11 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 				ExecutionList.get(i).InitialDelay--;
 			}
 
+			for (String string : toNull) {
+				PetriObject currentInputPlace = util.GetPetriObjectByName(string, PlaceList);
+				currentInputPlace.SetValue(null);
+			}
+			
 			for (int i = 0; i < ExecutionList.size(); ++i) {
 				if (ExecutionList.get(i).InitialDelay < 0) {
 					ExecutionList.remove(i);

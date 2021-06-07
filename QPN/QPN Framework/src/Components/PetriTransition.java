@@ -67,7 +67,7 @@ public class PetriTransition implements PetriObject, Serializable {
 
 	public PetriNet Parent;
 
-	//public String TransitionName;
+	// public String TransitionName;
 
 	public int Delay = 0;
 	public int InitialDelay = 0;
@@ -95,20 +95,23 @@ public class PetriTransition implements PetriObject, Serializable {
 		return false;
 	}
 
-	public void BookTokens() throws CloneNotSupportedException {
+	public ArrayList<String> BookTokens() throws CloneNotSupportedException {
 		TempMarking.clear();
+		ArrayList<String> placesToNull = new ArrayList<String>();
 		for (String string : InputPlaceName) {
 			PetriObject currentInputPlace = util.GetPetriObjectByName(string, Parent.PlaceList);
 			PetriObject result = null;
-			
-				if (currentInputPlace instanceof DataComplexVector) {
+
+			if (currentInputPlace instanceof DataComplexVector) {
 				result = (DataComplexVector) ((DataComplexVector) currentInputPlace).clone();
 
 				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
+				// currentInputPlace.SetValue(null);
+				placesToNull.add(currentInputPlace.GetName());
 				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
 			}
 		}
+		return placesToNull;
 	}
 
 	@Override
@@ -138,7 +141,7 @@ public class PetriTransition implements PetriObject, Serializable {
 	public boolean IsPrintable() {
 		return Printable;
 	}
-	
+
 	private boolean token;
 
 	@Override

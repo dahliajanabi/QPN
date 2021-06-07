@@ -49,6 +49,7 @@ public class PetriNetWindow extends JFrame {
 	boolean AutoStart = false;
 
 	public PetriNetWindow(boolean autoStart) {
+		getContentPane().setBackground(new Color(139, 0, 0));
 		setBounds(100, 100, 805, 700);
 		this.AutoStart = autoStart;
 		JPanel pnlGraphics = new JPanel();

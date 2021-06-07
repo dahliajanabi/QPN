@@ -20,6 +20,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class InputFloatFloat extends JFrame {
 
@@ -52,6 +53,7 @@ public class InputFloatFloat extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 317, 225);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(128, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
