@@ -22,7 +22,7 @@ import java.net.Socket;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class InputFloatFloat extends JFrame {
+public class InputComplex extends JFrame {
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class InputFloatFloat extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InputFloatFloat frame = new InputFloatFloat(); // change here
+					InputComplex frame = new InputComplex(); // change here
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class InputFloatFloat extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public InputFloatFloat() {
+	public InputComplex() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 317, 225);
 		contentPane = new JPanel();
