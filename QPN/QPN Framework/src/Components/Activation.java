@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import DataObjects.DataArcMatrix;
 import DataObjects.DataComplexVector;
+import DataOnly.ArcMatrix;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
 import DataObjects.DataTransfer;
@@ -30,7 +31,8 @@ public class Activation implements Serializable {
 	public ArrayList<String> OutputPlaceNames;
 	public TransitionOperation Operation;
 	public Functions util;
-	public String ConstantValueName;
+	public String ConstantValueName1;
+	public String ConstantValueName2;
 
 	public Activation(PetriTransition Parent) {
 		util = new Functions();
@@ -43,7 +45,7 @@ public class Activation implements Serializable {
 		this.InputPlaceName = InputPlaceName;
 		this.OutputPlaceName = OutputPlaceName;
 		this.Operation = Condition;
-		this.ConstantValueName = ConstantValueName;
+		this.ConstantValueName1 = ConstantValueName;
 	}
 
 	public Activation(PetriTransition Parent, String InputPlaceName1, String InputPlaceName2, String ConstantValueName,
@@ -54,7 +56,19 @@ public class Activation implements Serializable {
 		this.InputPlaceName2 = InputPlaceName2;
 		this.OutputPlaceName = OutputPlaceName;
 		this.Operation = Condition;
-		this.ConstantValueName = ConstantValueName;
+		this.ConstantValueName1 = ConstantValueName;
+	}
+
+	public Activation(PetriTransition Parent, String InputPlaceName1, String InputPlaceName2, String ConstantValueName1,
+			String ConstantValueName2, TransitionOperation Condition, String OutputPlaceName) {
+		util = new Functions();
+		this.Parent = Parent;
+		this.InputPlaceName1 = InputPlaceName1;
+		this.InputPlaceName2 = InputPlaceName2;
+		this.OutputPlaceName = OutputPlaceName;
+		this.Operation = Condition;
+		this.ConstantValueName1 = ConstantValueName1;
+		this.ConstantValueName2 = ConstantValueName2;
 	}
 
 	public Activation(PetriTransition Parent, String InputPlaceName, TransitionOperation Condition,
@@ -86,6 +100,9 @@ public class Activation implements Serializable {
 
 	public void Activate() throws CloneNotSupportedException {
 
+		if (Operation == TransitionOperation.Move)
+			Move();
+
 		if (Operation == TransitionOperation.UnitaryMatrix)
 			UnitaryMatrix();
 
@@ -100,6 +117,198 @@ public class Activation implements Serializable {
 
 		if (Operation == TransitionOperation.MakeNull)
 			MakeNull();
+
+		if (Operation == TransitionOperation.MoveX)
+			MoveX();
+
+		if (Operation == TransitionOperation.MoveY)
+			MoveY();
+	}
+
+	private void Move() throws CloneNotSupportedException {
+
+		PetriObject temp = util.GetFromListByName(InputPlaceName, Parent.TempMarking);
+		if (temp == null) {
+			temp = util.GetFromListByName(InputPlaceName, Parent.Parent.ConstantPlaceList);
+		}
+		PetriObject result = null;
+
+		if (temp instanceof DataArcMatrix) {
+			result = (PetriObject) ((DataArcMatrix) temp).clone();
+		}
+
+		if (temp instanceof DataComplexVector) {
+			result = (PetriObject) ((DataComplexVector) temp).clone();
+		}
+
+		if (result == null) {
+			return;
+		}
+
+		if (OutputPlaceName.contains("-")) {
+			result.SetName(OutputPlaceName.split("-")[1]);
+		} else {
+			result.SetName(OutputPlaceName);
+		}
+
+		result.SetValue(temp.GetValue());
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+	}
+
+	private void MoveX() throws CloneNotSupportedException {
+
+		PetriObject input1 = util.GetFromListByName(InputPlaceName1, Parent.TempMarking);
+		if (input1 == null && !(input1 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject input2 = util.GetFromListByName(InputPlaceName2, Parent.TempMarking);
+		if (input2 == null && !(input2 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject constantValue1 = util.GetFromListByName(ConstantValueName1, Parent.Parent.ConstantPlaceList);
+		if (constantValue1 == null && !(constantValue1 instanceof DataArcMatrix)) {
+			return;
+		}
+
+		PetriObject constantValue2 = util.GetFromListByName(ConstantValueName2, Parent.Parent.ConstantPlaceList);
+		if (constantValue2 == null && !(constantValue2 instanceof DataArcMatrix)) {
+			return;
+		}
+
+		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) input1).clone();
+		ComplexVector coinC = (ComplexVector) coin.GetValue();
+
+		// ((ArcMatrix) ((DataArcMatrix) constantValue1).GetValue()).clone();
+		ComplexValue coinv1 = coinC.ComplexArray.get(0);
+		DataArcMatrix MP = (DataArcMatrix) constantValue1;
+		ArcMatrix ResultMP = new ArcMatrix(MP.Value.Matrix.length, MP.Value.Matrix[0].length);
+		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+				ResultMP.Matrix[i][j] = MP.Value.Matrix[i][j] * coinv1.Real;
+			}
+		}
+
+		 
+		//((ArcMatrix) ((DataArcMatrix) constantValue2).GetValue()).clone();
+		ComplexValue coinv2 = coinC.ComplexArray.get(1);
+		DataArcMatrix MM = (DataArcMatrix) constantValue2;
+		ArcMatrix ResultMM = new ArcMatrix(MM.Value.Matrix.length, MM.Value.Matrix[0].length);
+		for (int i = 0; i < MM.Value.Matrix.length; i++) {
+			for (int j = 0; j < MM.Value.Matrix[0].length; j++) {
+				ResultMM.Matrix[i][j] = MM.Value.Matrix[i][j] * coinv2.Real;
+			}
+		}
+
+		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+				ResultMP.Matrix[i][j] = MP.Value.Matrix[i][j] + MM.Value.Matrix[i][j];
+				ResultMP.Matrix[i][j] = ResultMP.Matrix[i][j] * 0.5f;
+			}
+		}
+
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input2).clone();
+		ComplexVector resC = (ComplexVector) result.GetValue();
+		ComplexVector resD = new ComplexVector(resC.Size, resC.ComplexArray);
+
+		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+			ComplexValue sum = new ComplexValue(0.0F, 0.0F);
+
+			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+				ComplexValue cv1 = resC.ComplexArray.get(j);
+				Float real = MP.Value.Matrix[i][j] * cv1.Real;
+				Float imaginary = MP.Value.Matrix[i][j] * cv1.Imaginary;
+				ComplexValue cv2 = new ComplexValue(real, imaginary);
+				sum.Real += cv2.Real;
+				sum.Imaginary += cv2.Imaginary;
+			}
+			resD.ComplexArray.set(i, sum);
+		}
+
+		result.SetName(OutputPlaceName);
+		result.SetValue(resD);
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+	}
+
+	private void MoveY() throws CloneNotSupportedException {
+
+		PetriObject input1 = util.GetFromListByName(InputPlaceName1, Parent.TempMarking);
+		if (input1 == null && !(input1 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject input2 = util.GetFromListByName(InputPlaceName2, Parent.TempMarking);
+		if (input2 == null && !(input2 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject constantValue1 = util.GetFromListByName(ConstantValueName1, Parent.Parent.ConstantPlaceList);
+		if (constantValue1 == null && !(constantValue1 instanceof DataArcMatrix)) {
+			return;
+		}
+
+		PetriObject constantValue2 = util.GetFromListByName(ConstantValueName2, Parent.Parent.ConstantPlaceList);
+		if (constantValue2 == null && !(constantValue2 instanceof DataArcMatrix)) {
+			return;
+		}
+
+		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) input1).clone();
+		ComplexVector coinC = (ComplexVector) coin.GetValue();
+
+			//((ArcMatrix) ((DataArcMatrix) constantValue1).GetValue()).clone();
+		ComplexValue coinv1 = coinC.ComplexArray.get(2);
+		DataArcMatrix MP = (DataArcMatrix) constantValue1;
+		ArcMatrix ResultMP = new ArcMatrix(MP.Value.Matrix.length, MP.Value.Matrix[0].length); 
+		
+		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+				ResultMP.Matrix[i][j] = MP.Value.Matrix[i][j] * coinv1.Real;
+			}
+		}
+
+ 
+		//= ((ArcMatrix) ((DataArcMatrix) constantValue2).GetValue()).clone();
+		ComplexValue coinv2 = coinC.ComplexArray.get(3);
+		DataArcMatrix MM = (DataArcMatrix) constantValue2;
+		ArcMatrix ResultMM = new ArcMatrix(MM.Value.Matrix.length, MM.Value.Matrix[0].length);
+		for (int i = 0; i < MM.Value.Matrix.length; i++) {
+			for (int j = 0; j < MM.Value.Matrix[0].length; j++) {
+				ResultMM.Matrix[i][j] = MM.Value.Matrix[i][j] * coinv2.Real;
+			}
+		}
+
+		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+				ResultMP.Matrix[i][j] = MP.Value.Matrix[i][j] + MM.Value.Matrix[i][j];
+				ResultMP.Matrix[i][j] = ResultMP.Matrix[i][j] * 0.5f;
+			}
+		}
+
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input2).clone();
+		ComplexVector resC = (ComplexVector) result.GetValue();
+		ComplexVector resD = new ComplexVector(resC.Size, resC.ComplexArray);
+
+		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+			ComplexValue sum = new ComplexValue(0.0F, 0.0F);
+
+			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+				ComplexValue cv1 = resC.ComplexArray.get(j);
+				Float real = MP.Value.Matrix[i][j] * cv1.Real;
+				Float imaginary = MP.Value.Matrix[i][j] * cv1.Imaginary;
+				ComplexValue cv2 = new ComplexValue(real, imaginary);
+				sum.Real += cv2.Real;
+				sum.Imaginary += cv2.Imaginary;
+			}
+			resD.ComplexArray.set(i, sum);
+		}
+
+		result.SetName(OutputPlaceName);
+		result.SetValue(resD);
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
 	}
 
 	private void UnitaryMatrix() throws CloneNotSupportedException {
@@ -109,7 +318,7 @@ public class Activation implements Serializable {
 			return;
 		}
 
-		PetriObject constantValue = util.GetFromListByName(ConstantValueName, Parent.Parent.ConstantPlaceList);
+		PetriObject constantValue = util.GetFromListByName(ConstantValueName1, Parent.Parent.ConstantPlaceList);
 		if (constantValue == null && !(constantValue instanceof DataArcMatrix)) {
 			return;
 		}
@@ -150,7 +359,7 @@ public class Activation implements Serializable {
 			return;
 		}
 
-		PetriObject constantValue = util.GetFromListByName(ConstantValueName, Parent.Parent.ConstantPlaceList);
+		PetriObject constantValue = util.GetFromListByName(ConstantValueName1, Parent.Parent.ConstantPlaceList);
 		if (constantValue == null && !(constantValue instanceof DataArcMatrix)) {
 			return;
 		}

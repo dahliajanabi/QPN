@@ -8,5 +8,8 @@ public enum TransitionOperation implements Serializable{
 	StopPetriNet,
 	MakeNull,
 	UnitaryMatrix,
-	UnitaryMatrixJoin2by1
+	UnitaryMatrixJoin2by1,
+	Move,
+	MoveX,
+	MoveY
 }
