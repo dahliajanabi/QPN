@@ -16,6 +16,10 @@ public class ArcMatrix implements Cloneable, Serializable {
 
 	public Float[][] Matrix;
 
+	public ArcMatrix(int rowCount, int ColCount) {
+		Matrix = new Float[rowCount][ColCount];
+	}
+	
 	public ArcMatrix(int rowCount, int ColCount, Float... arguments) {
 		if (arguments.length != rowCount * ColCount) {
 			System.err.print("ArcMatrix parameters are wrong the number of values doesnt match the matrix");
