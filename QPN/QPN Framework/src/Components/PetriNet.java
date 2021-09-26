@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Enumerations.PetriNetState;
 import Enumerations.PetriObjectType;
@@ -103,7 +104,8 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 	public boolean StopFlag;
 	public boolean PauseFlag;
 	public Integer Delay = 1000;
-	public ArrayList<PetriTransition> ExecutionList;
+	public ArrayList<PetriTransition> ReversibleExecutionList;
+	public ArrayList<PetriTransition> NonReversibleExecutionList;
 
 	private Thread networkThread;
 
@@ -122,7 +124,9 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 		System.out.println(msg);
 		m_lDataLoadFinished.onDataLoadFinishedListener(msg);
 
-		ExecutionList = new ArrayList<PetriTransition>();
+		ReversibleExecutionList = new ArrayList<PetriTransition>();
+		NonReversibleExecutionList = new ArrayList<PetriTransition>();
+
 		StopFlag = false;
 		PauseFlag = false;
 		while (!StopFlag) {
@@ -140,7 +144,11 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 			String conditionsStatus = "";
 			ArrayList<String> toNull = new ArrayList<String>();
 			for (int i = 0; i < Transitions.size(); ++i) {
-				if (!util.TransitionExist(Transitions.get(i).GetName(), ExecutionList)) {
+
+				if (Transitions.get(i).IsReversible
+						&& !util.TransitionExist(Transitions.get(i).GetName(), ReversibleExecutionList)
+						|| !Transitions.get(i).IsReversible
+								&& !util.TransitionExist(Transitions.get(i).GetName(), NonReversibleExecutionList)) {
 					if (Transitions.get(i).CheckConditions()) {
 						try {
 							toNull.addAll(Transitions.get(i).BookTokens());
@@ -152,7 +160,11 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 						}
 						PetriTransition trr = Transitions.get(i);
 						trr.InitialDelay = trr.Delay;
-						ExecutionList.add(trr);
+						if (trr.IsReversible) {
+							ReversibleExecutionList.add(trr);
+						} else {
+							NonReversibleExecutionList.add(trr);
+						}
 					} else {
 						conditionsStatus += "[" + Transitions.get(i).TransitionName + " conditions are false]";
 					}
@@ -161,11 +173,18 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 			if (conditionsStatus != "") {
 				m_lDataLoadFinished.onDataLoadFinishedListener(conditionsStatus);
 			}
-			PrintExeList();
-			for (int i = 0; i < ExecutionList.size(); ++i) {
-				if (ExecutionList.get(i).InitialDelay == 0) {
+
+			PrintReversibleExecutionList();
+			PrintNonReversibleExecutionList();
+			Collections.shuffle(ReversibleExecutionList);
+			Collections.shuffle(NonReversibleExecutionList);
+			PrintReversibleExecutionList();
+			PrintNonReversibleExecutionList();
+
+			for (int i = 0; i < NonReversibleExecutionList.size(); ++i) {
+				if (NonReversibleExecutionList.get(i).InitialDelay == 0) {
 					try {
-						ExecutionList.get(i).Activate();
+						NonReversibleExecutionList.get(i).Activate();
 					} catch (CloneNotSupportedException e) {
 						msg = e.getMessage();
 						m_lDataLoadFinished.onDataLoadFinishedListener(msg);
@@ -173,17 +192,36 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 						System.out.print(msg);
 					}
 				}
-				ExecutionList.get(i).InitialDelay--;
+				NonReversibleExecutionList.get(i).InitialDelay--;
+			}
+			for (int i = 0; i < ReversibleExecutionList.size(); ++i) {
+				if (ReversibleExecutionList.get(i).InitialDelay == 0) {
+					try {
+						ReversibleExecutionList.get(i).Activate();
+					} catch (CloneNotSupportedException e) {
+						msg = e.getMessage();
+						m_lDataLoadFinished.onDataLoadFinishedListener(msg);
+						e.printStackTrace();
+						System.out.print(msg);
+					}
+				}
+				ReversibleExecutionList.get(i).InitialDelay--;
 			}
 
 			for (String string : toNull) {
 				PetriObject currentInputPlace = util.GetPetriObjectByName(string, PlaceList);
 				currentInputPlace.SetValue(null);
 			}
-			
-			for (int i = 0; i < ExecutionList.size(); ++i) {
-				if (ExecutionList.get(i).InitialDelay < 0) {
-					ExecutionList.remove(i);
+
+			for (int i = 0; i < ReversibleExecutionList.size(); ++i) {
+				if (ReversibleExecutionList.get(i).InitialDelay < 0) {
+					ReversibleExecutionList.remove(i);
+					i--;
+				}
+			}
+			for (int i = 0; i < NonReversibleExecutionList.size(); ++i) {
+				if (NonReversibleExecutionList.get(i).InitialDelay < 0) {
+					NonReversibleExecutionList.remove(i);
 					i--;
 				}
 			}
@@ -229,16 +267,30 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 		System.out.println(msg);
 	}
 
-	public void PrintExeList() {
+	public void PrintReversibleExecutionList() {
 		ArrayList<String> temp1 = new ArrayList<String>();
-		for (PetriObject petriObject : ExecutionList) {
+		for (PetriObject petriObject : ReversibleExecutionList) {
 			if (petriObject == null)
 				temp1.add("NULL");
 			else
 				temp1.add(petriObject.toString());
 		}
 
-		msg = name + " ExecutionList [" + String.join(",", temp1) + "]";
+		msg = name + " ReversibleExecutionList [" + String.join(",", temp1) + "]";
+		m_lDataLoadFinished.onDataLoadFinishedListener(msg);
+		System.out.println(msg);
+	}
+
+	public void PrintNonReversibleExecutionList() {
+		ArrayList<String> temp1 = new ArrayList<String>();
+		for (PetriObject petriObject : NonReversibleExecutionList) {
+			if (petriObject == null)
+				temp1.add("NULL");
+			else
+				temp1.add(petriObject.toString());
+		}
+
+		msg = name + " NonReversibleExecutionList [" + String.join(",", temp1) + "]";
 		m_lDataLoadFinished.onDataLoadFinishedListener(msg);
 		System.out.println(msg);
 	}

@@ -281,7 +281,10 @@ public class PetriNetWindow extends JFrame {
 				transitionRow += 200;
 			}
 
-			boolean activated = petriNet.ExecutionList != null && petriNet.ExecutionList.lastIndexOf(t) > -1;
+			boolean activated = (petriNet.ReversibleExecutionList != null && 
+					petriNet.ReversibleExecutionList.lastIndexOf(t) > -1) ||
+					(petriNet.NonReversibleExecutionList != null && 
+					petriNet.NonReversibleExecutionList.lastIndexOf(t) > -1);
 			OETPNShape currentTransition = new GraphTransition(new Point(transitionColumn, transitionRow),
 					t.TransitionName, activated);
 			if (activated) {

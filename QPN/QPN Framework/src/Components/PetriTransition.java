@@ -71,6 +71,7 @@ public class PetriTransition implements PetriObject, Serializable {
 
 	public int Delay = 0;
 	public int InitialDelay = 0;
+	public boolean IsReversible = false;
 
 	public ArrayList<PetriObject> TempMarking;
 
@@ -107,7 +108,9 @@ public class PetriTransition implements PetriObject, Serializable {
 
 				TempMarking.add(result);
 				// currentInputPlace.SetValue(null);
-				placesToNull.add(currentInputPlace.GetName());
+				if (!IsReversible) {
+					placesToNull.add(currentInputPlace.GetName());
+				}
 				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
 			}
 		}
