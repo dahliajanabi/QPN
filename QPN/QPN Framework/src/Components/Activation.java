@@ -181,7 +181,7 @@ public class Activation implements Serializable {
 		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) input1).clone();
 		ComplexVector coinC = (ComplexVector) coin.GetValue();
 
-		// ((ArcMatrix) ((DataArcMatrix) constantValue1).GetValue()).clone();
+
 		ComplexValue coinv1 = coinC.ComplexArray.get(0);
 		DataArcMatrix MP = (DataArcMatrix) constantValue1;
 		ArcMatrix ResultMP = new ArcMatrix(MP.Value.Matrix.length, MP.Value.Matrix[0].length);
@@ -191,8 +191,6 @@ public class Activation implements Serializable {
 			}
 		}
 
-		 
-		//((ArcMatrix) ((DataArcMatrix) constantValue2).GetValue()).clone();
 		ComplexValue coinv2 = coinC.ComplexArray.get(1);
 		DataArcMatrix MM = (DataArcMatrix) constantValue2;
 		ArcMatrix ResultMM = new ArcMatrix(MM.Value.Matrix.length, MM.Value.Matrix[0].length);
@@ -258,7 +256,6 @@ public class Activation implements Serializable {
 		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) input1).clone();
 		ComplexVector coinC = (ComplexVector) coin.GetValue();
 
-			//((ArcMatrix) ((DataArcMatrix) constantValue1).GetValue()).clone();
 		ComplexValue coinv1 = coinC.ComplexArray.get(2);
 		DataArcMatrix MP = (DataArcMatrix) constantValue1;
 		ArcMatrix ResultMP = new ArcMatrix(MP.Value.Matrix.length, MP.Value.Matrix[0].length); 
@@ -269,8 +266,6 @@ public class Activation implements Serializable {
 			}
 		}
 
- 
-		//= ((ArcMatrix) ((DataArcMatrix) constantValue2).GetValue()).clone();
 		ComplexValue coinv2 = coinC.ComplexArray.get(3);
 		DataArcMatrix MM = (DataArcMatrix) constantValue2;
 		ArcMatrix ResultMM = new ArcMatrix(MM.Value.Matrix.length, MM.Value.Matrix[0].length);
