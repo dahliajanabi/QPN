@@ -20,7 +20,7 @@ public class test3 {
 		PetriNet pn = new PetriNet();
 		pn.PetriNetName = "QPN";
 		pn.NetworkPort = 1080;
-
+//ttt
 		DataArcMatrix constantValue1 = new DataArcMatrix();
 		constantValue1.SetName("Identity");
 		constantValue1.SetValue(new ArcMatrix(4, 4, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
