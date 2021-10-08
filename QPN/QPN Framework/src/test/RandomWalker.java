@@ -25,10 +25,10 @@ public class RandomWalker {
 		DataArcMatrix constantValue1 = new DataArcMatrix();
 		constantValue1.SetName("HxH");
 		constantValue1.SetValue(new ArcMatrix(4, 4,
-				0.5f, 5.0f, 0.5f, 0.5f, 
-				0.5f, -5.0f, 0.5f, -0.5f,
-				0.5f, 5.0f, -0.5f, -0.5f,
-				0.5f, -5.0f, -0.5f, 0.5f));
+				0.5f, 0.5f, 0.5f, 0.5f, 
+				0.5f, -0.5f, 0.5f, -0.5f,
+				0.5f, 0.5f, -0.5f, -0.5f,
+				0.5f, -0.5f, -0.5f, 0.5f));
 		pn.ConstantPlaceList.add(constantValue1);
 
 		
