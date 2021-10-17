@@ -236,7 +236,23 @@ public class Activation implements Serializable {
 		}
 
 		result.SetName(OutputPlaceName);
-		result.SetValue(resD);
+
+		float sum = util.GetProbabilitySum(resD);
+		
+		if (sum == 1) {
+			result.SetValue(resD);
+		}
+		if (sum > 1) {
+			result.SetValue(new ComplexVector(8, new ComplexValue(1.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
+		}
+
+		if (sum < 1) {
+			result.SetValue(new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(1.0f, 0.0f)));
+		}
 
 		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
 	}
@@ -312,8 +328,24 @@ public class Activation implements Serializable {
 		}
 
 		result.SetName(OutputPlaceName);
-		result.SetValue(resD);
 
+		float sum = util.GetProbabilitySum(resD);
+		
+		if (sum == 1) {
+			result.SetValue(resD);
+		}
+		if (sum > 1) {
+			result.SetValue(new ComplexVector(8, new ComplexValue(1.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
+		}
+
+		if (sum < 1) {
+			result.SetValue(new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(1.0f, 0.0f)));
+		}
+		
 		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
 	}
 
@@ -445,7 +477,7 @@ public class Activation implements Serializable {
 		double v1 = Math.pow(Math.pow((double) coinv0.Real, 2.0) + (Math.pow((double) coinv2.Real, 2.0)), 0.5);
 		double v2 = Math.pow((Math.pow((double) coinv0.Real, 2.0) + (Math.pow((double) coinv2.Real, 2.0))), 0.5);
 		DoubleDouble dd = new DoubleDouble(((double) coinv0.Real) / v1, ((double) coinv2.Real) / v2);
-		
+
 		result = new DataDoubleDouble();
 
 		result.SetValue(dd);

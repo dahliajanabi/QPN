@@ -11,6 +11,8 @@ import Components.PetriTransition;
 import DataObjects.DataArcMatrix;
 import DataObjects.DataComplexVector;
 import DataObjects.DataTransfer;
+import DataOnly.ComplexValue;
+import DataOnly.ComplexVector;
 import DataOnly.TransferOperation;
 import Enumerations.PetriObjectType;
 import Enumerations.TransitionOperation;
@@ -31,6 +33,15 @@ public class Functions implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	public float GetProbabilitySum(ComplexVector resD) {
+		float result= 0.0f;
+		for (ComplexValue item : resD.ComplexArray) {
+			result+=item.Real;
+		}
+		return result;
+	}
+	
 	public PetriObject GetPetriObjectByName(String name, ArrayList<PetriObject> list) {
 		for (PetriObject petriObject : list) {
 			if (petriObject != null)
