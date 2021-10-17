@@ -221,13 +221,13 @@ public class Activation implements Serializable {
 		ComplexVector resC = (ComplexVector) result.GetValue();
 		ComplexVector resD = new ComplexVector(resC.Size, resC.ComplexArray);
 
-		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+		for (int i = 0; i < ResultMP.Matrix.length; i++) {
 			ComplexValue sum = new ComplexValue(0.0F, 0.0F);
 
-			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+			for (int j = 0; j < ResultMP.Matrix[0].length; j++) {
 				ComplexValue cv1 = resC.ComplexArray.get(j);
-				Float real = MP.Value.Matrix[i][j] * cv1.Real;
-				Float imaginary = MP.Value.Matrix[i][j] * cv1.Imaginary;
+				Float real = ResultMP.Matrix[i][j] * cv1.Real;
+				Float imaginary = ResultMP.Matrix[i][j] * cv1.Imaginary;
 				ComplexValue cv2 = new ComplexValue(real, imaginary);
 				sum.Real += cv2.Real;
 				sum.Imaginary += cv2.Imaginary;
@@ -297,13 +297,13 @@ public class Activation implements Serializable {
 		ComplexVector resC = (ComplexVector) result.GetValue();
 		ComplexVector resD = new ComplexVector(resC.Size, resC.ComplexArray);
 
-		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+		for (int i = 0; i < ResultMP.Matrix.length; i++) {
 			ComplexValue sum = new ComplexValue(0.0F, 0.0F);
 
-			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+			for (int j = 0; j < ResultMP.Matrix[0].length; j++) {
 				ComplexValue cv1 = resC.ComplexArray.get(j);
-				Float real = MP.Value.Matrix[i][j] * cv1.Real;
-				Float imaginary = MP.Value.Matrix[i][j] * cv1.Imaginary;
+				Float real = ResultMP.Matrix[i][j] * cv1.Real;
+				Float imaginary = ResultMP.Matrix[i][j] * cv1.Imaginary;
 				ComplexValue cv2 = new ComplexValue(real, imaginary);
 				sum.Real += cv2.Real;
 				sum.Imaginary += cv2.Imaginary;
