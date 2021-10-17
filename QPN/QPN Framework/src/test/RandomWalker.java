@@ -8,6 +8,7 @@ import Components.PetriNetWindow;
 import Components.PetriTransition;
 import DataObjects.DataArcMatrix;
 import DataObjects.DataComplexVector;
+import DataObjects.DataDoubleDouble;
 import DataOnly.ArcMatrix;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
@@ -110,7 +111,28 @@ public class RandomWalker {
 		p7.SetName("p7");
 		pn.PlaceList.add(p7);
 		
+		DataDoubleDouble p8 = new DataDoubleDouble();
+		p8.SetName("p8");
+		pn.PlaceList.add(p8);
+		
+		
+		// T0 ------------------------------------------------
+		PetriTransition t0 = new PetriTransition(pn);
+		t0.TransitionName = "t0";
+		t0.InputPlaceName.add("p1");
 
+		Condition T0Ct1 = new Condition(t0, "p1", TransitionCondition.NotNull);
+
+		GuardMapping grdT0 = new GuardMapping();
+		grdT0.condition = T0Ct1;
+		grdT0.Activations.add(new Activation(t0, "p1", TransitionOperation.NormalizationFormula, "p8"));
+		grdT0.Activations.add(new Activation(t0, "p1", TransitionOperation.Move, "p1"));
+		
+		t0.GuardMappingList.add(grdT0);
+
+		pn.Transitions.add(t0);
+		
+		
 		// T1 ------------------------------------------------
 		PetriTransition t1 = new PetriTransition(pn);
 		t1.TransitionName = "t1";

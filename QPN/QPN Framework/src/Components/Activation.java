@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 import DataObjects.DataArcMatrix;
 import DataObjects.DataComplexVector;
+import DataObjects.DataDoubleDouble;
 import DataOnly.ArcMatrix;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
+import DataOnly.DoubleDouble;
 import DataObjects.DataTransfer;
 import Enumerations.TransitionOperation;
 import Interfaces.PetriObject;
@@ -123,6 +125,10 @@ public class Activation implements Serializable {
 
 		if (Operation == TransitionOperation.MoveY)
 			MoveY();
+
+		if (Operation == TransitionOperation.NormalizationFormula)
+			NormalizationFormula();
+
 	}
 
 	private void Move() throws CloneNotSupportedException {
@@ -139,6 +145,10 @@ public class Activation implements Serializable {
 
 		if (temp instanceof DataComplexVector) {
 			result = (PetriObject) ((DataComplexVector) temp).clone();
+		}
+
+		if (temp instanceof DataDoubleDouble) {
+			result = (PetriObject) ((DataDoubleDouble) temp).clone();
 		}
 
 		if (result == null) {
@@ -181,7 +191,6 @@ public class Activation implements Serializable {
 		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) input1).clone();
 		ComplexVector coinC = (ComplexVector) coin.GetValue();
 
-
 		ComplexValue coinv1 = coinC.ComplexArray.get(0);
 		DataArcMatrix MP = (DataArcMatrix) constantValue1;
 		ArcMatrix ResultMP = new ArcMatrix(MP.Value.Matrix.length, MP.Value.Matrix[0].length);
@@ -191,7 +200,8 @@ public class Activation implements Serializable {
 			}
 		}
 
-		ComplexValue coinv2 = coinC.ComplexArray.get(1);
+		// ComplexValue coinv2 = coinC.ComplexArray.get(1);
+		ComplexValue coinv2 = coinC.ComplexArray.get(2);
 		DataArcMatrix MM = (DataArcMatrix) constantValue2;
 		ArcMatrix ResultMM = new ArcMatrix(MM.Value.Matrix.length, MM.Value.Matrix[0].length);
 		for (int i = 0; i < MM.Value.Matrix.length; i++) {
@@ -256,10 +266,11 @@ public class Activation implements Serializable {
 		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) input1).clone();
 		ComplexVector coinC = (ComplexVector) coin.GetValue();
 
-		ComplexValue coinv1 = coinC.ComplexArray.get(2);
+		// ComplexValue coinv1 = coinC.ComplexArray.get(2);
+		ComplexValue coinv1 = coinC.ComplexArray.get(1);
 		DataArcMatrix MP = (DataArcMatrix) constantValue1;
-		ArcMatrix ResultMP = new ArcMatrix(MP.Value.Matrix.length, MP.Value.Matrix[0].length); 
-		
+		ArcMatrix ResultMP = new ArcMatrix(MP.Value.Matrix.length, MP.Value.Matrix[0].length);
+
 		for (int i = 0; i < MP.Value.Matrix.length; i++) {
 			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
 				ResultMP.Matrix[i][j] = MP.Value.Matrix[i][j] * coinv1.Real;
@@ -416,5 +427,29 @@ public class Activation implements Serializable {
 		if (temp instanceof DataComplexVector) {
 			result.SetValue((PetriObject) ((DataComplexVector) temp).clone());
 		}
+	}
+
+	private void NormalizationFormula() throws CloneNotSupportedException {
+		PetriObject temp = util.GetFromListByName(InputPlaceName, Parent.TempMarking);
+		PetriObject result = null;
+		if (temp == null) {
+			temp = util.GetFromListByName(InputPlaceName, Parent.Parent.ConstantPlaceList);
+		}
+
+		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) temp).clone();
+		ComplexVector coinC = (ComplexVector) coin.GetValue();
+
+		ComplexValue coinv0 = coinC.ComplexArray.get(0);
+		ComplexValue coinv2 = coinC.ComplexArray.get(2);
+
+		double v1 = Math.pow(Math.pow((double) coinv0.Real, 2.0) + (Math.pow((double) coinv2.Real, 2.0)), 0.5);
+		double v2 = Math.pow((Math.pow((double) coinv0.Real, 2.0) + (Math.pow((double) coinv2.Real, 2.0))), 0.5);
+		DoubleDouble dd = new DoubleDouble(((double) coinv0.Real) / v1, ((double) coinv2.Real) / v2);
+		
+		result = new DataDoubleDouble();
+
+		result.SetValue(dd);
+		result.SetName(OutputPlaceName);
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
 	}
 }

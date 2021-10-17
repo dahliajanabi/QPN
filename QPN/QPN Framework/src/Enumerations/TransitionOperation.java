@@ -11,5 +11,6 @@ public enum TransitionOperation implements Serializable{
 	UnitaryMatrixJoin2by1,
 	Move,
 	MoveX,
-	MoveY
+	MoveY,
+	NormalizationFormula,
 }
