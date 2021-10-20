@@ -23,13 +23,13 @@ public class OneAxisWalker {
 		pn.PetriNetName = "One Axis Random Walker";
 		pn.NetworkPort = 1080;
 		
-		float squrt2 = (float) Math.sqrt(2);
+		float DivSqurt2 = (float) ((float) 1.0f/Math.sqrt(2));
 
 		DataArcMatrix constantValue1 = new DataArcMatrix();
 		constantValue1.SetName("H");
 		constantValue1.SetValue(new ArcMatrix(2, 2,
-				squrt2, squrt2, 
-				squrt2, -squrt2));
+				DivSqurt2, DivSqurt2, 
+				DivSqurt2, -DivSqurt2));
 		pn.ConstantPlaceList.add(constantValue1);
 
 		
