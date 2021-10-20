@@ -125,6 +125,9 @@ public class Activation implements Serializable {
 
 		if (Operation == TransitionOperation.MoveY)
 			MoveY();
+		
+		if (Operation == TransitionOperation.MoveOneAxis)
+			MoveOneAxis();
 
 		if (Operation == TransitionOperation.NormalizationFormula)
 			NormalizationFormula();
@@ -347,6 +350,97 @@ public class Activation implements Serializable {
 		}
 		
 		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+	}
+	
+	private void MoveOneAxis() throws CloneNotSupportedException {
+		
+		PetriObject input1 = util.GetFromListByName(InputPlaceName1, Parent.TempMarking);
+		if (input1 == null && !(input1 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject input2 = util.GetFromListByName(InputPlaceName2, Parent.TempMarking);
+		if (input2 == null && !(input2 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject constantValue1 = util.GetFromListByName(ConstantValueName1, Parent.Parent.ConstantPlaceList);
+		if (constantValue1 == null && !(constantValue1 instanceof DataArcMatrix)) {
+			return;
+		}
+
+		PetriObject constantValue2 = util.GetFromListByName(ConstantValueName2, Parent.Parent.ConstantPlaceList);
+		if (constantValue2 == null && !(constantValue2 instanceof DataArcMatrix)) {
+			return;
+		}
+
+		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) input1).clone();
+		ComplexVector coinC = (ComplexVector) coin.GetValue();
+
+		ComplexValue coinv1 = coinC.ComplexArray.get(0);
+		DataArcMatrix MP = (DataArcMatrix) constantValue1;
+		ArcMatrix ResultMP = new ArcMatrix(MP.Value.Matrix.length, MP.Value.Matrix[0].length);
+		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+				ResultMP.Matrix[i][j] = MP.Value.Matrix[i][j] * coinv1.Real;
+			}
+		}
+
+		ComplexValue coinv2 = coinC.ComplexArray.get(1);
+		DataArcMatrix MM = (DataArcMatrix) constantValue2;
+		ArcMatrix ResultMM = new ArcMatrix(MM.Value.Matrix.length, MM.Value.Matrix[0].length);
+		for (int i = 0; i < MM.Value.Matrix.length; i++) {
+			for (int j = 0; j < MM.Value.Matrix[0].length; j++) {
+				ResultMM.Matrix[i][j] = MM.Value.Matrix[i][j] * coinv2.Real;
+			}
+		}
+
+		for (int i = 0; i < MP.Value.Matrix.length; i++) {
+			for (int j = 0; j < MP.Value.Matrix[0].length; j++) {
+				ResultMP.Matrix[i][j] = MP.Value.Matrix[i][j] + MM.Value.Matrix[i][j];
+				ResultMP.Matrix[i][j] = ResultMP.Matrix[i][j] * 0.5f;
+			}
+		}
+
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input2).clone();
+		ComplexVector resC = (ComplexVector) result.GetValue();
+		ComplexVector resD = new ComplexVector(resC.Size, resC.ComplexArray);
+
+		for (int i = 0; i < ResultMP.Matrix.length; i++) {
+			ComplexValue sum = new ComplexValue(0.0F, 0.0F);
+
+			for (int j = 0; j < ResultMP.Matrix[0].length; j++) {
+				ComplexValue cv1 = resC.ComplexArray.get(j);
+				Float real = ResultMP.Matrix[i][j] * cv1.Real;
+				Float imaginary = ResultMP.Matrix[i][j] * cv1.Imaginary;
+				ComplexValue cv2 = new ComplexValue(real, imaginary);
+				sum.Real += cv2.Real;
+				sum.Imaginary += cv2.Imaginary;
+			}
+			resD.ComplexArray.set(i, sum);
+		}
+
+		result.SetName(OutputPlaceName);
+
+		float sum = util.GetProbabilitySum(resD);
+		
+		if (sum == 1) {
+			result.SetValue(resD);
+		}
+		if (sum > 1) {
+			result.SetValue(new ComplexVector(8, new ComplexValue(1.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
+		}
+
+		if (sum < 1) {
+			result.SetValue(new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(1.0f, 0.0f)));
+		}
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+		
 	}
 
 	private void UnitaryMatrix() throws CloneNotSupportedException {
