@@ -83,17 +83,16 @@ public class OneAxisWalker {
 		p3.SetName("p3");
 		pn.PlaceList.add(p3);
 		
-		DataComplexVector p4 = new DataComplexVector();
-		p4.SetName("p4");
-		pn.PlaceList.add(p4);
-		
 			
 		// T1 ------------------------------------------------
 		PetriTransition t1 = new PetriTransition(pn);
 		t1.TransitionName = "t1";
 		t1.InputPlaceName.add("p1");
+		t1.InputPlaceName.add("p2");
 
 		Condition T1Ct1 = new Condition(t1, "p1", TransitionCondition.NotNull);
+		Condition T1Ct2 = new Condition(t1, "p2", TransitionCondition.NotNull);
+		T1Ct1.SetNextCondition(LogicConnector.AND, T1Ct2);
 
 		GuardMapping grdT1 = new GuardMapping();
 		grdT1.condition = T1Ct1;
@@ -102,44 +101,43 @@ public class OneAxisWalker {
 		t1.GuardMappingList.add(grdT1);
 
 		pn.Transitions.add(t1);
-
+		
 		// T2 ------------------------------------------------
 		PetriTransition t2 = new PetriTransition(pn);
 		t2.TransitionName = "t2";
-		t2.InputPlaceName.add("p1");
 		t2.InputPlaceName.add("p2");
-		
-		Condition T2Ct1 = new Condition(t2, "p1", TransitionCondition.NotNull);
-		Condition T2Ct2 = new Condition(t2, "p2", TransitionCondition.NotNull);
-		T2Ct1.SetNextCondition(LogicConnector.AND, T2Ct2);
-		
+				
+		Condition T2Ct1 = new Condition(t2, "p2", TransitionCondition.NotNull);
+				
 		GuardMapping grdT2 = new GuardMapping();
 		grdT2.condition = T2Ct1;
-		grdT2.Activations.add(new Activation(t2, "p1", "p2", "MPlus", "MMinus", TransitionOperation.MoveOneAxis, "p3"));
+		grdT2.Activations.add(new Activation(t2, "p2", TransitionOperation.Move, "p3"));
 
 		t2.GuardMappingList.add(grdT2);
 
-		pn.Transitions.add(t2);
+		pn.Transitions.add(t2);		
 
-			
-		// T4 ------------------------------------------------
+		// T3 ------------------------------------------------
 		PetriTransition t3 = new PetriTransition(pn);
 		t3.TransitionName = "t3";
+		t3.InputPlaceName.add("p1");
 		t3.InputPlaceName.add("p3");
 		
-		Condition T3Ct1 = new Condition(t3, "p3", TransitionCondition.NotNull);
+		Condition T3Ct1 = new Condition(t3, "p1", TransitionCondition.NotNull);
+		Condition T3Ct2 = new Condition(t3, "p3", TransitionCondition.NotNull);
+		T3Ct1.SetNextCondition(LogicConnector.AND, T3Ct2);
 		
-		GuardMapping grdT3 = new GuardMapping();
+		GuardMapping grdT3= new GuardMapping();
 		grdT3.condition = T3Ct1;
-		grdT3.Activations.add(new Activation(t3, "p3", TransitionOperation.Move, "p2"));
-		grdT3.Activations.add(new Activation(t3, "p3", TransitionOperation.Move, "p4"));
+		grdT3.Activations.add(new Activation(t3, "p1", "p3", "MPlus", "MMinus", TransitionOperation.MoveOneAxis, "p2"));
+		grdT3.Activations.add(new Activation(t3, "p1",TransitionOperation.Move, "p1"));
 
 		t3.GuardMappingList.add(grdT3);
 
 		pn.Transitions.add(t3);
-		
-		
 
+		
+		
 
 		System.out.println("Exp1 started \n ------------------------------");
 		pn.Delay = 3000;
