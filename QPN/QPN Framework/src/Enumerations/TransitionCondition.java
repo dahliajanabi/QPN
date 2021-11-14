@@ -5,5 +5,6 @@ import java.io.Serializable;
 public enum TransitionCondition implements Serializable{
 	Undefined,	
 	IsNull,
-	NotNull
+	NotNull,
+	Equal
 }

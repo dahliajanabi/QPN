@@ -11,5 +11,6 @@ public enum PetriObjectType implements Serializable{
 	DataComplexVector,
 	DataArcMatrix,
 	DataTransfer,
-	DataDoubleDouble
+	DataDoubleDouble,
+	DataBoolean
 }

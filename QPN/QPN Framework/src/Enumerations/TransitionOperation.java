@@ -13,4 +13,7 @@ public enum TransitionOperation implements Serializable{
 	MoveX,
 	MoveY,
 	NormalizationFormula,
+	ComplexVectorAddition,
+	UnitaryMatrix0,
+	UnitaryMatrix1
 }

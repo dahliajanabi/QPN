@@ -200,7 +200,7 @@ public class PetriNetWindow extends JFrame {
 			public void windowOpened(java.awt.event.WindowEvent e) {
 				txtName.setText(petriNet.PetriNetName + " [Network Port:" + petriNet.NetworkPort + "]");
 				if (autoStart == true) {
-					
+
 					if (cbGraphFilter.getItemCount() == 0) {
 						cbGraphFilter.addItem("ALL");
 						cbGraphFilter.addItem("Follow The Transition");
@@ -246,7 +246,7 @@ public class PetriNetWindow extends JFrame {
 			File file = fileChooser.getSelectedFile();
 
 			FileWriter fw = new FileWriter(file.getPath());
-			for (int i = 0; i < model.getSize(); i++) {
+			for (int i = model.getSize() - 1; i >= 0; i--) {
 				fw.write(model.get(i));
 				fw.write("\n");
 			}
@@ -281,10 +281,10 @@ public class PetriNetWindow extends JFrame {
 				transitionRow += 200;
 			}
 
-			boolean activated = (petriNet.ReversibleExecutionList != null && 
-					petriNet.ReversibleExecutionList.lastIndexOf(t) > -1) ||
-					(petriNet.NonReversibleExecutionList != null && 
-					petriNet.NonReversibleExecutionList.lastIndexOf(t) > -1);
+			boolean activated = (petriNet.ReversibleExecutionList != null
+					&& petriNet.ReversibleExecutionList.lastIndexOf(t) > -1)
+					|| (petriNet.NonReversibleExecutionList != null
+							&& petriNet.NonReversibleExecutionList.lastIndexOf(t) > -1);
 			OETPNShape currentTransition = new GraphTransition(new Point(transitionColumn, transitionRow),
 					t.TransitionName, activated);
 			if (activated) {
@@ -432,6 +432,7 @@ public class PetriNetWindow extends JFrame {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				// model.add(lstMsg.getModel().getSize(),msg);
 				model.add(0, msg);
 				scrollPane.updateUI();
 				lstMsg.updateUI();
