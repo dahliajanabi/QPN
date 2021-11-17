@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import DataObjects.DataArcMatrix;
+import DataObjects.DataBoolean;
 import DataObjects.DataComplexVector;
 import DataObjects.DataDoubleDouble;
 import DataOnly.ArcMatrix;
@@ -106,7 +107,13 @@ public class Activation implements Serializable {
 			Move();
 
 		if (Operation == TransitionOperation.UnitaryMatrix)
-			UnitaryMatrix();
+			UnitaryMatrix(0);
+
+		if (Operation == TransitionOperation.UnitaryMatrix0)
+			UnitaryMatrix(0);
+
+		if (Operation == TransitionOperation.UnitaryMatrix1)
+			UnitaryMatrix(1);
 
 		if (Operation == TransitionOperation.UnitaryMatrixJoin2by1)
 			UnitaryMatrixJoin2by1();
@@ -132,6 +139,9 @@ public class Activation implements Serializable {
 		if (Operation == TransitionOperation.NormalizationFormula)
 			NormalizationFormula();
 
+		if (Operation == TransitionOperation.ComplexVectorAddition)
+			ComplexVectorAddition();
+
 	}
 
 	private void Move() throws CloneNotSupportedException {
@@ -152,6 +162,10 @@ public class Activation implements Serializable {
 
 		if (temp instanceof DataDoubleDouble) {
 			result = (PetriObject) ((DataDoubleDouble) temp).clone();
+		}
+		
+		if (temp instanceof DataBoolean) {
+			result = (PetriObject) ((DataBoolean) temp).clone();
 		}
 
 		if (result == null) {
@@ -241,7 +255,7 @@ public class Activation implements Serializable {
 		result.SetName(OutputPlaceName);
 
 		float sum = util.GetProbabilitySum(resD);
-		
+
 		if (sum == 1) {
 			result.SetValue(resD);
 		}
@@ -333,7 +347,7 @@ public class Activation implements Serializable {
 		result.SetName(OutputPlaceName);
 
 		float sum = util.GetProbabilitySum(resD);
-		
+
 		if (sum == 1) {
 			result.SetValue(resD);
 		}
@@ -348,7 +362,7 @@ public class Activation implements Serializable {
 					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 					new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(1.0f, 0.0f)));
 		}
-		
+
 		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
 	}
 	
@@ -443,7 +457,7 @@ public class Activation implements Serializable {
 		
 	}
 
-	private void UnitaryMatrix() throws CloneNotSupportedException {
+	private void UnitaryMatrix(int orientation) throws CloneNotSupportedException {
 
 		PetriObject input = util.GetFromListByName(InputPlaceName, Parent.TempMarking);
 		if (input == null && !(input instanceof DataComplexVector)) {
@@ -472,9 +486,38 @@ public class Activation implements Serializable {
 			}
 			resD.ComplexArray.set(i, sum);
 		}
-
+		resD.Orientation = orientation;
 		result.SetName(OutputPlaceName);
 		result.SetValue(resD);
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+	}
+
+	private void ComplexVectorAddition() throws CloneNotSupportedException {
+
+		PetriObject input1 = util.GetFromListByName(InputPlaceName1, Parent.TempMarking);
+		if (input1 == null && !(input1 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject input2 = util.GetFromListByName(InputPlaceName2, Parent.TempMarking);
+		if (input2 == null && !(input2 instanceof DataComplexVector)) {
+			return;
+		}
+
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input1).clone();
+
+		for (int i = 0; i < result.Value.ComplexArray.size(); i++) {
+
+			ComplexValue cv = new ComplexValue(
+					result.Value.ComplexArray.get(i).Real + ((DataComplexVector) input2).Value.ComplexArray.get(i).Real,
+					result.Value.ComplexArray.get(i).Imaginary
+							+ ((DataComplexVector) input2).Value.ComplexArray.get(i).Imaginary);
+			result.Value.ComplexArray.set(i, cv);
+		}
+
+		result.SetName(OutputPlaceName);
+		result.SetValue(result);
 
 		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
 	}

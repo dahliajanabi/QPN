@@ -81,6 +81,10 @@ public class Condition implements Serializable {
 			if (Value1 == null || Value1.GetValue() == null)
 				return true;
 			break;
+		case Equal:
+			if (Value1 == null || Value1.GetValue() == Value2.GetValue())
+				return true;
+			break;
 		default:
 			break;
 		}
