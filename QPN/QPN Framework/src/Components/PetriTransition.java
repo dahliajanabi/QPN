@@ -110,26 +110,29 @@ public class PetriTransition implements PetriObject, Serializable {
 				result = (DataComplexVector) ((DataComplexVector) currentInputPlace).clone();
 
 				TempMarking.add(result);
-				// currentInputPlace.SetValue(null);
 				if (!IsReversible) {
 					placesToNull.add(currentInputPlace.GetName());
 				}
 				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
 			}
-			
+
 			if (currentInputPlace instanceof DataDoubleDouble) {
 				result = (DataDoubleDouble) ((DataDoubleDouble) currentInputPlace).clone();
 
 				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
+				if (!IsReversible) {
+					placesToNull.add(currentInputPlace.GetName());
+				}
 				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
 			}
-			
+
 			if (currentInputPlace instanceof DataBoolean) {
 				result = (DataBoolean) ((DataBoolean) currentInputPlace).clone();
 
 				TempMarking.add(result);
-				currentInputPlace.SetValue(null);
+				if (!IsReversible) {
+					placesToNull.add(currentInputPlace.GetName());
+				}
 				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
 			}
 		}
