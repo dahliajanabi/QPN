@@ -11,6 +11,7 @@ import DataOnly.ArcMatrix;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
 import DataOnly.DoubleDouble;
+import DataOnly.UniteryParameters;
 import DataObjects.DataTransfer;
 import Enumerations.TransitionOperation;
 import Interfaces.PetriObject;
@@ -24,6 +25,7 @@ public class Activation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public PetriTransition Parent;
+	float Ro = (float) (1 / Math.sqrt(2));
 
 	public String InputPlaceName;
 
@@ -36,6 +38,7 @@ public class Activation implements Serializable {
 	public Functions util;
 	public String ConstantValueName1;
 	public String ConstantValueName2;
+	public UniteryParameters uParam;
 
 	public Activation(PetriTransition Parent) {
 		util = new Functions();
@@ -49,6 +52,17 @@ public class Activation implements Serializable {
 		this.OutputPlaceName = OutputPlaceName;
 		this.Operation = Condition;
 		this.ConstantValueName1 = ConstantValueName;
+	}
+
+	public Activation(PetriTransition Parent, String InputPlaceName, String ConstantValueName,
+			TransitionOperation Condition, String OutputPlaceName, UniteryParameters uParam) {
+		util = new Functions();
+		this.Parent = Parent;
+		this.InputPlaceName = InputPlaceName;
+		this.OutputPlaceName = OutputPlaceName;
+		this.Operation = Condition;
+		this.ConstantValueName1 = ConstantValueName;
+		this.uParam = uParam;
 	}
 
 	public Activation(PetriTransition Parent, String InputPlaceName1, String InputPlaceName2, String ConstantValueName,
@@ -109,11 +123,8 @@ public class Activation implements Serializable {
 		if (Operation == TransitionOperation.UnitaryMatrix)
 			UnitaryMatrix(0);
 
-		if (Operation == TransitionOperation.UnitaryMatrix0)
-			UnitaryMatrix(0);
-
-		if (Operation == TransitionOperation.UnitaryMatrix1)
-			UnitaryMatrix(1);
+		if (Operation == TransitionOperation.UnitaryMatrixWithOrientation)
+			UnitaryMatrixWithOrientation();
 
 		if (Operation == TransitionOperation.UnitaryMatrixJoin2by1)
 			UnitaryMatrixJoin2by1();
@@ -132,7 +143,7 @@ public class Activation implements Serializable {
 
 		if (Operation == TransitionOperation.MoveY)
 			MoveY();
-		
+
 		if (Operation == TransitionOperation.MoveOneAxis)
 			MoveOneAxis();
 
@@ -163,7 +174,7 @@ public class Activation implements Serializable {
 		if (temp instanceof DataDoubleDouble) {
 			result = (PetriObject) ((DataDoubleDouble) temp).clone();
 		}
-		
+
 		if (temp instanceof DataBoolean) {
 			result = (PetriObject) ((DataBoolean) temp).clone();
 		}
@@ -365,9 +376,9 @@ public class Activation implements Serializable {
 
 		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
 	}
-	
+
 	private void MoveOneAxis() throws CloneNotSupportedException {
-		
+
 		PetriObject input1 = util.GetFromListByName(InputPlaceName1, Parent.TempMarking);
 		if (input1 == null && !(input1 instanceof DataComplexVector)) {
 			return;
@@ -437,7 +448,7 @@ public class Activation implements Serializable {
 		result.SetName(OutputPlaceName);
 
 		float sum = util.GetProbabilitySum(resD);
-		
+
 		if (sum == 1) {
 			result.SetValue(resD);
 		}
@@ -454,7 +465,7 @@ public class Activation implements Serializable {
 		}
 
 		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
-		
+
 	}
 
 	private void UnitaryMatrix(int orientation) throws CloneNotSupportedException {
@@ -487,6 +498,45 @@ public class Activation implements Serializable {
 			resD.ComplexArray.set(i, sum);
 		}
 		resD.Orientation = orientation;
+		result.SetName(OutputPlaceName);
+		result.SetValue(resD);
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+	}
+
+	private void UnitaryMatrixWithOrientation() throws CloneNotSupportedException {
+
+		PetriObject input = util.GetFromListByName(InputPlaceName, Parent.TempMarking);
+		if (input == null && !(input instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject constantValue = util.GetFromListByName(ConstantValueName1, Parent.Parent.ConstantPlaceList);
+		if (constantValue == null && !(constantValue instanceof DataArcMatrix)) {
+			return;
+		}
+		DataArcMatrix A = (DataArcMatrix) constantValue;
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input).clone();
+		ComplexVector resC = (ComplexVector) result.GetValue();
+		ComplexVector resD = new ComplexVector(resC.Size, resC.ComplexArray);
+
+		for (int i = 0; i < A.Value.Matrix.length; i++) {
+			ComplexValue sum = new ComplexValue(0.0F, 0.0F);
+
+			for (int j = 0; j < A.Value.Matrix[0].length; j++) {
+				ComplexValue cv1 = resC.ComplexArray.get(j);
+				Float real = A.Value.Matrix[i][j] * cv1.Real;
+				Float imaginary = A.Value.Matrix[i][j] * cv1.Imaginary;
+				ComplexValue cv2 = new ComplexValue(real, imaginary);
+				sum.Real += cv2.Real;
+				sum.Imaginary += cv2.Imaginary;
+			}
+			sum.Real *= Ro * uParam.Sign;
+			sum.Imaginary *=  Ro * uParam.Sign;
+
+			resD.ComplexArray.set(i, sum);
+		}
+		resD.Orientation = uParam.Orientation;
 		result.SetName(OutputPlaceName);
 		result.SetValue(resD);
 

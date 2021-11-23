@@ -13,6 +13,7 @@ import DataObjects.DataDoubleDouble;
 import DataOnly.ArcMatrix;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
+import DataOnly.UniteryParameters;
 import Enumerations.LogicConnector;
 import Enumerations.TransitionCondition;
 import Enumerations.TransitionOperation;
@@ -23,7 +24,8 @@ public class OrientationWalker {
 	PetriNet pn = new PetriNet();
 	pn.PetriNetName = "Walker";
 	pn.NetworkPort = 1080;
-
+	
+	
 	DataBoolean constantValueTrue = new DataBoolean();
 	constantValueTrue.SetName("constantValueTrue");
 	constantValueTrue.SetValue(true);
@@ -124,8 +126,8 @@ public class OrientationWalker {
 	
 	GuardMapping grdT1 = new GuardMapping();
 	grdT1.condition = T1Ct1;
-	grdT1.Activations.add(new Activation(t1, "p2", "MPlus", TransitionOperation.UnitaryMatrix0, "p3"));
-	grdT1.Activations.add(new Activation(t1, "p2", "MMinus", TransitionOperation.UnitaryMatrix1, "p4"));
+	grdT1.Activations.add(new Activation(t1, "p2", "MPlus", TransitionOperation.UnitaryMatrixWithOrientation, "p3", new UniteryParameters(+1, 0)));
+	grdT1.Activations.add(new Activation(t1, "p2", "MMinus", TransitionOperation.UnitaryMatrixWithOrientation, "p4", new UniteryParameters(+1, 1)));
 
 	t1.GuardMappingList.add(grdT1);
 
@@ -144,8 +146,8 @@ public class OrientationWalker {
 	GuardMapping grdT2 = new GuardMapping();
 	grdT2.condition = T2Ct1;
 	
-	grdT2.Activations.add(new Activation(t2, "p5", "MPlus", TransitionOperation.UnitaryMatrix0, "p7"));
-	grdT2.Activations.add(new Activation(t2, "p5", "MMinus", TransitionOperation.UnitaryMatrix1, "p6"));
+	grdT2.Activations.add(new Activation(t2, "p5", "MPlus", TransitionOperation.UnitaryMatrixWithOrientation, "p7", new UniteryParameters(+1, 0)));
+	grdT2.Activations.add(new Activation(t2, "p5", "MMinus", TransitionOperation.UnitaryMatrixWithOrientation, "p6", new UniteryParameters(-1, 1)));
 
 	
 	t2.GuardMappingList.add(grdT2);
@@ -196,6 +198,8 @@ public class OrientationWalker {
 	System.out.println("Exp1 started \n ------------------------------");
 	pn.Delay = 3000;
 
+	
+	pn.clearPrint=true;
 	PetriNetWindow frame = new PetriNetWindow(false);
 	frame.petriNet = pn;
 	frame.setVisible(true);

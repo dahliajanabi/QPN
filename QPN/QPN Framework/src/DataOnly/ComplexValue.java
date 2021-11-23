@@ -20,6 +20,14 @@ public class ComplexValue implements Cloneable, Serializable {
 	}
 
 	public String toString() {
+		if(Real==0)
+		{
+			Real=Math.abs(Real);
+		}
+		if(Imaginary==0)
+		{
+			Imaginary = Math.abs(Imaginary);
+		}
 		return Real + " + i " + Imaginary;
 	}
 }

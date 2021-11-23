@@ -110,6 +110,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 	private Thread networkThread;
 
 	public String msg;
+	public boolean clearPrint = false;
 
 	@Override
 	public void Start() {
@@ -152,6 +153,8 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 					if (Transitions.get(i).CheckConditions()) {
 						try {
 							toNull.addAll(Transitions.get(i).BookTokens());
+							m_lDataLoadFinished
+									.onDataLoadFinishedListener(Transitions.get(i).GetName() + " is executed:");
 						} catch (CloneNotSupportedException e) {
 							msg = e.getMessage();
 							m_lDataLoadFinished.onDataLoadFinishedListener(msg);
@@ -170,17 +173,20 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 					}
 				}
 			}
-			if (conditionsStatus != "") {
-				m_lDataLoadFinished.onDataLoadFinishedListener(conditionsStatus);
-			}
 
-			PrintReversibleExecutionList();
-			PrintNonReversibleExecutionList();
+			if (!clearPrint) {
+				if (conditionsStatus != "") {
+					m_lDataLoadFinished.onDataLoadFinishedListener(conditionsStatus);
+				}
+				PrintReversibleExecutionList();
+				PrintNonReversibleExecutionList();
+			}
 			Collections.shuffle(ReversibleExecutionList);
 			Collections.shuffle(NonReversibleExecutionList);
-			PrintReversibleExecutionList();
-			PrintNonReversibleExecutionList();
-
+			if (!clearPrint) {
+				PrintReversibleExecutionList();
+				PrintNonReversibleExecutionList();
+			}
 			for (int i = 0; i < NonReversibleExecutionList.size(); ++i) {
 				if (NonReversibleExecutionList.get(i).InitialDelay == 0) {
 					try {
@@ -242,6 +248,23 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 	}
 
 	public void PrintPetri() {
+		if (clearPrint) {
+			String toPrint = "PlaceList";
+
+			m_lDataLoadFinished.onDataLoadFinishedListener(toPrint);
+			System.out.println(toPrint);
+
+			for (PetriObject petriObject : PlaceList) {
+				if (petriObject == null)
+					toPrint = "NULL";
+				else if (petriObject.IsPrintable())
+					toPrint = petriObject.toString();
+
+				m_lDataLoadFinished.onDataLoadFinishedListener(toPrint);
+				System.out.println(toPrint);
+			}
+			return;
+		}
 		ArrayList<String> temp1 = new ArrayList<String>();
 		for (PetriObject petriObject : PlaceList) {
 			if (petriObject == null)
