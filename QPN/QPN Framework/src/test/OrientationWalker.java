@@ -65,7 +65,7 @@ public class OrientationWalker {
 	DataComplexVector p2 = new DataComplexVector();
 	p2.SetName("p2");
 	p2.Value = new ComplexVector(8, 1,
-			new ComplexValue(0.0f, 0.0f),
+			new ComplexValue(1.0f, 0.0f),
 			new ComplexValue(0.0f, 0.0f),
 			new ComplexValue(0.0f, 0.0f),
 			new ComplexValue(0.0f, 0.0f),
