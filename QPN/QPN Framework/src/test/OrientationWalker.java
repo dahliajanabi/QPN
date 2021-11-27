@@ -72,7 +72,7 @@ public class OrientationWalker {
 			new ComplexValue(0.0f, 0.0f),
 			new ComplexValue(0.0f, 0.0f),
 			new ComplexValue(0.0f, 0.0f),
-			new ComplexValue(1.0f, 0.0f));
+			new ComplexValue(0.0f, 0.0f));
 	pn.PlaceList.add(p2);
 
 	DataComplexVector p3 = new DataComplexVector();
