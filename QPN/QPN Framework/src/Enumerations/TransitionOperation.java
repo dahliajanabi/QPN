@@ -15,5 +15,10 @@ public enum TransitionOperation implements Serializable{
 	MoveOneAxis,
 	NormalizationFormula,
 	ComplexVectorAddition,
-	UnitaryMatrixWithOrientation
+	ComplexVectorAdditionWithShiftPlus,
+	ComplexVectorAdditionWithShiftMinus,
+	UnitaryMatrixWithOrientation,
+	ShiftPlus,
+	ShiftMinus,
+	MultiplyByRo
 }

@@ -6,11 +6,8 @@ import Components.GuardMapping;
 import Components.PetriNet;
 import Components.PetriNetWindow;
 import Components.PetriTransition;
-import DataObjects.DataArcMatrix;
 import DataObjects.DataBoolean;
 import DataObjects.DataComplexVector;
-import DataObjects.DataDoubleDouble;
-import DataOnly.ArcMatrix;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
 import DataOnly.UnitaryParameters;
@@ -18,7 +15,7 @@ import Enumerations.LogicConnector;
 import Enumerations.TransitionCondition;
 import Enumerations.TransitionOperation;
 
-public class OrientationWalker {
+public class OrientationWalkerShift {
 	
 	public static void main(String[] args) {
 	PetriNet pn = new PetriNet();
@@ -30,32 +27,6 @@ public class OrientationWalker {
 	constantValueTrue.SetName("constantValueTrue");
 	constantValueTrue.SetValue(true);
 	pn.ConstantPlaceList.add(constantValueTrue);
-	
-	DataArcMatrix constantValueMPlus = new DataArcMatrix();
-	constantValueMPlus.SetName("MPlus");
-	constantValueMPlus.SetValue(new ArcMatrix(8, 8,
-			0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 
-			1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 
-			0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f));
-	pn.ConstantPlaceList.add(constantValueMPlus);
-			
-	DataArcMatrix constantValueMMinus = new DataArcMatrix();
-	constantValueMMinus.SetName("MMinus");
-	constantValueMMinus.SetValue(new ArcMatrix(8, 8,
-			0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 
-			1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f));
-	pn.ConstantPlaceList.add(constantValueMMinus);
 	
 	DataBoolean p1 = new DataBoolean();
 	p1.SetName("p1");
@@ -126,8 +97,8 @@ public class OrientationWalker {
 	
 	GuardMapping grdT1 = new GuardMapping();
 	grdT1.condition = T1Ct1;
-	grdT1.Activations.add(new Activation(t1, "p2", "MPlus", TransitionOperation.UnitaryMatrixWithOrientation, "p3", new UnitaryParameters(+1, 0)));
-	grdT1.Activations.add(new Activation(t1, "p2", "MMinus", TransitionOperation.UnitaryMatrixWithOrientation, "p4", new UnitaryParameters(+1, 1)));
+	grdT1.Activations.add(new Activation(t1, "p2", TransitionOperation.MultiplyByRo, "p3", new UnitaryParameters(+1, 0)));
+	grdT1.Activations.add(new Activation(t1, "p2", TransitionOperation.MultiplyByRo, "p4", new UnitaryParameters(+1, 1)));
 
 	t1.GuardMappingList.add(grdT1);
 
@@ -146,8 +117,8 @@ public class OrientationWalker {
 	GuardMapping grdT2 = new GuardMapping();
 	grdT2.condition = T2Ct1;
 	
-	grdT2.Activations.add(new Activation(t2, "p5", "MPlus", TransitionOperation.UnitaryMatrixWithOrientation, "p7", new UnitaryParameters(+1, 0)));
-	grdT2.Activations.add(new Activation(t2, "p5", "MMinus", TransitionOperation.UnitaryMatrixWithOrientation, "p6", new UnitaryParameters(-1, 1)));
+	grdT2.Activations.add(new Activation(t2, "p5", TransitionOperation.MultiplyByRo, "p7", new UnitaryParameters(+1, 0)));
+	grdT2.Activations.add(new Activation(t2, "p5", TransitionOperation.MultiplyByRo, "p6", new UnitaryParameters(-1, 1)));
 
 	
 	t2.GuardMappingList.add(grdT2);
@@ -166,7 +137,7 @@ public class OrientationWalker {
 	
 	GuardMapping grdT3 = new GuardMapping();
 	grdT3.condition = T3Ct1;
-	grdT3.Activations.add(new Activation(t3, "p3", "p7","", TransitionOperation.ComplexVectorAddition, "p2"));
+	grdT3.Activations.add(new Activation(t3, "p3", "p7","", TransitionOperation.ComplexVectorAdditionWithShiftPlus, "p2"));
 	grdT3.Activations.add(new Activation(t3, "constantValueTrue", TransitionOperation.Move, "p1"));
 
 	t3.GuardMappingList.add(grdT3);
@@ -186,7 +157,7 @@ public class OrientationWalker {
 	
 	GuardMapping grdT4 = new GuardMapping();
 	grdT4.condition = T4Ct1;
-	grdT4.Activations.add(new Activation(t4, "p4", "p6","", TransitionOperation.ComplexVectorAddition, "p5"));
+	grdT4.Activations.add(new Activation(t4, "p4", "p6","", TransitionOperation.ComplexVectorAdditionWithShiftMinus, "p5"));
 	grdT4.Activations.add(new Activation(t4, "constantValueTrue", TransitionOperation.Move, "p1"));
 
 	

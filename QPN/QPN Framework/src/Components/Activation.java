@@ -11,7 +11,7 @@ import DataOnly.ArcMatrix;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
 import DataOnly.DoubleDouble;
-import DataOnly.UniteryParameters;
+import DataOnly.UnitaryParameters;
 import DataObjects.DataTransfer;
 import Enumerations.TransitionOperation;
 import Interfaces.PetriObject;
@@ -38,7 +38,7 @@ public class Activation implements Serializable {
 	public Functions util;
 	public String ConstantValueName1;
 	public String ConstantValueName2;
-	public UniteryParameters uParam;
+	public UnitaryParameters uParam;
 
 	public Activation(PetriTransition Parent) {
 		util = new Functions();
@@ -55,13 +55,23 @@ public class Activation implements Serializable {
 	}
 
 	public Activation(PetriTransition Parent, String InputPlaceName, String ConstantValueName,
-			TransitionOperation Condition, String OutputPlaceName, UniteryParameters uParam) {
+			TransitionOperation Condition, String OutputPlaceName, UnitaryParameters uParam) {
 		util = new Functions();
 		this.Parent = Parent;
 		this.InputPlaceName = InputPlaceName;
 		this.OutputPlaceName = OutputPlaceName;
 		this.Operation = Condition;
 		this.ConstantValueName1 = ConstantValueName;
+		this.uParam = uParam;
+	}
+
+	public Activation(PetriTransition Parent, String InputPlaceName, TransitionOperation Condition,
+			String OutputPlaceName, UnitaryParameters uParam) {
+		util = new Functions();
+		this.Parent = Parent;
+		this.InputPlaceName = InputPlaceName;
+		this.OutputPlaceName = OutputPlaceName;
+		this.Operation = Condition;
 		this.uParam = uParam;
 	}
 
@@ -152,6 +162,21 @@ public class Activation implements Serializable {
 
 		if (Operation == TransitionOperation.ComplexVectorAddition)
 			ComplexVectorAddition();
+
+		if (Operation == TransitionOperation.ShiftPlus)
+			ShiftPlus();
+
+		if (Operation == TransitionOperation.ShiftMinus)
+			ShiftMinus();
+
+		if (Operation == TransitionOperation.MultiplyByRo)
+			MultiplyByRo();
+
+		if (Operation == TransitionOperation.ComplexVectorAdditionWithShiftPlus)
+			ComplexVectorAdditionWithShiftPlus();
+
+		if (Operation == TransitionOperation.ComplexVectorAdditionWithShiftMinus)
+			ComplexVectorAdditionWithShiftMinus();
 
 	}
 
@@ -532,7 +557,7 @@ public class Activation implements Serializable {
 				sum.Imaginary += cv2.Imaginary;
 			}
 			sum.Real *= Ro * uParam.Sign;
-			sum.Imaginary *=  Ro * uParam.Sign;
+			sum.Imaginary *= Ro * uParam.Sign;
 
 			resD.ComplexArray.set(i, sum);
 		}
@@ -669,6 +694,140 @@ public class Activation implements Serializable {
 
 		result.SetValue(dd);
 		result.SetName(OutputPlaceName);
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+	}
+
+	private void ShiftPlus() throws CloneNotSupportedException {
+		PetriObject input = util.GetFromListByName(InputPlaceName, Parent.TempMarking);
+		if (input == null && !(input instanceof DataComplexVector)) {
+			return;
+		}
+
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input).clone();
+		ComplexVector resC = (ComplexVector) result.GetValue();
+
+		resC.ComplexArray = util.ShiftRight(resC.ComplexArray);
+
+//		for (int i = 0; i < resC.ComplexArray.size()-1; i++) {
+//			ComplexValue cv1 = resC.ComplexArray.get(i);
+//			cv1.Real *= Ro * uParam.Sign;
+//			cv1.Imaginary *= Ro * uParam.Sign;
+//		}
+
+		resC.Orientation = uParam.Orientation;
+		result.SetName(OutputPlaceName);
+		result.SetValue(resC);
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+
+	}
+
+	private void ShiftMinus() throws CloneNotSupportedException {
+		PetriObject input = util.GetFromListByName(InputPlaceName, Parent.TempMarking);
+		if (input == null && !(input instanceof DataComplexVector)) {
+			return;
+		}
+
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input).clone();
+		ComplexVector resC = (ComplexVector) result.GetValue();
+
+		resC.ComplexArray = util.ShiftLeft(resC.ComplexArray);
+
+//		for (int i = 0; i < resC.ComplexArray.size()-1; i++) {
+//			ComplexValue cv1 = resC.ComplexArray.get(i);
+//			cv1.Real *= Ro * uParam.Sign;
+//			cv1.Imaginary *= Ro * uParam.Sign;
+//		}
+
+		resC.Orientation = uParam.Orientation;
+		result.SetName(OutputPlaceName);
+		result.SetValue(resC);
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+	}
+
+	private void MultiplyByRo() throws CloneNotSupportedException {
+		PetriObject input = util.GetFromListByName(InputPlaceName, Parent.TempMarking);
+		if (input == null && !(input instanceof DataComplexVector)) {
+			return;
+		}
+
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input).clone();
+		ComplexVector resC = (ComplexVector) result.GetValue();
+
+		for (int i = 0; i < resC.ComplexArray.size() - 1; i++) {
+			ComplexValue cv1 = resC.ComplexArray.get(i);
+			cv1.Real *= Ro * uParam.Sign;
+			cv1.Imaginary *= Ro * uParam.Sign;
+		}
+
+		resC.Orientation = uParam.Orientation;
+		result.SetName(OutputPlaceName);
+		result.SetValue(resC);
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+
+	}
+
+	private void ComplexVectorAdditionWithShiftPlus() throws CloneNotSupportedException {
+
+		PetriObject input1 = util.GetFromListByName(InputPlaceName1, Parent.TempMarking);
+		if (input1 == null && !(input1 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject input2 = util.GetFromListByName(InputPlaceName2, Parent.TempMarking);
+		if (input2 == null && !(input2 instanceof DataComplexVector)) {
+			return;
+		}
+
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input1).clone();
+
+		for (int i = 0; i < result.Value.ComplexArray.size(); i++) {
+
+			ComplexValue cv = new ComplexValue(
+					result.Value.ComplexArray.get(i).Real + ((DataComplexVector) input2).Value.ComplexArray.get(i).Real,
+					result.Value.ComplexArray.get(i).Imaginary
+							+ ((DataComplexVector) input2).Value.ComplexArray.get(i).Imaginary);
+			result.Value.ComplexArray.set(i, cv);
+		}
+
+		result.Value.ComplexArray = util.ShiftRight(result.Value.ComplexArray);
+
+		result.SetName(OutputPlaceName);
+		result.SetValue(result);
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+	}
+
+	private void ComplexVectorAdditionWithShiftMinus() throws CloneNotSupportedException {
+
+		PetriObject input1 = util.GetFromListByName(InputPlaceName1, Parent.TempMarking);
+		if (input1 == null && !(input1 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject input2 = util.GetFromListByName(InputPlaceName2, Parent.TempMarking);
+		if (input2 == null && !(input2 instanceof DataComplexVector)) {
+			return;
+		}
+
+		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input1).clone();
+
+		for (int i = 0; i < result.Value.ComplexArray.size(); i++) {
+
+			ComplexValue cv = new ComplexValue(
+					result.Value.ComplexArray.get(i).Real + ((DataComplexVector) input2).Value.ComplexArray.get(i).Real,
+					result.Value.ComplexArray.get(i).Imaginary
+							+ ((DataComplexVector) input2).Value.ComplexArray.get(i).Imaginary);
+			result.Value.ComplexArray.set(i, cv);
+		}
+
+		result.Value.ComplexArray = util.ShiftLeft(result.Value.ComplexArray);
+
+		result.SetName(OutputPlaceName);
+		result.SetValue(result);
+
 		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
 	}
 }

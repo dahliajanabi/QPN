@@ -33,15 +33,43 @@ public class Functions implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
 	public float GetProbabilitySum(ComplexVector resD) {
-		float result= 0.0f;
+		float result = 0.0f;
 		for (ComplexValue item : resD.ComplexArray) {
-			result+=item.Real;
+			result += item.Real;
 		}
 		return result;
 	}
-	
+
+	public ArrayList<ComplexValue> ShiftRight(ArrayList<ComplexValue> listValues) {
+		// make temp variable to hold last element
+		ComplexValue temp = listValues.get(listValues.size() - 1);
+
+		// make a loop to run through the array list
+		for (int i = listValues.size() - 1; i > 0; i--) {
+			// set the last element to the value of the 2nd to last element
+			listValues.set(i, listValues.get(i - 1));
+		}
+		// set the first element to be the last element
+		listValues.set(0, temp);
+		return listValues;
+	}
+
+	public ArrayList<ComplexValue> ShiftLeft(ArrayList<ComplexValue> listValues) {
+		// make temp variable to hold last element
+		ComplexValue temp = listValues.get(0);
+
+		// make a loop to run through the array list
+		for (int i = 0; i < listValues.size() - 1; i++) {
+			// set the last element to the value of the 2nd to last element
+			listValues.set(i, listValues.get(i + 1));
+		}
+		// set the first element to be the last element
+		listValues.set(listValues.size() - 1, temp);
+
+		return listValues;
+	}
+
 	public PetriObject GetPetriObjectByName(String name, ArrayList<PetriObject> list) {
 		for (PetriObject petriObject : list) {
 			if (petriObject != null)
@@ -164,8 +192,6 @@ public class Functions implements Serializable {
 		}
 		return false;
 	}
-
-
 
 	public PetriNet PetriDataToPetriNet(PetriData pd) {
 		PetriNet pn = new PetriNet();
@@ -354,7 +380,7 @@ public class Functions implements Serializable {
 						if (!PlaceTransitionExists(pt, pn.Metrics.Pieces)) {
 							pn.Metrics.Pieces.add(pt);
 						}
-						
+
 					} else {
 						if (a.OutputPlaceNames != null) {
 							outputArcs += a.OutputPlaceNames.size();
