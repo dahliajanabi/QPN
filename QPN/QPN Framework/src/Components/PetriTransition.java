@@ -113,7 +113,9 @@ public class PetriTransition implements PetriObject, Serializable {
 						.clone();
 				result = new DataComplexVector();
 				result.SetName(currentDataComplexVector.GetName());
-				ComplexVector cv = new ComplexVector(currentDataComplexVector.Value.Size,
+				ComplexVector cv = new ComplexVector(
+						currentDataComplexVector.Value.Size,
+						currentDataComplexVector.Value.Orientation,
 						currentDataComplexVector.Value.ComplexArray);
 				result.SetValue(cv);
 

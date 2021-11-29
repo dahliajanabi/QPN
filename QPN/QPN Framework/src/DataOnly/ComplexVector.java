@@ -18,10 +18,18 @@ public class ComplexVector implements Cloneable, Serializable {
 	public Integer Size = 2;
 	public Integer Orientation = 0;
 
-	public ComplexVector(int size, Integer orientation, ComplexValue... complexs) {
+	public ComplexVector(Integer size, Integer orientation, ComplexValue... complexs) {
 		Size = size;
 		Orientation = orientation;
 		for (ComplexValue complexValue : complexs) {
+			ComplexArray.add(complexValue);
+		}
+	}
+	
+	public ComplexVector(Integer size, Integer orientation, ArrayList<ComplexValue> complexArray) {
+		Size = size;
+		Orientation = orientation;
+		for (ComplexValue complexValue : complexArray) {
 			ComplexArray.add(complexValue);
 		}
 	}

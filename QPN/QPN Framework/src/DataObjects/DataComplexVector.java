@@ -56,12 +56,13 @@ public class DataComplexVector implements Interfaces.PetriObject, Cloneable, Ser
 
 	// Overriding clone() method of Object class
 	public PetriObject clone() throws CloneNotSupportedException {
-		DataComplexVector result = new DataComplexVector();
-		result.SetName(name);
-		ComplexVector cv = new ComplexVector(Value.Size,
-				Value.ComplexArray);
-		result.SetValue(cv);
-		return result;//(DataComplexVector) super.clone();
+//		DataComplexVector result = new DataComplexVector();
+//		result.SetName(name);
+//		ComplexVector cv = new ComplexVector(Value.Size,
+//				Value.ComplexArray);
+//		result.SetValue(cv);
+//		return result;
+		return (DataComplexVector) super.clone();
 	}
 
 	public boolean Printable = true;

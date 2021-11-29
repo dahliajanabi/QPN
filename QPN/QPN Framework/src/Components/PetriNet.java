@@ -122,7 +122,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 		networkThread.start();
 
 		msg = "####################  " + PetriNetName + " Started  #####################";
-		PrintThis(msg, null);	
+		PrintThis(msg, null);
 
 		ReversibleExecutionList = new ArrayList<PetriTransition>();
 		NonReversibleExecutionList = new ArrayList<PetriTransition>();
@@ -152,7 +152,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 					if (Transitions.get(i).CheckConditions()) {
 						try {
 							toNull.addAll(Transitions.get(i).BookTokens());
-							PrintThis(Transitions.get(i).GetName() + " is executed:", null);
+							PrintThis(Transitions.get(i).GetName() + " tokens are booked!", null);
 						} catch (CloneNotSupportedException e) {
 							PrintThis(e.getMessage(), e);
 						}
@@ -186,6 +186,11 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 				if (NonReversibleExecutionList.get(i).InitialDelay == 0) {
 					try {
 						NonReversibleExecutionList.get(i).Activate();
+						PrintThis("--------------- Start " + NonReversibleExecutionList.get(i).GetName()
+								+ " execution ----------------", null);
+						PrintPlaceList();
+						PrintThis("--------------- End " + NonReversibleExecutionList.get(i).GetName()
+								+ " execution ----------------", null);
 					} catch (CloneNotSupportedException e) {
 						PrintThis(e.getMessage(), e);
 					}
@@ -196,6 +201,8 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 				if (ReversibleExecutionList.get(i).InitialDelay == 0) {
 					try {
 						ReversibleExecutionList.get(i).Activate();
+						PrintThis(NonReversibleExecutionList.get(i).GetName() + " executed:", null);
+						PrintPlaceList();
 					} catch (CloneNotSupportedException e) {
 						PrintThis(e.getMessage(), e);
 					}
@@ -241,17 +248,22 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 		PetriState = PetriNetState.Stopped;
 	}
 
+	public void PrintPlaceList() {
+		String toPrint = "";
+		for (PetriObject petriObject : PlaceList) {
+			if (petriObject == null)
+				toPrint = "NULL";
+			else if (petriObject.IsPrintable())
+				toPrint = petriObject.toString();
+			PrintThis(toPrint, null);
+		}
+	}
+
 	public void PrintPetri() {
 		if (clearPrint) {
 			String toPrint = "------------- PlaceList -------------";
 			PrintThis(toPrint, null);
-			for (PetriObject petriObject : PlaceList) {
-				if (petriObject == null)
-					toPrint = "NULL";
-				else if (petriObject.IsPrintable())
-					toPrint = petriObject.toString();
-				PrintThis(toPrint,null);
-			}
+			PrintPlaceList();
 			return;
 		}
 		ArrayList<String> temp1 = new ArrayList<String>();
@@ -264,7 +276,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 
 		msg = name + " PlaceList [" + String.join("  ", temp1) + "]";
 		PrintThis(msg, null);
-		
+
 		temp1 = new ArrayList<String>();
 		for (PetriObject petriObject : ConstantPlaceList) {
 			if (petriObject == null)
@@ -274,7 +286,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 		}
 
 		msg = name + " ConstantPlaceList [" + String.join("  ", temp1) + "]";
-		PrintThis(msg, null);	
+		PrintThis(msg, null);
 	}
 
 	public void PrintReversibleExecutionList() {
@@ -287,7 +299,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 		}
 
 		msg = name + " ReversibleExecutionList [" + String.join(",", temp1) + "]";
-		PrintThis(msg, null);	
+		PrintThis(msg, null);
 	}
 
 	public void PrintNonReversibleExecutionList() {
@@ -300,7 +312,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 		}
 
 		msg = name + " NonReversibleExecutionList [" + String.join(",", temp1) + "]";
-		PrintThis(msg, null);	
+		PrintThis(msg, null);
 	}
 
 	private DataOverNetwork inputdata = new DataOverNetwork();
@@ -322,7 +334,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 				ss = new ServerSocket(NetworkPort);
 
 				msg = "Waiting For Commands over this port:" + NetworkPort;
-				PrintThis(msg, null);	
+				PrintThis(msg, null);
 
 				Socket s;
 				ObjectInputStream ois;
@@ -354,7 +366,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 					}
 
 					msg = "$$$$$$$$$$$$$$$ I got an Input From NetWork for " + net.inputdata.petriObject.GetName();
-					PrintThis(msg, null);	
+					PrintThis(msg, null);
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
