@@ -111,6 +111,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 
 	public String msg;
 	public boolean clearPrint = false;
+	public boolean PrintingImaginaryNumbers = true;
 
 	@Override
 	public void Start() {
@@ -152,7 +153,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 					if (Transitions.get(i).CheckConditions()) {
 						try {
 							toNull.addAll(Transitions.get(i).BookTokens());
-							PrintThis(Transitions.get(i).GetName() + " tokens are booked!", null);
+							// PrintThis(Transitions.get(i).GetName() + " tokens are booked!", null);
 						} catch (CloneNotSupportedException e) {
 							PrintThis(e.getMessage(), e);
 						}
@@ -186,11 +187,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 				if (NonReversibleExecutionList.get(i).InitialDelay == 0) {
 					try {
 						NonReversibleExecutionList.get(i).Activate();
-						PrintThis("--------------- Start " + NonReversibleExecutionList.get(i).GetName()
-								+ " execution ----------------", null);
-						PrintPlaceList();
-						PrintThis("--------------- End " + NonReversibleExecutionList.get(i).GetName()
-								+ " execution ----------------", null);
+						PrintThis(NonReversibleExecutionList.get(i).GetName() + " executed:", null);
 					} catch (CloneNotSupportedException e) {
 						PrintThis(e.getMessage(), e);
 					}
@@ -202,7 +199,6 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 					try {
 						ReversibleExecutionList.get(i).Activate();
 						PrintThis(NonReversibleExecutionList.get(i).GetName() + " executed:", null);
-						PrintPlaceList();
 					} catch (CloneNotSupportedException e) {
 						PrintThis(e.getMessage(), e);
 					}
@@ -249,19 +245,32 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 	}
 
 	public void PrintPlaceList() {
-		String toPrint = "";
+
+		ArrayList<String> toPrint = new ArrayList<String>();
+		boolean isAllNull = true;
 		for (PetriObject petriObject : PlaceList) {
-			if (petriObject == null)
-				toPrint = "NULL";
-			else if (petriObject.IsPrintable())
-				toPrint = petriObject.toString();
-			PrintThis(toPrint, null);
+			if (petriObject == null) {
+				toPrint.add("NULL");
+			} else if (petriObject.IsPrintable()) {
+			
+				String placeString=petriObject.ToStringWithParam(PrintingImaginaryNumbers);
+				toPrint.add(placeString);
+				if(!placeString.contains("Null"))
+				{
+					isAllNull = false;
+				}
+			}
+		}
+
+		if (!isAllNull) {
+			for (String item : toPrint)
+				PrintThis(item, null);
 		}
 	}
 
 	public void PrintPetri() {
 		if (clearPrint) {
-			String toPrint = "------------- PlaceList -------------";
+			String toPrint = "-----------------------------------------------------------";
 			PrintThis(toPrint, null);
 			PrintPlaceList();
 			return;
@@ -271,7 +280,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 			if (petriObject == null)
 				temp1.add("NULL");
 			else if (petriObject.IsPrintable())
-				temp1.add(petriObject.toString());
+				temp1.add(petriObject.ToStringWithParam(PrintingImaginaryNumbers));
 		}
 
 		msg = name + " PlaceList [" + String.join("  ", temp1) + "]";
@@ -282,7 +291,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 			if (petriObject == null)
 				temp1.add("NULL");
 			else if (petriObject.IsPrintable())
-				temp1.add(petriObject.toString());
+				temp1.add(petriObject.ToStringWithParam(PrintingImaginaryNumbers));
 		}
 
 		msg = name + " ConstantPlaceList [" + String.join("  ", temp1) + "]";
@@ -295,7 +304,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 			if (petriObject == null)
 				temp1.add("NULL");
 			else
-				temp1.add(petriObject.toString());
+				temp1.add(petriObject.ToStringWithParam(PrintingImaginaryNumbers));
 		}
 
 		msg = name + " ReversibleExecutionList [" + String.join(",", temp1) + "]";
@@ -308,7 +317,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 			if (petriObject == null)
 				temp1.add("NULL");
 			else
-				temp1.add(petriObject.toString());
+				temp1.add(petriObject.ToStringWithParam(PrintingImaginaryNumbers));
 		}
 
 		msg = name + " NonReversibleExecutionList [" + String.join(",", temp1) + "]";
@@ -397,5 +406,10 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 	@Override
 	public boolean GetToken() {
 		return this.token;
+	}
+
+	@Override
+	public String ToStringWithParam(boolean b) {
+		return toString();
 	}
 }

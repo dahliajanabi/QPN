@@ -102,5 +102,10 @@ public class DataArcMatrix implements Interfaces.PetriObject, Cloneable, Seriali
 	public boolean GetToken() {
 		return this.token;
 	}
+
+	@Override
+	public String ToStringWithParam(boolean b) {
+		return toString();
+	}
 }
 

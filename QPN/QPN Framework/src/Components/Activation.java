@@ -708,7 +708,7 @@ public class Activation implements Serializable {
 
 		util.ShiftRight(result);
 
-//		for (int i = 0; i < resC.ComplexArray.size()-1; i++) {
+//		for (int i = 0; i < resC.ComplexArray.size(); i++) {
 //			ComplexValue cv1 = resC.ComplexArray.get(i);
 //			cv1.Real *= Ro * uParam.Sign;
 //			cv1.Imaginary *= Ro * uParam.Sign;
@@ -733,7 +733,7 @@ public class Activation implements Serializable {
 
 		util.ShiftLeft(result);
 
-//		for (int i = 0; i < resC.ComplexArray.size()-1; i++) {
+//		for (int i = 0; i < resC.ComplexArray.size(); i++) {
 //			ComplexValue cv1 = resC.ComplexArray.get(i);
 //			cv1.Real *= Ro * uParam.Sign;
 //			cv1.Imaginary *= Ro * uParam.Sign;
@@ -755,8 +755,8 @@ public class Activation implements Serializable {
 		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input).clone();
 		ComplexVector resC = (ComplexVector) result.GetValue();
 		ComplexVector resD = new ComplexVector(resC.Size, resC.ComplexArray);
-
-		for (int i = 0; i < resC.ComplexArray.size() - 1; i++) {
+		
+		for (int i = 0; i < resC.ComplexArray.size(); i++) {
 			ComplexValue cv1 = resC.ComplexArray.get(i);
 
 			ComplexValue vl = new ComplexValue(cv1.Real * Ro * uParam.Sign, cv1.Imaginary * Ro * uParam.Sign);
@@ -795,7 +795,6 @@ public class Activation implements Serializable {
 		}
 
 		util.ShiftRight(result);
-
 		result.SetName(OutputPlaceName);
 		result.SetValue(result);
 

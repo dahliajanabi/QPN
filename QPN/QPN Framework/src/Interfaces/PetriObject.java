@@ -24,6 +24,8 @@ public interface PetriObject {
 	
 	public String toString();
 	
+	public String ToStringWithParam(boolean b);
+	
 	public boolean IsPrintable();
 	
 	public void SetToken(boolean token);

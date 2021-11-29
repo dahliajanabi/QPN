@@ -123,4 +123,9 @@ public class DataTransfer  implements Interfaces.PetriObject, Cloneable, Seriali
 		return this.token;
 	}
 
+	@Override
+	public String ToStringWithParam(boolean b) {
+		return toString();
+	}
+
 }

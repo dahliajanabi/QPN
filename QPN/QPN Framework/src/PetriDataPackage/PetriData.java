@@ -95,4 +95,9 @@ public class PetriData implements PetriObject, Serializable {
 	public boolean GetToken() {
 		return this.token;
 	}
+
+	@Override
+	public String ToStringWithParam(boolean b) {
+		return toString();
+	}
 }

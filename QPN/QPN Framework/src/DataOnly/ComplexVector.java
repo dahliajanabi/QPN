@@ -48,13 +48,13 @@ public class ComplexVector implements Cloneable, Serializable {
 		}
 	}
 
-	public String toString() {
+	public String toString(boolean PrintImaginary) {
 		ArrayList<String> temp1 = new ArrayList<String>();
 		for (ComplexValue c : ComplexArray) {
 			if (c == null)
 				temp1.add("NULL");
 			else
-				temp1.add(c.toString());
+				temp1.add(c.toString(PrintImaginary));
 		}
 
 		return "(" + String.join(",", temp1) + ")";

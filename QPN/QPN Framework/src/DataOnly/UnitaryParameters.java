@@ -9,6 +9,4 @@ public class UnitaryParameters {
 		this.Orientation= orientation;
 		this.Sign=sign;
 	}
-	
-	
 }

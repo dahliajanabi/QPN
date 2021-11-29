@@ -19,15 +19,17 @@ public class ComplexValue implements Cloneable, Serializable {
 		this.Imaginary = imaginary;
 	}
 
-	public String toString() {
-		if(Real==0)
-		{
-			Real=Math.abs(Real);
+	public String toString(boolean PrintImaginary) {
+		if (Real == 0) {
+			Real = Math.abs(Real);
 		}
-		if(Imaginary==0)
-		{
+		if (Imaginary == 0) {
 			Imaginary = Math.abs(Imaginary);
 		}
-		return Real + " + i " + Imaginary;
+		if (PrintImaginary) {
+			return Real + " + i " + Imaginary;
+		} else {
+			return Real.toString();
+		}
 	}
 }

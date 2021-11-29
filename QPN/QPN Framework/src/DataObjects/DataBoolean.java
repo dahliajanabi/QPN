@@ -101,4 +101,9 @@ public class DataBoolean implements Interfaces.PetriObject, Cloneable, Serializa
 	public boolean GetToken() {
 		return this.token;
 	}
+
+	@Override
+	public String ToStringWithParam(boolean b) {
+		return toString();
+	}
 }

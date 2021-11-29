@@ -101,4 +101,10 @@ public class DataDoubleDouble implements Interfaces.PetriObject, Cloneable, Seri
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String ToStringWithParam(boolean b) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

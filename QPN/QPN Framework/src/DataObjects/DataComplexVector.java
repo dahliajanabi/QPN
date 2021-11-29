@@ -108,4 +108,13 @@ public class DataComplexVector implements Interfaces.PetriObject, Cloneable, Ser
 	public boolean GetToken() {
 		return this.token;
 	}
+
+	@Override
+	public String ToStringWithParam(boolean b) {
+		if (Value != null) {
+			return GetName() + "|" +"["+ Value.toString(b) +"]"+" Orientation:"+ Value.Orientation+ "|";
+		} else {
+			return GetName() + "(Null)";
+		}
+	}
 }
