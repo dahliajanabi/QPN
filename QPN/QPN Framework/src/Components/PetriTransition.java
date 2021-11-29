@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import DataObjects.DataBoolean;
 import DataObjects.DataComplexVector;
 import DataObjects.DataDoubleDouble;
+import DataOnly.ComplexValue;
+import DataOnly.ComplexVector;
 import Enumerations.PetriObjectType;
 import Interfaces.PetriObject;
 import Utilities.Functions;
@@ -107,7 +109,13 @@ public class PetriTransition implements PetriObject, Serializable {
 			PetriObject result = null;
 
 			if (currentInputPlace instanceof DataComplexVector) {
-				result = (DataComplexVector) ((DataComplexVector) currentInputPlace).clone();
+				DataComplexVector currentDataComplexVector = (DataComplexVector) ((DataComplexVector) currentInputPlace)
+						.clone();
+				result = new DataComplexVector();
+				result.SetName(currentDataComplexVector.GetName());
+				ComplexVector cv = new ComplexVector(currentDataComplexVector.Value.Size,
+						currentDataComplexVector.Value.ComplexArray);
+				result.SetValue(cv);
 
 				TempMarking.add(result);
 				if (!IsReversible) {

@@ -41,33 +41,30 @@ public class Functions implements Serializable {
 		return result;
 	}
 
-	public ArrayList<ComplexValue> ShiftRight(ArrayList<ComplexValue> listValues) {
+	public void ShiftRight(DataComplexVector vector) {
 		// make temp variable to hold last element
-		ComplexValue temp = listValues.get(listValues.size() - 1);
+		ComplexValue temp =vector.Value.ComplexArray.get(vector.Value.ComplexArray.size() - 1);
 
 		// make a loop to run through the array list
-		for (int i = listValues.size() - 1; i > 0; i--) {
+		for (int i = vector.Value.ComplexArray.size() - 1; i > 0; i--) {
 			// set the last element to the value of the 2nd to last element
-			listValues.set(i, listValues.get(i - 1));
+			vector.Value.ComplexArray.set(i, vector.Value.ComplexArray.get(i - 1));
 		}
 		// set the first element to be the last element
-		listValues.set(0, temp);
-		return listValues;
+		vector.Value.ComplexArray.set(0, temp);
 	}
 
-	public ArrayList<ComplexValue> ShiftLeft(ArrayList<ComplexValue> listValues) {
+	public void ShiftLeft(DataComplexVector vector) {
 		// make temp variable to hold last element
-		ComplexValue temp = listValues.get(0);
+		ComplexValue temp = vector.Value.ComplexArray.get(0);
 
 		// make a loop to run through the array list
-		for (int i = 0; i < listValues.size() - 1; i++) {
+		for (int i = 0; i < vector.Value.ComplexArray.size() - 1; i++) {
 			// set the last element to the value of the 2nd to last element
-			listValues.set(i, listValues.get(i + 1));
+			vector.Value.ComplexArray.set(i, vector.Value.ComplexArray.get(i + 1));
 		}
 		// set the first element to be the last element
-		listValues.set(listValues.size() - 1, temp);
-
-		return listValues;
+		vector.Value.ComplexArray.set(vector.Value.ComplexArray.size() - 1, temp);
 	}
 
 	public PetriObject GetPetriObjectByName(String name, ArrayList<PetriObject> list) {

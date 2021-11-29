@@ -706,7 +706,7 @@ public class Activation implements Serializable {
 		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input).clone();
 		ComplexVector resC = (ComplexVector) result.GetValue();
 
-		resC.ComplexArray = util.ShiftRight(resC.ComplexArray);
+		util.ShiftRight(result);
 
 //		for (int i = 0; i < resC.ComplexArray.size()-1; i++) {
 //			ComplexValue cv1 = resC.ComplexArray.get(i);
@@ -731,7 +731,7 @@ public class Activation implements Serializable {
 		DataComplexVector result = (DataComplexVector) ((DataComplexVector) input).clone();
 		ComplexVector resC = (ComplexVector) result.GetValue();
 
-		resC.ComplexArray = util.ShiftLeft(resC.ComplexArray);
+		util.ShiftLeft(result);
 
 //		for (int i = 0; i < resC.ComplexArray.size()-1; i++) {
 //			ComplexValue cv1 = resC.ComplexArray.get(i);
@@ -792,7 +792,7 @@ public class Activation implements Serializable {
 			result.Value.ComplexArray.set(i, cv);
 		}
 
-		result.Value.ComplexArray = util.ShiftRight(result.Value.ComplexArray);
+		util.ShiftRight(result);
 
 		result.SetName(OutputPlaceName);
 		result.SetValue(result);
@@ -823,7 +823,7 @@ public class Activation implements Serializable {
 			result.Value.ComplexArray.set(i, cv);
 		}
 
-		result.Value.ComplexArray = util.ShiftLeft(result.Value.ComplexArray);
+		util.ShiftLeft(result);
 
 		result.SetName(OutputPlaceName);
 		result.SetValue(result);
