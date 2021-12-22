@@ -66,6 +66,32 @@ public class Functions implements Serializable {
 		// set the first element to be the last element
 		vector.Value.ComplexArray.set(vector.Value.ComplexArray.size() - 1, temp);
 	}
+	
+	public void ShiftRight(ComplexVector vector) {
+		// make temp variable to hold last element
+		ComplexValue temp =vector.ComplexArray.get(vector.ComplexArray.size() - 1);
+
+		// make a loop to run through the array list
+		for (int i = vector.ComplexArray.size() - 1; i > 0; i--) {
+			// set the last element to the value of the 2nd to last element
+			vector.ComplexArray.set(i, vector.ComplexArray.get(i - 1));
+		}
+		// set the first element to be the last element
+		vector.ComplexArray.set(0, temp);
+	}
+
+	public void ShiftLeft(ComplexVector vector) {
+		// make temp variable to hold last element
+		ComplexValue temp = vector.ComplexArray.get(0);
+
+		// make a loop to run through the array list
+		for (int i = 0; i < vector.ComplexArray.size() - 1; i++) {
+			// set the last element to the value of the 2nd to last element
+			vector.ComplexArray.set(i, vector.ComplexArray.get(i + 1));
+		}
+		// set the first element to be the last element
+		vector.ComplexArray.set(vector.ComplexArray.size() - 1, temp);
+	}
 
 	public PetriObject GetPetriObjectByName(String name, ArrayList<PetriObject> list) {
 		for (PetriObject petriObject : list) {

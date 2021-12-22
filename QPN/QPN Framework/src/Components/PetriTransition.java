@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import DataObjects.DataBoolean;
 import DataObjects.DataComplexVector;
+import DataObjects.DataComplexVector2D;
+import DataObjects.DataComplexVector2DMatrix;
 import DataObjects.DataDoubleDouble;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
@@ -139,6 +141,28 @@ public class PetriTransition implements PetriObject, Serializable {
 			if (currentInputPlace instanceof DataBoolean) {
 				result = (DataBoolean) ((DataBoolean) currentInputPlace).clone();
 
+				TempMarking.add(result);
+				if (!IsReversible) {
+					placesToNull.add(currentInputPlace.GetName());
+				}
+				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
+			}
+			
+			if (currentInputPlace instanceof DataComplexVector2D) {
+				result = (DataComplexVector2D) ((DataComplexVector2D) currentInputPlace)
+						.clone();
+				
+				TempMarking.add(result);
+				if (!IsReversible) {
+					placesToNull.add(currentInputPlace.GetName());
+				}
+				Parent.PlaceList.set(util.GetIndexByName(string, Parent.PlaceList), currentInputPlace);
+			}
+			
+			if (currentInputPlace instanceof DataComplexVector2DMatrix) {
+				result = (DataComplexVector2DMatrix) ((DataComplexVector2DMatrix) currentInputPlace)
+						.clone();
+				
 				TempMarking.add(result);
 				if (!IsReversible) {
 					placesToNull.add(currentInputPlace.GetName());

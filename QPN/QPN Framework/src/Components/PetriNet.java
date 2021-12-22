@@ -198,7 +198,7 @@ public class PetriNet implements PetriObject, Runnable, Cloneable, Serializable 
 				if (ReversibleExecutionList.get(i).InitialDelay == 0) {
 					try {
 						ReversibleExecutionList.get(i).Activate();
-						PrintThis(NonReversibleExecutionList.get(i).GetName() + " executed:", null);
+						PrintThis(ReversibleExecutionList.get(i).GetName() + " executed:", null);
 					} catch (CloneNotSupportedException e) {
 						PrintThis(e.getMessage(), e);
 					}

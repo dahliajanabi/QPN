@@ -20,5 +20,7 @@ public enum TransitionOperation implements Serializable{
 	UnitaryMatrixWithOrientation,
 	ShiftPlus,
 	ShiftMinus,
-	MultiplyByRo
+	MultiplyByRo,
+	MultiplyByHalf,
+	ComplexVector2DMatrixAddition
 }
