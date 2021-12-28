@@ -22,5 +22,6 @@ public enum TransitionOperation implements Serializable{
 	ShiftMinus,
 	MultiplyByRo,
 	MultiplyByHalf,
-	ComplexVector2DMatrixAddition
+	ComplexVector2DMatrixAddition,
+	SphereVerification
 }

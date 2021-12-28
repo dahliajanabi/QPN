@@ -21,6 +21,7 @@ import Enumerations.Orientation;
 import Enumerations.TransitionOperation;
 import Interfaces.PetriObject;
 import Utilities.Functions;
+import java.lang.Math;
 
 public class Activation implements Serializable {
 
@@ -48,6 +49,13 @@ public class Activation implements Serializable {
 
 	public Activation(PetriTransition Parent) {
 		util = new Functions();
+	}
+
+	public Activation(PetriTransition Parent, TransitionOperation Condition, String OutputPlaceName) {
+		util = new Functions();
+		this.Parent = Parent;
+		this.OutputPlaceName = OutputPlaceName;
+		this.Operation = Condition;
 	}
 
 	public Activation(PetriTransition Parent, String InputPlaceName, String ConstantValueName,
@@ -199,6 +207,9 @@ public class Activation implements Serializable {
 
 		if (Operation == TransitionOperation.ComplexVector2DMatrixAddition)
 			ComplexVector2DMatrixAddition();
+
+		if (Operation == TransitionOperation.SphereVerification)
+			SphereVerification();
 	}
 
 	private void Move() throws CloneNotSupportedException {
@@ -940,51 +951,51 @@ public class Activation implements Serializable {
 
 		for (int i = 0; i < resultComplexVector.ComplexArrayX.Size; i++) {
 			ComplexValue cv = new ComplexValue(
-					matrix.Value.Matrix.get(hParam.MatrixIndex).get(0).ComplexArrayX.ComplexArray.get(i).Real
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(1).ComplexArrayX.ComplexArray.get(i).Real
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(2).ComplexArrayX.ComplexArray.get(i).Real
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(3).ComplexArrayX.ComplexArray.get(i).Real,
-					matrix.Value.Matrix.get(hParam.MatrixIndex).get(0).ComplexArrayX.ComplexArray.get(i).Imaginary
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(1).ComplexArrayX.ComplexArray
+					matrix.Value.Matrix.get(0).get(hParam.MatrixIndex).ComplexArrayX.ComplexArray.get(i).Real
+							+ matrix.Value.Matrix.get(1).get(hParam.MatrixIndex).ComplexArrayX.ComplexArray.get(i).Real
+							+ matrix.Value.Matrix.get(2).get(hParam.MatrixIndex).ComplexArrayX.ComplexArray.get(i).Real
+							+ matrix.Value.Matrix.get(3).get(hParam.MatrixIndex).ComplexArrayX.ComplexArray.get(i).Real,
+					matrix.Value.Matrix.get(0).get(hParam.MatrixIndex).ComplexArrayX.ComplexArray.get(i).Imaginary
+							+ matrix.Value.Matrix.get(1).get(hParam.MatrixIndex).ComplexArrayX.ComplexArray
 									.get(i).Imaginary
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(2).ComplexArrayX.ComplexArray
+							+ matrix.Value.Matrix.get(2).get(hParam.MatrixIndex).ComplexArrayX.ComplexArray
 									.get(i).Imaginary
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(3).ComplexArrayX.ComplexArray
+							+ matrix.Value.Matrix.get(3).get(hParam.MatrixIndex).ComplexArrayX.ComplexArray
 									.get(i).Imaginary);
 			resultComplexVector.ComplexArrayX.ComplexArray.set(i, cv);
 		}
 
 		for (int i = 0; i < resultComplexVector.ComplexArrayY.Size; i++) {
 			ComplexValue cv = new ComplexValue(
-					matrix.Value.Matrix.get(hParam.MatrixIndex).get(0).ComplexArrayY.ComplexArray.get(i).Real
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(1).ComplexArrayY.ComplexArray.get(i).Real
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(2).ComplexArrayY.ComplexArray.get(i).Real
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(3).ComplexArrayY.ComplexArray.get(i).Real,
-					matrix.Value.Matrix.get(hParam.MatrixIndex).get(0).ComplexArrayY.ComplexArray.get(i).Imaginary
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(1).ComplexArrayY.ComplexArray
+					matrix.Value.Matrix.get(0).get(hParam.MatrixIndex).ComplexArrayY.ComplexArray.get(i).Real
+							+ matrix.Value.Matrix.get(1).get(hParam.MatrixIndex).ComplexArrayY.ComplexArray.get(i).Real
+							+ matrix.Value.Matrix.get(2).get(hParam.MatrixIndex).ComplexArrayY.ComplexArray.get(i).Real
+							+ matrix.Value.Matrix.get(3).get(hParam.MatrixIndex).ComplexArrayY.ComplexArray.get(i).Real,
+					matrix.Value.Matrix.get(0).get(hParam.MatrixIndex).ComplexArrayY.ComplexArray.get(i).Imaginary
+							+ matrix.Value.Matrix.get(1).get(hParam.MatrixIndex).ComplexArrayY.ComplexArray
 									.get(i).Imaginary
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(2).ComplexArrayY.ComplexArray
+							+ matrix.Value.Matrix.get(2).get(hParam.MatrixIndex).ComplexArrayY.ComplexArray
 									.get(i).Imaginary
-							+ matrix.Value.Matrix.get(hParam.MatrixIndex).get(3).ComplexArrayY.ComplexArray
+							+ matrix.Value.Matrix.get(3).get(hParam.MatrixIndex).ComplexArrayY.ComplexArray
 									.get(i).Imaginary);
 			resultComplexVector.ComplexArrayY.ComplexArray.set(i, cv);
 		}
 
 		if (hParam.Shift.X > 0) {
 			util.ShiftRight(resultComplexVector.ComplexArrayX);
-			resultComplexVector.Orientation=Orientation.Right;	
+			resultComplexVector.Orientation = Orientation.Right;
 		}
 		if (hParam.Shift.X < 0) {
 			util.ShiftLeft(resultComplexVector.ComplexArrayX);
-			resultComplexVector.Orientation=Orientation.Left;
+			resultComplexVector.Orientation = Orientation.Left;
 		}
 		if (hParam.Shift.Y > 0) {
 			util.ShiftRight(resultComplexVector.ComplexArrayY);
-			resultComplexVector.Orientation=Orientation.Up;
+			resultComplexVector.Orientation = Orientation.Up;
 		}
 		if (hParam.Shift.Y < 0) {
 			util.ShiftLeft(resultComplexVector.ComplexArrayY);
-			resultComplexVector.Orientation=Orientation.Down;
+			resultComplexVector.Orientation = Orientation.Down;
 		}
 
 		DataComplexVector2D result = new DataComplexVector2D();
@@ -993,4 +1004,33 @@ public class Activation implements Serializable {
 
 		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
 	}
+
+	private void SphereVerification() throws CloneNotSupportedException {
+		DoubleDouble resultValue = new DoubleDouble(0.0f, 0.0f);
+
+		for (int i = 0; i < Parent.TempMarking.size(); i++) {
+			DoubleDouble currentSum = new DoubleDouble(0.0f, 0.0f);
+
+			DataComplexVector2D current = (DataComplexVector2D) Parent.TempMarking.get(i);
+			for (ComplexValue cv : current.Value.ComplexArrayX.ComplexArray) {
+				currentSum.V1 += cv.Real;
+			}
+			for (ComplexValue cv : current.Value.ComplexArrayY.ComplexArray) {
+				currentSum.V2 += cv.Real;
+			}
+
+			currentSum.V1 = Math.pow(currentSum.V1, 2);
+			currentSum.V2 = Math.pow(currentSum.V2, 2);
+
+			resultValue.V1 += currentSum.V1;
+			resultValue.V2 += currentSum.V2;
+		}
+
+		DataDoubleDouble result = new DataDoubleDouble();
+		result.SetName(OutputPlaceName);
+		result.SetValue(resultValue);
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);
+	}
+
 }

@@ -10,10 +10,12 @@ import DataObjects.DataBoolean;
 import DataObjects.DataComplexVector;
 import DataObjects.DataComplexVector2D;
 import DataObjects.DataComplexVector2DMatrix;
+import DataObjects.DataDoubleDouble;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
 import DataOnly.ComplexVector2D;
 import DataOnly.ComplexVector2DMatrix;
+import DataOnly.DoubleDouble;
 import DataOnly.HalfParameters;
 import DataOnly.Shift;
 import DataOnly.Sign;
@@ -44,10 +46,10 @@ public class OrientedQDRWonSphere {
 		DataComplexVector2D p1 = new DataComplexVector2D();
 		p1.SetName("p1");
 		p1.Value = new ComplexVector2D(Orientation.Right,
-				new ComplexVector(8, new ComplexValue(1.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-				new ComplexVector(8, new ComplexValue(1.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p1);
@@ -55,10 +57,10 @@ public class OrientedQDRWonSphere {
 		DataComplexVector2D p2 = new DataComplexVector2D();
 		p2.SetName("p2");
 		p2.Value = new ComplexVector2D(Orientation.Right,
-				new ComplexVector(8, new ComplexValue(1.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-				new ComplexVector(8, new ComplexValue(1.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p2);
@@ -66,10 +68,10 @@ public class OrientedQDRWonSphere {
 		DataComplexVector2D p3 = new DataComplexVector2D();
 		p3.SetName("p3");
 		p3.Value = new ComplexVector2D(Orientation.Right,
-				new ComplexVector(8, new ComplexValue(1.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-				new ComplexVector(8, new ComplexValue(1.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
+				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
 						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p3);
@@ -78,6 +80,11 @@ public class OrientedQDRWonSphere {
 		p4.SetName("p4");
 		p4.Value = new ComplexVector2DMatrix(4, 4, 8);
 		pn.PlaceList.add(p4);
+
+		DataDoubleDouble pv = new DataDoubleDouble();
+		pv.SetName("pv");
+		pv.Value = new DoubleDouble(0.0f, 0.0f);
+		pn.PlaceList.add(pv);
 
 		// T0 ------------------------------------------------
 		PetriTransition t0 = new PetriTransition(pn);
@@ -105,7 +112,7 @@ public class OrientedQDRWonSphere {
 		GuardMapping grdT1 = new GuardMapping();
 		grdT1.condition = T1Ct1;
 		grdT1.Activations.add(new Activation(t1, "p1", TransitionOperation.MultiplyByHalf, "p4",
-				new HalfParameters(new Sign(1, 1), new Sign(-1, 1), new Sign(1, 1), new Sign(1, 1), 1)));
+				new HalfParameters(new Sign(1, 1), new Sign(1, -1), new Sign(1, 1), new Sign(1, 1), 1)));
 
 		t1.GuardMappingList.add(grdT1);
 
@@ -121,7 +128,7 @@ public class OrientedQDRWonSphere {
 		GuardMapping grdT2 = new GuardMapping();
 		grdT2.condition = T2Ct1;
 		grdT2.Activations.add(new Activation(t2, "p2", TransitionOperation.MultiplyByHalf, "p4",
-				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(1, -1), new Sign(1, 1), 2)));
+				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(-1, 1), new Sign(1, 1), 2)));
 
 		t2.GuardMappingList.add(grdT2);
 
@@ -165,7 +172,7 @@ public class OrientedQDRWonSphere {
 		T1P.TransitionName = "T1P";
 		T1P.InputPlaceName.add("p4");
 		T1P.IsReversible = true;
-		
+
 		Condition T1PCt1 = new Condition(T1P, "p4", TransitionCondition.NotNull);
 
 		GuardMapping grdT1P = new GuardMapping();
@@ -182,7 +189,7 @@ public class OrientedQDRWonSphere {
 		T2P.TransitionName = "T2P";
 		T2P.InputPlaceName.add("p4");
 		T2P.IsReversible = true;
-		
+
 		Condition T2PCt1 = new Condition(T2P, "p4", TransitionCondition.NotNull);
 
 		GuardMapping grdT2P = new GuardMapping();
@@ -199,7 +206,7 @@ public class OrientedQDRWonSphere {
 		T3P.TransitionName = "T3P";
 		T3P.InputPlaceName.add("p4");
 		T3P.IsReversible = true;
-		
+
 		Condition T3PCt1 = new Condition(T3P, "p4", TransitionCondition.NotNull);
 
 		GuardMapping grdT3P = new GuardMapping();
@@ -210,6 +217,32 @@ public class OrientedQDRWonSphere {
 		T3P.GuardMappingList.add(grdT3P);
 
 		pn.Transitions.add(T3P);
+
+		// TV ------------------------------------------------
+		PetriTransition TV = new PetriTransition(pn);
+		TV.TransitionName = "TV";
+		TV.InputPlaceName.add("p0");
+		TV.InputPlaceName.add("p1");
+		TV.InputPlaceName.add("p2");
+		TV.InputPlaceName.add("p3");
+		TV.IsReversible = true;
+
+		Condition TVCt1 = new Condition(TV, "p0", TransitionCondition.NotNull);
+		Condition TVCt2 = new Condition(TV, "p1", TransitionCondition.NotNull);
+		Condition TVCt3 = new Condition(TV, "p2", TransitionCondition.NotNull);
+		Condition TVCt4 = new Condition(TV, "p3", TransitionCondition.NotNull);
+
+		TVCt3.SetNextCondition(LogicConnector.AND, TVCt4);
+		TVCt2.SetNextCondition(LogicConnector.AND, TVCt3);
+		TVCt1.SetNextCondition(LogicConnector.AND, TVCt2);
+
+		GuardMapping grdTV = new GuardMapping();
+		grdTV.condition = TVCt1;
+		grdTV.Activations.add(new Activation(TV, TransitionOperation.SphereVerification, "pv"));
+
+		TV.GuardMappingList.add(grdTV);
+
+		pn.Transitions.add(TV);
 
 		System.out.println("Exp1 started \n ------------------------------");
 		pn.Delay = 3000;
