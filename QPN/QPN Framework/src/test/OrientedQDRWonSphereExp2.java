@@ -1,5 +1,7 @@
 package test;
 
+import java.util.ArrayList;
+
 import Components.Activation;
 import Components.Condition;
 import Components.GuardMapping;
@@ -264,10 +266,15 @@ public class OrientedQDRWonSphereExp2 {
 		t0.InputPlaceName.add("p0");
 
 		Condition T0Ct1 = new Condition(t0, "p0", TransitionCondition.NotNull);
-
+		ArrayList<String> t0Output= new ArrayList<String>();
+		t0Output.add("p00");
+		t0Output.add("p01");
+		t0Output.add("p02");
+		t0Output.add("p03");
+		
 		GuardMapping grdT0 = new GuardMapping();
 		grdT0.condition = T0Ct1;
-		grdT0.Activations.add(new Activation(t0, "p0", TransitionOperation.MultiplyByHalf, "p4",
+		grdT0.Activations.add(new Activation(t0, "p0", TransitionOperation.MultiplyByHalfMultiPlaces, t0Output,
 				new HalfParameters(new Sign(-1, 1), new Sign(1, 1), new Sign(1, 1), new Sign(1, 1), 0)));
 
 		t0.GuardMappingList.add(grdT0);
@@ -332,7 +339,14 @@ public class OrientedQDRWonSphereExp2 {
 
 		GuardMapping grdT0P = new GuardMapping();
 		grdT0P.condition = T0PCt1;
-		grdT0P.Activations.add(new Activation(T0P, "p4", TransitionOperation.ComplexVector2DMatrixAddition, "p0",
+		
+		ArrayList<String> T0PInput= new ArrayList<String>();
+		T0PInput.add("p00");
+		T0PInput.add("p10");
+		T0PInput.add("p20");
+		T0PInput.add("p30");
+
+		grdT0P.Activations.add(new Activation(T0P, T0PInput, TransitionOperation.ComplexVector2DAdditionMultiPlaces, "p0",
 				new HalfParameters(0, new Shift(+1, 0))));
 
 		T0P.GuardMappingList.add(grdT0P);
