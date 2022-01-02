@@ -1058,13 +1058,13 @@ public class Activation implements Serializable {
 
 	private void ComplexVector2DAdditionMultiPlaces() throws CloneNotSupportedException {
 
-		PetriObject outputObj = util.GetFromListByName(OutputPlaceName, Parent.Parent.PlaceList);
-		if (outputObj == null && !(outputObj instanceof DataComplexVector2D)) {
-			return;
-		}
+//		PetriObject outputObj = util.GetFromListByName(OutputPlaceName, Parent.Parent.PlaceList);
+//		if (outputObj == null && !(outputObj instanceof DataComplexVector2D)) {
+//			return;
+//		}
 
-		DataComplexVector2D output = (DataComplexVector2D) outputObj;
-		ComplexVector2D resultComplexVector = output.Value.clone();
+//		DataComplexVector2D output = (DataComplexVector2D) outputObj;
+		
 
 		DataComplexVector2D input0 = (DataComplexVector2D) util.GetFromListByName(InputPlaceNames.get(0),
 				Parent.Parent.PlaceList);
@@ -1075,6 +1075,8 @@ public class Activation implements Serializable {
 		DataComplexVector2D input3 = (DataComplexVector2D) util.GetFromListByName(InputPlaceNames.get(3),
 				Parent.Parent.PlaceList);
 
+		ComplexVector2D resultComplexVector = input0.Value.clone();
+		
 		for (int i = 0; i < resultComplexVector.ComplexArrayX.Size; i++) {
 			ComplexValue cv = new ComplexValue(
 					input0.Value.ComplexArrayX.ComplexArray.get(i).Real

@@ -8,20 +8,15 @@ import Components.GuardMapping;
 import Components.PetriNet;
 import Components.PetriNetWindow;
 import Components.PetriTransition;
-import DataObjects.DataBoolean;
-import DataObjects.DataComplexVector;
 import DataObjects.DataComplexVector2D;
-import DataObjects.DataComplexVector2DMatrix;
 import DataObjects.DataDoubleDouble;
 import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
 import DataOnly.ComplexVector2D;
-import DataOnly.ComplexVector2DMatrix;
 import DataOnly.DoubleDouble;
 import DataOnly.HalfParameters;
 import DataOnly.Shift;
 import DataOnly.Sign;
-import DataOnly.UnitaryParameters;
 import Enumerations.LogicConnector;
 import Enumerations.Orientation;
 import Enumerations.TransitionCondition;
@@ -294,7 +289,7 @@ public class OrientedQDRWonSphereExp2 {
 
 		GuardMapping grdT1 = new GuardMapping();
 		grdT1.condition = T1Ct1;
-		grdT1.Activations.add(new Activation(t1, "p1", TransitionOperation.MultiplyByHalf, t1Output,
+		grdT1.Activations.add(new Activation(t1, "p1", TransitionOperation.MultiplyByHalfMultiPlaces, t1Output,
 				new HalfParameters(new Sign(1, 1), new Sign(1, -1), new Sign(1, 1), new Sign(1, 1), 1)));
 
 		t1.GuardMappingList.add(grdT1);
@@ -315,7 +310,7 @@ public class OrientedQDRWonSphereExp2 {
 
 		GuardMapping grdT2 = new GuardMapping();
 		grdT2.condition = T2Ct1;
-		grdT2.Activations.add(new Activation(t2, "p2", TransitionOperation.MultiplyByHalf, t2Output,
+		grdT2.Activations.add(new Activation(t2, "p2", TransitionOperation.MultiplyByHalfMultiPlaces, t2Output,
 				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(-1, 1), new Sign(1, 1), 2)));
 
 		t2.GuardMappingList.add(grdT2);
@@ -336,7 +331,7 @@ public class OrientedQDRWonSphereExp2 {
 
 		GuardMapping grdT3 = new GuardMapping();
 		grdT3.condition = T3Ct1;
-		grdT3.Activations.add(new Activation(t3, "p3", TransitionOperation.MultiplyByHalf, t3Output,
+		grdT3.Activations.add(new Activation(t3, "p3", TransitionOperation.MultiplyByHalfMultiPlaces, t3Output,
 				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(1, 1), new Sign(1, -1), 3)));
 
 		t3.GuardMappingList.add(grdT3);
