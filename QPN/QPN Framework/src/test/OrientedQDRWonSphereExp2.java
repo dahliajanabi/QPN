@@ -341,8 +341,11 @@ public class OrientedQDRWonSphereExp2 {
 		// T0P ------------------------------------------------
 		PetriTransition T0P = new PetriTransition(pn);
 		T0P.TransitionName = "T0P";
-		T0P.InputPlaceName.add("p4");
-		T0P.IsReversible = true;
+		T0P.InputPlaceName.add("p00");
+		T0P.InputPlaceName.add("p10");
+		T0P.InputPlaceName.add("p20");
+		T0P.InputPlaceName.add("p30");
+		T0P.IsReversible=true;
 
 		Condition T0PCt1 = new Condition(T0P, "p00", TransitionCondition.NotNull);
 		Condition T0PCt2 = new Condition(T0P, "p10", TransitionCondition.NotNull);
@@ -371,8 +374,11 @@ public class OrientedQDRWonSphereExp2 {
 		// T1P ------------------------------------------------
 		PetriTransition T1P = new PetriTransition(pn);
 		T1P.TransitionName = "T1P";
-		T1P.InputPlaceName.add("p4");
-		T1P.IsReversible = true;
+		T1P.InputPlaceName.add("p01");
+		T1P.InputPlaceName.add("p11");
+		T1P.InputPlaceName.add("p21");
+		T1P.InputPlaceName.add("p31");
+		T1P.IsReversible=true;
 
 		Condition T1PCt1 = new Condition(T1P, "p01", TransitionCondition.NotNull);
 		Condition T1PCt2 = new Condition(T0P, "p11", TransitionCondition.NotNull);
@@ -400,8 +406,11 @@ public class OrientedQDRWonSphereExp2 {
 		// T2P ------------------------------------------------
 		PetriTransition T2P = new PetriTransition(pn);
 		T2P.TransitionName = "T2P";
-		T2P.InputPlaceName.add("p4");
-		T2P.IsReversible = true;
+		T2P.InputPlaceName.add("p02");
+		T2P.InputPlaceName.add("p12");
+		T2P.InputPlaceName.add("p22");
+		T2P.InputPlaceName.add("p32");
+		T2P.IsReversible=true;
 
 		Condition T2PCt1 = new Condition(T2P, "p02", TransitionCondition.NotNull);
 		Condition T2PCt2 = new Condition(T0P, "p12", TransitionCondition.NotNull);
@@ -429,8 +438,11 @@ public class OrientedQDRWonSphereExp2 {
 		// T3P ------------------------------------------------
 		PetriTransition T3P = new PetriTransition(pn);
 		T3P.TransitionName = "T3P";
-		T3P.InputPlaceName.add("p4");
-		T3P.IsReversible = true;
+		T3P.InputPlaceName.add("p03");
+		T3P.InputPlaceName.add("p13");
+		T3P.InputPlaceName.add("p23");
+		T3P.InputPlaceName.add("p33");
+		T3P.IsReversible=true;
 
 		Condition T3PCt1 = new Condition(T3P, "p03", TransitionCondition.NotNull);
 		Condition T3PCt2 = new Condition(T0P, "p13", TransitionCondition.NotNull);
