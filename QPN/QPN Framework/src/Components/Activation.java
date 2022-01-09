@@ -912,10 +912,35 @@ public class Activation implements Serializable {
 		DataComplexVector2D result = (DataComplexVector2D) ((DataComplexVector2D) input).clone();
 		ComplexVector2D resC = (ComplexVector2D) result.GetValue();
 
-		ComplexVector2D resD1 = new ComplexVector2D(resC.Orientation, resC.ComplexArrayX, resC.ComplexArrayY);
-		ComplexVector2D resD2 = new ComplexVector2D(resC.Orientation, resC.ComplexArrayX, resC.ComplexArrayY);
-		ComplexVector2D resD3 = new ComplexVector2D(resC.Orientation, resC.ComplexArrayX, resC.ComplexArrayY);
-		ComplexVector2D resD4 = new ComplexVector2D(resC.Orientation, resC.ComplexArrayX, resC.ComplexArrayY);
+		ArrayList<ComplexValue> arrX1 = new ArrayList<ComplexValue>();
+		ArrayList<ComplexValue> arrX2 = new ArrayList<ComplexValue>();
+		ArrayList<ComplexValue> arrX3 = new ArrayList<ComplexValue>();
+		ArrayList<ComplexValue> arrX4 = new ArrayList<ComplexValue>();
+
+		ArrayList<ComplexValue> arrY1 = new ArrayList<ComplexValue>();
+		ArrayList<ComplexValue> arrY2 = new ArrayList<ComplexValue>();
+		ArrayList<ComplexValue> arrY3 = new ArrayList<ComplexValue>();
+		ArrayList<ComplexValue> arrY4 = new ArrayList<ComplexValue>();
+
+		for (int i = 0; i < resC.ComplexArrayX.Size; i++) {
+			arrX1.add(new ComplexValue(0.0f, 0.0f));
+			arrX2.add(new ComplexValue(0.0f, 0.0f));
+			arrX3.add(new ComplexValue(0.0f, 0.0f));
+			arrX4.add(new ComplexValue(0.0f, 0.0f));
+			arrY1.add(new ComplexValue(0.0f, 0.0f));
+			arrY2.add(new ComplexValue(0.0f, 0.0f));
+			arrY3.add(new ComplexValue(0.0f, 0.0f));
+			arrY4.add(new ComplexValue(0.0f, 0.0f));
+		}
+
+		ComplexVector2D resD1 = new ComplexVector2D(resC.Orientation, new ComplexVector(resC.ComplexArrayX.Size, arrX1),
+				new ComplexVector(resC.ComplexArrayY.Size, arrY1));
+		ComplexVector2D resD2 = new ComplexVector2D(resC.Orientation, new ComplexVector(resC.ComplexArrayX.Size, arrX2),
+				new ComplexVector(resC.ComplexArrayY.Size, arrY2));
+		ComplexVector2D resD3 = new ComplexVector2D(resC.Orientation, new ComplexVector(resC.ComplexArrayX.Size, arrX3),
+				new ComplexVector(resC.ComplexArrayY.Size, arrY3));
+		ComplexVector2D resD4 = new ComplexVector2D(resC.Orientation, new ComplexVector(resC.ComplexArrayX.Size, arrX4),
+				new ComplexVector(resC.ComplexArrayY.Size, arrY4));
 
 		// --------------------------resD1------------------------------
 		for (int i = 0; i < resC.ComplexArrayX.ComplexArray.size(); i++) {
@@ -935,7 +960,7 @@ public class Activation implements Serializable {
 		}
 		DataComplexVector2D out0 = (DataComplexVector2D) out0obj;
 		out0.SetValue(resD1);
-
+		util.SetToListByName(OutputPlaceNames.get(0), Parent.Parent.PlaceList, out0);
 		// --------------------------resD2------------------------------
 		for (int i = 0; i < resC.ComplexArrayX.ComplexArray.size(); i++) {
 			ComplexValue cv1 = resC.ComplexArrayX.ComplexArray.get(i);
@@ -954,7 +979,7 @@ public class Activation implements Serializable {
 		}
 		DataComplexVector2D out1 = (DataComplexVector2D) out1obj;
 		out1.SetValue(resD2);
-
+		util.SetToListByName(OutputPlaceNames.get(1), Parent.Parent.PlaceList, out1);
 		// --------------------------resD3------------------------------
 		for (int i = 0; i < resC.ComplexArrayX.ComplexArray.size(); i++) {
 			ComplexValue cv1 = resC.ComplexArrayX.ComplexArray.get(i);
@@ -973,7 +998,7 @@ public class Activation implements Serializable {
 		}
 		DataComplexVector2D out2 = (DataComplexVector2D) out2obj;
 		out2.SetValue(resD3);
-
+		util.SetToListByName(OutputPlaceNames.get(2), Parent.Parent.PlaceList, out2);
 		// --------------------------resD4------------------------------
 		for (int i = 0; i < resC.ComplexArrayX.ComplexArray.size(); i++) {
 			ComplexValue cv1 = resC.ComplexArrayX.ComplexArray.get(i);
@@ -992,7 +1017,7 @@ public class Activation implements Serializable {
 		}
 		DataComplexVector2D out3 = (DataComplexVector2D) out3obj;
 		out3.SetValue(resD4);
-
+		util.SetToListByName(OutputPlaceNames.get(3), Parent.Parent.PlaceList, out3);
 	}
 
 	private void ComplexVectorAdditionWithShiftPlus() throws CloneNotSupportedException {
@@ -1064,19 +1089,18 @@ public class Activation implements Serializable {
 //		}
 
 //		DataComplexVector2D output = (DataComplexVector2D) outputObj;
-		
 
 		DataComplexVector2D input0 = (DataComplexVector2D) util.GetFromListByName(InputPlaceNames.get(0),
-				Parent.Parent.PlaceList);
+				Parent.TempMarking);
 		DataComplexVector2D input1 = (DataComplexVector2D) util.GetFromListByName(InputPlaceNames.get(1),
-				Parent.Parent.PlaceList);
+				Parent.TempMarking);
 		DataComplexVector2D input2 = (DataComplexVector2D) util.GetFromListByName(InputPlaceNames.get(2),
-				Parent.Parent.PlaceList);
+				Parent.TempMarking);
 		DataComplexVector2D input3 = (DataComplexVector2D) util.GetFromListByName(InputPlaceNames.get(3),
-				Parent.Parent.PlaceList);
+				Parent.TempMarking);
 
 		ComplexVector2D resultComplexVector = input0.Value.clone();
-		
+
 		for (int i = 0; i < resultComplexVector.ComplexArrayX.Size; i++) {
 			ComplexValue cv = new ComplexValue(
 					input0.Value.ComplexArrayX.ComplexArray.get(i).Real
