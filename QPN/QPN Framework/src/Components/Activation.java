@@ -1226,14 +1226,16 @@ public class Activation implements Serializable {
 
 			DataComplexVector2D current = (DataComplexVector2D) Parent.TempMarking.get(i);
 			for (ComplexValue cv : current.Value.ComplexArrayX.ComplexArray) {
-				currentSum.V1 += cv.Real;
+				//currentSum.V1 += cv.Real;
+				currentSum.V1 += Math.pow(cv.Real, 2); //added
 			}
 			for (ComplexValue cv : current.Value.ComplexArrayY.ComplexArray) {
-				currentSum.V2 += cv.Real;
+				//currentSum.V2 += cv.Real;
+				currentSum.V2 += Math.pow(cv.Real, 2); //added
 			}
 
-			currentSum.V1 = Math.pow(currentSum.V1, 2);
-			currentSum.V2 = Math.pow(currentSum.V2, 2);
+//			currentSum.V1 = Math.pow(currentSum.V1, 2);
+//			currentSum.V2 = Math.pow(currentSum.V2, 2);
 
 			resultValue.V1 += currentSum.V1;
 			resultValue.V2 += currentSum.V2;

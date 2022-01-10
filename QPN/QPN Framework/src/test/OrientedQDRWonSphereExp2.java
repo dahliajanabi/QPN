@@ -253,6 +253,11 @@ public class OrientedQDRWonSphereExp2 {
 		pv.SetName("pv");
 		pv.Value = new DoubleDouble(0.0f, 0.0f);
 		pn.PlaceList.add(pv);
+		
+		DataDoubleDouble pv2 = new DataDoubleDouble();
+		pv2.SetName("pv2");
+		pv2.Value = new DoubleDouble(0.0f, 0.0f);
+		pn.PlaceList.add(pv2);
 
 		// T0 ------------------------------------------------
 		PetriTransition t0 = new PetriTransition(pn);
@@ -290,7 +295,7 @@ public class OrientedQDRWonSphereExp2 {
 		GuardMapping grdT1 = new GuardMapping();
 		grdT1.condition = T1Ct1;
 		grdT1.Activations.add(new Activation(t1, "p1", TransitionOperation.MultiplyByHalfMultiPlaces, t1Output,
-				new HalfParameters(new Sign(1, 1), new Sign(1, -1), new Sign(1, 1), new Sign(1, 1), 1)));
+				new HalfParameters(new Sign(1, 1), new Sign(-1, 1), new Sign(1, 1), new Sign(1, 1), 1)));
 
 		t1.GuardMappingList.add(grdT1);
 
@@ -311,7 +316,7 @@ public class OrientedQDRWonSphereExp2 {
 		GuardMapping grdT2 = new GuardMapping();
 		grdT2.condition = T2Ct1;
 		grdT2.Activations.add(new Activation(t2, "p2", TransitionOperation.MultiplyByHalfMultiPlaces, t2Output,
-				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(-1, 1), new Sign(1, 1), 2)));
+				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(1, -1), new Sign(1, 1), 2)));
 
 		t2.GuardMappingList.add(grdT2);
 
@@ -470,16 +475,69 @@ public class OrientedQDRWonSphereExp2 {
 		// TV ------------------------------------------------
 		PetriTransition TV = new PetriTransition(pn);
 		TV.TransitionName = "TV";
-		TV.InputPlaceName.add("p0");
-		TV.InputPlaceName.add("p1");
-		TV.InputPlaceName.add("p2");
-		TV.InputPlaceName.add("p3");
+//		TV.InputPlaceName.add("p0");
+//		TV.InputPlaceName.add("p1");
+//		TV.InputPlaceName.add("p2");
+//		TV.InputPlaceName.add("p3");
+		
+		TV.InputPlaceName.add("p00");
+		TV.InputPlaceName.add("p10");
+		TV.InputPlaceName.add("p20");
+		TV.InputPlaceName.add("p30");
+		TV.InputPlaceName.add("p01");
+		TV.InputPlaceName.add("p11");
+		TV.InputPlaceName.add("p21");
+		TV.InputPlaceName.add("p31");
+		TV.InputPlaceName.add("p02");
+		TV.InputPlaceName.add("p12");
+		TV.InputPlaceName.add("p22");
+		TV.InputPlaceName.add("p32");
+		TV.InputPlaceName.add("p03");
+		TV.InputPlaceName.add("p13");
+		TV.InputPlaceName.add("p23");
+		TV.InputPlaceName.add("p33");
 		TV.IsReversible = true;
 
-		Condition TVCt1 = new Condition(TV, "p0", TransitionCondition.NotNull);
-		Condition TVCt2 = new Condition(TV, "p1", TransitionCondition.NotNull);
-		Condition TVCt3 = new Condition(TV, "p2", TransitionCondition.NotNull);
-		Condition TVCt4 = new Condition(TV, "p3", TransitionCondition.NotNull);
+//		Condition TVCt1 = new Condition(TV, "p0", TransitionCondition.NotNull);
+//		Condition TVCt2 = new Condition(TV, "p1", TransitionCondition.NotNull);
+//		Condition TVCt3 = new Condition(TV, "p2", TransitionCondition.NotNull);
+//		Condition TVCt4 = new Condition(TV, "p3", TransitionCondition.NotNull);
+		
+		Condition TVCt1 = new Condition(TV, "p00", TransitionCondition.NotNull);
+		Condition TVCt2 = new Condition(TV, "p01", TransitionCondition.NotNull);
+		Condition TVCt3 = new Condition(TV, "p02", TransitionCondition.NotNull);
+		Condition TVCt4 = new Condition(TV, "p03", TransitionCondition.NotNull);
+		
+		Condition TVCt5 = new Condition(TV, "p01", TransitionCondition.NotNull);
+		Condition TVCt6 = new Condition(TV, "p11", TransitionCondition.NotNull);
+		Condition TVCt7 = new Condition(TV, "p21", TransitionCondition.NotNull);
+		Condition TVCt8 = new Condition(TV, "p31", TransitionCondition.NotNull);
+		
+		Condition TVCt9 = new Condition(TV, "p02", TransitionCondition.NotNull);
+		Condition TVCt10 = new Condition(TV, "p12", TransitionCondition.NotNull);
+		Condition TVCt11 = new Condition(TV, "p22", TransitionCondition.NotNull);
+		Condition TVCt12 = new Condition(TV, "p32", TransitionCondition.NotNull);
+		
+		Condition TVCt13 = new Condition(TV, "p03", TransitionCondition.NotNull);
+		Condition TVCt14 = new Condition(TV, "p13", TransitionCondition.NotNull);
+		Condition TVCt15 = new Condition(TV, "p23", TransitionCondition.NotNull);
+		Condition TVCt16 = new Condition(TV, "p33", TransitionCondition.NotNull);
+		
+		TVCt15.SetNextCondition(LogicConnector.AND, TVCt16);
+		TVCt14.SetNextCondition(LogicConnector.AND, TVCt15);
+		TVCt13.SetNextCondition(LogicConnector.AND, TVCt14);
+		
+		TVCt12.SetNextCondition(LogicConnector.AND, TVCt13);
+		TVCt11.SetNextCondition(LogicConnector.AND, TVCt12);
+		TVCt10.SetNextCondition(LogicConnector.AND, TVCt11);
+		
+		TVCt9.SetNextCondition(LogicConnector.AND, TVCt10);
+		TVCt8.SetNextCondition(LogicConnector.AND, TVCt9);
+		TVCt7.SetNextCondition(LogicConnector.AND, TVCt8);
+		
+		TVCt6.SetNextCondition(LogicConnector.AND, TVCt7);
+		TVCt5.SetNextCondition(LogicConnector.AND, TVCt6);
+		TVCt4.SetNextCondition(LogicConnector.AND, TVCt5);
 
 		TVCt3.SetNextCondition(LogicConnector.AND, TVCt4);
 		TVCt2.SetNextCondition(LogicConnector.AND, TVCt3);
@@ -492,6 +550,36 @@ public class OrientedQDRWonSphereExp2 {
 		TV.GuardMappingList.add(grdTV);
 
 		pn.Transitions.add(TV);
+		
+		// TV2 ------------------------------------------------
+				PetriTransition TV2 = new PetriTransition(pn);
+				TV2.TransitionName = "TV2";
+				TV2.InputPlaceName.add("p0");
+				TV2.InputPlaceName.add("p1");
+				TV2.InputPlaceName.add("p2");
+				TV2.InputPlaceName.add("p3");
+				
+				
+				TV2.IsReversible = true;
+
+				Condition TV2Ct1 = new Condition(TV2, "p0", TransitionCondition.NotNull);
+				Condition TV2Ct2 = new Condition(TV2, "p1", TransitionCondition.NotNull);
+				Condition TV2Ct3 = new Condition(TV2, "p2", TransitionCondition.NotNull);
+				Condition TV2Ct4 = new Condition(TV2, "p3", TransitionCondition.NotNull);
+				
+				
+
+				TV2Ct3.SetNextCondition(LogicConnector.AND, TV2Ct4);
+				TV2Ct2.SetNextCondition(LogicConnector.AND, TV2Ct3);
+				TV2Ct1.SetNextCondition(LogicConnector.AND, TV2Ct2);
+
+				GuardMapping grdTV2 = new GuardMapping();
+				grdTV2.condition = TV2Ct1;
+				grdTV2.Activations.add(new Activation(TV2, TransitionOperation.SphereVerification, "pv2"));
+
+				TV2.GuardMappingList.add(grdTV2);
+
+				pn.Transitions.add(TV2);
 
 		System.out.println("Exp1 started \n ------------------------------");
 		pn.Delay = 3000;
