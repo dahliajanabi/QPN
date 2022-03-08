@@ -378,7 +378,7 @@ public class OrientedQDRWonSphereExp2 {
 
 
 		System.out.println("Exp1 started \n ------------------------------");
-		pn.Delay = 3000;
+		pn.Delay = 0; //petri delay 
 
 		pn.clearPrint = true;
 		pn.PrintingImaginaryNumbers = false;
