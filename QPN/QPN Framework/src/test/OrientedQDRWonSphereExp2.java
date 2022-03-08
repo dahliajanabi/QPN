@@ -75,178 +75,66 @@ public class OrientedQDRWonSphereExp2 {
 
 		DataComplexVector2D p00 = new DataComplexVector2D();
 		p00.SetName("p00");
-//		p00.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p00);
 
 		DataComplexVector2D p01 = new DataComplexVector2D();
 		p01.SetName("p01");
-//		p01.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p01);
 
 		DataComplexVector2D p02 = new DataComplexVector2D();
 		p02.SetName("p02");
-//		p02.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p02);
 
 		DataComplexVector2D p03 = new DataComplexVector2D();
 		p03.SetName("p03");
-//		p03.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p03);
 
 		DataComplexVector2D p10 = new DataComplexVector2D();
 		p10.SetName("p10");
-//		p10.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p10);
 
 		DataComplexVector2D p11 = new DataComplexVector2D();
 		p11.SetName("p11");
-//		p11.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p11);
 
 		DataComplexVector2D p12 = new DataComplexVector2D();
 		p12.SetName("p12");
-//		p12.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p12);
 
 		DataComplexVector2D p13 = new DataComplexVector2D();
 		p13.SetName("p13");
-//		p13.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p13);
 
 		DataComplexVector2D p20 = new DataComplexVector2D();
 		p20.SetName("p20");
-//		p20.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p20);
 
 		DataComplexVector2D p21 = new DataComplexVector2D();
 		p21.SetName("p21");
-//		p21.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p21);
 
 		DataComplexVector2D p22 = new DataComplexVector2D();
 		p22.SetName("p22");
-//		p22.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p22);
 
 		DataComplexVector2D p23 = new DataComplexVector2D();
 		p23.SetName("p23");
-//		p23.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p23);
 
 		DataComplexVector2D p30 = new DataComplexVector2D();
 		p30.SetName("p30");
-//		p30.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p30);
 
 		DataComplexVector2D p31 = new DataComplexVector2D();
 		p31.SetName("p31");
-//		p31.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p31);
 
 		DataComplexVector2D p32 = new DataComplexVector2D();
 		p32.SetName("p32");
-//		p32.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p32);
 
 		DataComplexVector2D p33 = new DataComplexVector2D();
 		p33.SetName("p33");
-//		p33.Value = new ComplexVector2D(Orientation.Right,
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)),
-//				new ComplexVector(8, new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f),
-//						new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f), new ComplexValue(0.0f, 0.0f)));
 		pn.PlaceList.add(p33);
 
 		DataDoubleDouble pv = new DataDoubleDouble();
@@ -254,10 +142,6 @@ public class OrientedQDRWonSphereExp2 {
 		pv.Value = new DoubleDouble(0.0f, 0.0f);
 		pn.PlaceList.add(pv);
 		
-		DataDoubleDouble pv2 = new DataDoubleDouble();
-		pv2.SetName("pv2");
-		pv2.Value = new DoubleDouble(0.0f, 0.0f);
-		pn.PlaceList.add(pv2);
 
 		// T0 ------------------------------------------------
 		PetriTransition t0 = new PetriTransition(pn);
@@ -274,7 +158,7 @@ public class OrientedQDRWonSphereExp2 {
 		GuardMapping grdT0 = new GuardMapping();
 		grdT0.condition = T0Ct1;
 		grdT0.Activations.add(new Activation(t0, "p0", TransitionOperation.MultiplyByHalfMultiPlaces, t0Output,
-				new HalfParameters(new Sign(-1, 1), new Sign(1, 1), new Sign(1, 1), new Sign(1, 1), 0)));
+				new HalfParameters(new Sign(-1, -1), new Sign(1, 1), new Sign(1, 1), new Sign(1, 1), 0)));
 
 		t0.GuardMappingList.add(grdT0);
 
@@ -295,7 +179,7 @@ public class OrientedQDRWonSphereExp2 {
 		GuardMapping grdT1 = new GuardMapping();
 		grdT1.condition = T1Ct1;
 		grdT1.Activations.add(new Activation(t1, "p1", TransitionOperation.MultiplyByHalfMultiPlaces, t1Output,
-				new HalfParameters(new Sign(1, 1), new Sign(-1, 1), new Sign(1, 1), new Sign(1, 1), 1)));
+				new HalfParameters(new Sign(1, 1), new Sign(-1, -1), new Sign(1, 1), new Sign(1, 1), 1)));
 
 		t1.GuardMappingList.add(grdT1);
 
@@ -316,7 +200,7 @@ public class OrientedQDRWonSphereExp2 {
 		GuardMapping grdT2 = new GuardMapping();
 		grdT2.condition = T2Ct1;
 		grdT2.Activations.add(new Activation(t2, "p2", TransitionOperation.MultiplyByHalfMultiPlaces, t2Output,
-				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(1, -1), new Sign(1, 1), 2)));
+				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(-1, -1), new Sign(1, 1), 2)));
 
 		t2.GuardMappingList.add(grdT2);
 
@@ -337,7 +221,7 @@ public class OrientedQDRWonSphereExp2 {
 		GuardMapping grdT3 = new GuardMapping();
 		grdT3.condition = T3Ct1;
 		grdT3.Activations.add(new Activation(t3, "p3", TransitionOperation.MultiplyByHalfMultiPlaces, t3Output,
-				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(1, 1), new Sign(1, -1), 3)));
+				new HalfParameters(new Sign(1, 1), new Sign(1, 1), new Sign(1, 1), new Sign(-1, -1), 3)));
 
 		t3.GuardMappingList.add(grdT3);
 
@@ -350,8 +234,7 @@ public class OrientedQDRWonSphereExp2 {
 		T0P.InputPlaceName.add("p10");
 		T0P.InputPlaceName.add("p20");
 		T0P.InputPlaceName.add("p30");
-		//T0P.IsReversible=true;
-
+		
 		Condition T0PCt1 = new Condition(T0P, "p00", TransitionCondition.NotNull);
 		Condition T0PCt2 = new Condition(T0P, "p10", TransitionCondition.NotNull);
 		Condition T0PCt3 = new Condition(T0P, "p20", TransitionCondition.NotNull);
@@ -370,7 +253,7 @@ public class OrientedQDRWonSphereExp2 {
 		T0PInput.add("p30");
 
 		grdT0P.Activations.add(new Activation(T0P, T0PInput, TransitionOperation.ComplexVector2DAdditionMultiPlaces,
-				"p0", new HalfParameters(0, new Shift(+1, 0))));
+				"p0", new HalfParameters(0, new Shift(+1, +1))));
 
 		T0P.GuardMappingList.add(grdT0P);
 
@@ -383,8 +266,7 @@ public class OrientedQDRWonSphereExp2 {
 		T1P.InputPlaceName.add("p11");
 		T1P.InputPlaceName.add("p21");
 		T1P.InputPlaceName.add("p31");
-		//T1P.IsReversible=true;
-
+		
 		Condition T1PCt1 = new Condition(T1P, "p01", TransitionCondition.NotNull);
 		Condition T1PCt2 = new Condition(T1P, "p11", TransitionCondition.NotNull);
 		Condition T1PCt3 = new Condition(T1P, "p21", TransitionCondition.NotNull);
@@ -402,7 +284,7 @@ public class OrientedQDRWonSphereExp2 {
 		GuardMapping grdT1P = new GuardMapping();
 		grdT1P.condition = T1PCt1;
 		grdT1P.Activations.add(new Activation(T1P, T1PInput, TransitionOperation.ComplexVector2DAdditionMultiPlaces,
-				"p1", new HalfParameters(1, new Shift(-1, 0))));
+				"p1", new HalfParameters(1, new Shift(-1, +1))));
 
 		T1P.GuardMappingList.add(grdT1P);
 
@@ -415,8 +297,7 @@ public class OrientedQDRWonSphereExp2 {
 		T2P.InputPlaceName.add("p12");
 		T2P.InputPlaceName.add("p22");
 		T2P.InputPlaceName.add("p32");
-		//T2P.IsReversible=true;
-
+		
 		Condition T2PCt1 = new Condition(T2P, "p02", TransitionCondition.NotNull);
 		Condition T2PCt2 = new Condition(T2P, "p12", TransitionCondition.NotNull);
 		Condition T2PCt3 = new Condition(T2P, "p22", TransitionCondition.NotNull);
@@ -434,7 +315,7 @@ public class OrientedQDRWonSphereExp2 {
 		GuardMapping grdT2P = new GuardMapping();
 		grdT2P.condition = T2PCt1;
 		grdT2P.Activations.add(new Activation(T2P, T2PInput, TransitionOperation.ComplexVector2DAdditionMultiPlaces,
-				"p2", new HalfParameters(2, new Shift(0, +1))));
+				"p2", new HalfParameters(2, new Shift(+1, -1))));
 
 		T2P.GuardMappingList.add(grdT2P);
 
@@ -447,8 +328,7 @@ public class OrientedQDRWonSphereExp2 {
 		T3P.InputPlaceName.add("p13");
 		T3P.InputPlaceName.add("p23");
 		T3P.InputPlaceName.add("p33");
-		//T3P.IsReversible=true;
-
+		
 		Condition T3PCt1 = new Condition(T3P, "p03", TransitionCondition.NotNull);
 		Condition T3PCt2 = new Condition(T3P, "p13", TransitionCondition.NotNull);
 		Condition T3PCt3 = new Condition(T3P, "p23", TransitionCondition.NotNull);
@@ -466,7 +346,7 @@ public class OrientedQDRWonSphereExp2 {
 		GuardMapping grdT3P = new GuardMapping();
 		grdT3P.condition = T3PCt1;
 		grdT3P.Activations.add(new Activation(T3P, T3PInput, TransitionOperation.ComplexVector2DAdditionMultiPlaces,
-				"p3", new HalfParameters(3, new Shift(0, -1))));
+				"p3", new HalfParameters(3, new Shift(-1, -1))));
 
 		T3P.GuardMappingList.add(grdT3P);
 
@@ -475,74 +355,19 @@ public class OrientedQDRWonSphereExp2 {
 		// TV ------------------------------------------------
 		PetriTransition TV = new PetriTransition(pn);
 		TV.TransitionName = "TV";
-//		TV.InputPlaceName.add("p0");
-//		TV.InputPlaceName.add("p1");
-//		TV.InputPlaceName.add("p2");
-//		TV.InputPlaceName.add("p3");
+		TV.InputPlaceName.add("p0");
+		TV.InputPlaceName.add("p1");
+		TV.InputPlaceName.add("p2");
+		TV.InputPlaceName.add("p3");
 		
-		TV.InputPlaceName.add("p00");
-		TV.InputPlaceName.add("p10");
-		TV.InputPlaceName.add("p20");
-		TV.InputPlaceName.add("p30");
-		TV.InputPlaceName.add("p01");
-		TV.InputPlaceName.add("p11");
-		TV.InputPlaceName.add("p21");
-		TV.InputPlaceName.add("p31");
-		TV.InputPlaceName.add("p02");
-		TV.InputPlaceName.add("p12");
-		TV.InputPlaceName.add("p22");
-		TV.InputPlaceName.add("p32");
-		TV.InputPlaceName.add("p03");
-		TV.InputPlaceName.add("p13");
-		TV.InputPlaceName.add("p23");
-		TV.InputPlaceName.add("p33");
 		TV.IsReversible = true;
+		
 
-//		Condition TVCt1 = new Condition(TV, "p0", TransitionCondition.NotNull);
-//		Condition TVCt2 = new Condition(TV, "p1", TransitionCondition.NotNull);
-//		Condition TVCt3 = new Condition(TV, "p2", TransitionCondition.NotNull);
-//		Condition TVCt4 = new Condition(TV, "p3", TransitionCondition.NotNull);
+		Condition TVCt1 = new Condition(TV, "p0", TransitionCondition.NotNull);
+		Condition TVCt2 = new Condition(TV, "p1", TransitionCondition.NotNull);
+		Condition TVCt3 = new Condition(TV, "p2", TransitionCondition.NotNull);
+		Condition TVCt4 = new Condition(TV, "p3", TransitionCondition.NotNull);
 		
-		Condition TVCt1 = new Condition(TV, "p00", TransitionCondition.NotNull);
-		Condition TVCt2 = new Condition(TV, "p01", TransitionCondition.NotNull);
-		Condition TVCt3 = new Condition(TV, "p02", TransitionCondition.NotNull);
-		Condition TVCt4 = new Condition(TV, "p03", TransitionCondition.NotNull);
-		
-		Condition TVCt5 = new Condition(TV, "p01", TransitionCondition.NotNull);
-		Condition TVCt6 = new Condition(TV, "p11", TransitionCondition.NotNull);
-		Condition TVCt7 = new Condition(TV, "p21", TransitionCondition.NotNull);
-		Condition TVCt8 = new Condition(TV, "p31", TransitionCondition.NotNull);
-		
-		Condition TVCt9 = new Condition(TV, "p02", TransitionCondition.NotNull);
-		Condition TVCt10 = new Condition(TV, "p12", TransitionCondition.NotNull);
-		Condition TVCt11 = new Condition(TV, "p22", TransitionCondition.NotNull);
-		Condition TVCt12 = new Condition(TV, "p32", TransitionCondition.NotNull);
-		
-		Condition TVCt13 = new Condition(TV, "p03", TransitionCondition.NotNull);
-		Condition TVCt14 = new Condition(TV, "p13", TransitionCondition.NotNull);
-		Condition TVCt15 = new Condition(TV, "p23", TransitionCondition.NotNull);
-		Condition TVCt16 = new Condition(TV, "p33", TransitionCondition.NotNull);
-		
-		TVCt15.SetNextCondition(LogicConnector.AND, TVCt16);
-		TVCt14.SetNextCondition(LogicConnector.AND, TVCt15);
-		TVCt13.SetNextCondition(LogicConnector.AND, TVCt14);
-		
-		TVCt12.SetNextCondition(LogicConnector.AND, TVCt13);
-		TVCt11.SetNextCondition(LogicConnector.AND, TVCt12);
-		TVCt10.SetNextCondition(LogicConnector.AND, TVCt11);
-		
-		TVCt9.SetNextCondition(LogicConnector.AND, TVCt10);
-		TVCt8.SetNextCondition(LogicConnector.AND, TVCt9);
-		TVCt7.SetNextCondition(LogicConnector.AND, TVCt8);
-		
-		TVCt6.SetNextCondition(LogicConnector.AND, TVCt7);
-		TVCt5.SetNextCondition(LogicConnector.AND, TVCt6);
-		TVCt4.SetNextCondition(LogicConnector.AND, TVCt5);
-
-		TVCt3.SetNextCondition(LogicConnector.AND, TVCt4);
-		TVCt2.SetNextCondition(LogicConnector.AND, TVCt3);
-		TVCt1.SetNextCondition(LogicConnector.AND, TVCt2);
-
 		GuardMapping grdTV = new GuardMapping();
 		grdTV.condition = TVCt1;
 		grdTV.Activations.add(new Activation(TV, TransitionOperation.SphereVerification, "pv"));
@@ -550,36 +375,7 @@ public class OrientedQDRWonSphereExp2 {
 		TV.GuardMappingList.add(grdTV);
 
 		pn.Transitions.add(TV);
-		
-		// TV2 ------------------------------------------------
-				PetriTransition TV2 = new PetriTransition(pn);
-				TV2.TransitionName = "TV2";
-				TV2.InputPlaceName.add("p0");
-				TV2.InputPlaceName.add("p1");
-				TV2.InputPlaceName.add("p2");
-				TV2.InputPlaceName.add("p3");
-				
-				
-				TV2.IsReversible = true;
 
-				Condition TV2Ct1 = new Condition(TV2, "p0", TransitionCondition.NotNull);
-				Condition TV2Ct2 = new Condition(TV2, "p1", TransitionCondition.NotNull);
-				Condition TV2Ct3 = new Condition(TV2, "p2", TransitionCondition.NotNull);
-				Condition TV2Ct4 = new Condition(TV2, "p3", TransitionCondition.NotNull);
-				
-				
-
-				TV2Ct3.SetNextCondition(LogicConnector.AND, TV2Ct4);
-				TV2Ct2.SetNextCondition(LogicConnector.AND, TV2Ct3);
-				TV2Ct1.SetNextCondition(LogicConnector.AND, TV2Ct2);
-
-				GuardMapping grdTV2 = new GuardMapping();
-				grdTV2.condition = TV2Ct1;
-				grdTV2.Activations.add(new Activation(TV2, TransitionOperation.SphereVerification, "pv2"));
-
-				TV2.GuardMappingList.add(grdTV2);
-
-				pn.Transitions.add(TV2);
 
 		System.out.println("Exp1 started \n ------------------------------");
 		pn.Delay = 3000;
