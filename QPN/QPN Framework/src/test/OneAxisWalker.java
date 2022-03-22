@@ -139,9 +139,18 @@ public class OneAxisWalker {
 		
 		
 
+//		System.out.println("Exp1 started \n ------------------------------");
+//		pn.Delay = 3000;
+//
+//		PetriNetWindow frame = new PetriNetWindow(false);
+//		frame.petriNet = pn;
+//		frame.setVisible(true);
+		
 		System.out.println("Exp1 started \n ------------------------------");
-		pn.Delay = 3000;
+		pn.Delay = 3000; //petri delay, for fast execution make it 0
 
+		pn.clearPrint = true;
+		pn.PrintingImaginaryNumbers = false;
 		PetriNetWindow frame = new PetriNetWindow(false);
 		frame.petriNet = pn;
 		frame.setVisible(true);
