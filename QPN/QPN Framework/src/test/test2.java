@@ -59,7 +59,7 @@ public class test2 {
 
 		System.out.println("Exp1 started \n ------------------------------");
 		pn.Delay = 3000;
-
+		pn.clearPrint = true;
 		PetriNetWindow frame = new PetriNetWindow(false);
 		frame.petriNet = pn;
 		frame.setVisible(true);
