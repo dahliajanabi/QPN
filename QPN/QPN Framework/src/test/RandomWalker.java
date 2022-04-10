@@ -16,6 +16,7 @@ import Enumerations.LogicConnector;
 import Enumerations.TransitionCondition;
 import Enumerations.TransitionOperation;
 
+//Quantum robot random walking QPN model
 public class RandomWalker {
 	
 	public static void main(String[] args) {
@@ -221,6 +222,8 @@ public class RandomWalker {
 		System.out.println("Exp1 started \n ------------------------------");
 		pn.Delay = 3000;
 
+		pn.clearPrint = true;
+		pn.PrintingImaginaryNumbers = false;
 		PetriNetWindow frame = new PetriNetWindow(false);
 		frame.petriNet = pn;
 		frame.setVisible(true);

@@ -18,6 +18,7 @@ import Enumerations.LogicConnector;
 import Enumerations.TransitionCondition;
 import Enumerations.TransitionOperation;
 
+//QPN of oriented QDRW on a circle with M+ and M-
 public class OrientationWalker {
 	
 	public static void main(String[] args) {

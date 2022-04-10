@@ -15,6 +15,7 @@ import Enumerations.LogicConnector;
 import Enumerations.TransitionCondition;
 import Enumerations.TransitionOperation;
 
+//QPN of oriented QDRW on a circle with shift+ and shift-
 public class OrientationWalkerShift {
 
 	public static void main(String[] args) {

@@ -22,6 +22,7 @@ import Enumerations.Orientation;
 import Enumerations.TransitionCondition;
 import Enumerations.TransitionOperation;
 
+//QPN model of oriented QDRW on a sphere
 public class OrientedQDRWonSphereExp {
 	public static void main(String[] args) {
 

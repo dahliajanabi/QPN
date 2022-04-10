@@ -16,6 +16,7 @@ import Enumerations.LogicConnector;
 import Enumerations.TransitionCondition;
 import Enumerations.TransitionOperation;
 
+//QPN of un-oriented QDRW on a circle
 public class OneAxisWalker {
 	
 	public static void main(String[] args) {
