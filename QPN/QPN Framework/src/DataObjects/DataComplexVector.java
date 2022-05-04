@@ -1,7 +1,9 @@
 package DataObjects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import DataOnly.ComplexValue;
 import DataOnly.ComplexVector;
 import Enumerations.PetriObjectType;
 import Interfaces.PetriObject;
@@ -56,13 +58,18 @@ public class DataComplexVector implements Interfaces.PetriObject, Cloneable, Ser
 
 	// Overriding clone() method of Object class
 	public PetriObject clone() throws CloneNotSupportedException {
-//		DataComplexVector result = new DataComplexVector();
-//		result.SetName(name);
-//		ComplexVector cv = new ComplexVector(Value.Size,
-//				Value.ComplexArray);
-//		result.SetValue(cv);
-//		return result;
-		return (DataComplexVector) super.clone();
+		DataComplexVector result = new DataComplexVector();
+		result.SetName(name);
+		
+		ArrayList<ComplexValue> ComplexArray = new ArrayList<ComplexValue>();
+		for (ComplexValue c : Value.ComplexArray) {
+			ComplexArray.add(new ComplexValue(c.Real,c.Imaginary));
+		}
+		ComplexVector cv = new ComplexVector(Value.Size,
+				ComplexArray);
+		result.SetValue(cv);
+		return result;
+		//return (DataComplexVector) super.clone();
 	}
 
 	public boolean Printable = true;

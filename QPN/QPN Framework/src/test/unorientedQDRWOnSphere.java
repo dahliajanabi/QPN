@@ -17,7 +17,7 @@ import Enumerations.TransitionCondition;
 import Enumerations.TransitionOperation;
 
 //Quantum robot random walking QPN model
-public class RandomWalker {
+public class unorientedQDRWOnSphere {
 	
 	public static void main(String[] args) {
 		PetriNet pn = new PetriNet();

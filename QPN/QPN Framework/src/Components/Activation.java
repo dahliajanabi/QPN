@@ -212,6 +212,12 @@ public class Activation implements Serializable {
 
 		if (Operation == TransitionOperation.ShiftMinus)
 			ShiftMinus();
+		if (Operation == TransitionOperation.ShiftXMultiplyByCoin)
+			ShiftXMultiplyByCoin();
+
+		if (Operation == TransitionOperation.ShiftYMultiplyByCoin)
+			ShiftYMultiplyByCoin();
+		
 
 		if (Operation == TransitionOperation.MultiplyByRo)
 			MultiplyByRo();
@@ -236,6 +242,144 @@ public class Activation implements Serializable {
 
 		if (Operation == TransitionOperation.SphereVerification)
 			SphereVerification();
+	}
+
+	private void ShiftXMultiplyByCoin() throws CloneNotSupportedException {
+		PetriObject input1 = util.GetFromListByName(InputPlaceName1, Parent.TempMarking);
+		if (input1 == null && !(input1 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject input2 = util.GetFromListByName(InputPlaceName2, Parent.TempMarking);
+		if (input2 == null && !(input2 instanceof DataComplexVector)) {
+			return;
+		}
+		//multiply by coin0 and shift+
+		DataComplexVector result1 = (DataComplexVector) ((DataComplexVector) input2).clone();
+		ComplexVector resC1 = (ComplexVector) result1.GetValue();
+		
+		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) input1).clone();
+		ComplexVector coinC = (ComplexVector) coin.GetValue();
+
+		ComplexValue coinv0 = coinC.ComplexArray.get(0);
+
+		for (int i = 0; i < resC1.ComplexArray.size(); i++) {
+			ComplexValue cv1 = resC1.ComplexArray.get(i);
+			cv1.Real *= coinv0.Real;
+			cv1.Imaginary *= coinv0.Real;
+		}
+		
+		util.ShiftRight(result1);
+
+		//multiply by coin2 and shift_
+		
+		DataComplexVector result2 = (DataComplexVector) ((DataComplexVector) input2).clone();
+		ComplexVector resC2 = (ComplexVector) result2.GetValue();
+		
+
+		ComplexValue coinv2 = coinC.ComplexArray.get(1);
+
+		for (int i = 0; i < resC2.ComplexArray.size(); i++) {
+			ComplexValue cv2 = resC2.ComplexArray.get(i);
+			cv2.Real *= coinv2.Real;
+			cv2.Imaginary *= coinv2.Real;
+		}
+		
+		util.ShiftLeft(result2);
+					
+		//final result
+		DataComplexVector result = new DataComplexVector();
+		result.SetName(OutputPlaceName);
+		result.Value = new ComplexVector(8, 
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f));
+		
+		//result = result1+result2
+		for (int i = 0; i < result.Value.ComplexArray.size(); i++) {
+
+			ComplexValue cv = new ComplexValue(
+					result1.Value.ComplexArray.get(i).Real + ((DataComplexVector) result2).Value.ComplexArray.get(i).Real,
+					result1.Value.ComplexArray.get(i).Imaginary
+							+ ((DataComplexVector) result2).Value.ComplexArray.get(i).Imaginary);
+			result.Value.ComplexArray.set(i, cv);
+		}	
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);		
+	}
+
+	private void ShiftYMultiplyByCoin() throws CloneNotSupportedException {
+		PetriObject input1 = util.GetFromListByName(InputPlaceName1, Parent.TempMarking);
+		if (input1 == null && !(input1 instanceof DataComplexVector)) {
+			return;
+		}
+
+		PetriObject input2 = util.GetFromListByName(InputPlaceName2, Parent.TempMarking);
+		if (input2 == null && !(input2 instanceof DataComplexVector)) {
+			return;
+		}
+		//multiply by coin1 and shift+
+		DataComplexVector result1 = (DataComplexVector) ((DataComplexVector) input2).clone();
+		ComplexVector resC1 = (ComplexVector) result1.GetValue();
+		
+		DataComplexVector coin = (DataComplexVector) ((DataComplexVector) input1).clone();
+		ComplexVector coinC = (ComplexVector) coin.GetValue();
+
+		ComplexValue coinv0 = coinC.ComplexArray.get(2);
+
+		for (int i = 0; i < resC1.ComplexArray.size(); i++) {
+			ComplexValue cv1 = resC1.ComplexArray.get(i);
+			cv1.Real *= coinv0.Real;
+			cv1.Imaginary *= coinv0.Real;
+		}
+		
+		util.ShiftRight(result1);
+
+		//multiply by coin3 and shift_
+		
+		DataComplexVector result2 = (DataComplexVector) ((DataComplexVector) input2).clone();
+		ComplexVector resC2 = (ComplexVector) result2.GetValue();
+		
+
+		ComplexValue coinv2 = coinC.ComplexArray.get(3);
+
+		for (int i = 0; i < resC2.ComplexArray.size(); i++) {
+			ComplexValue cv2 = resC2.ComplexArray.get(i);
+			cv2.Real *= coinv2.Real;
+			cv2.Imaginary *= coinv2.Real;
+		}
+		
+		util.ShiftLeft(result2);
+					
+		//final result
+		DataComplexVector result = new DataComplexVector();
+		result.SetName(OutputPlaceName);
+		result.Value = new ComplexVector(8, 
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f),
+				new ComplexValue(0.0f, 0.0f));
+		
+		//result = result1-result2
+		for (int i = 0; i < result.Value.ComplexArray.size(); i++) {
+
+			ComplexValue cv = new ComplexValue(
+					result1.Value.ComplexArray.get(i).Real - ((DataComplexVector) result2).Value.ComplexArray.get(i).Real,
+					result1.Value.ComplexArray.get(i).Imaginary
+							- ((DataComplexVector) result2).Value.ComplexArray.get(i).Imaginary);
+			result.Value.ComplexArray.set(i, cv);
+		}
+
+		util.SetToListByName(OutputPlaceName, Parent.Parent.PlaceList, result);	
+		
 	}
 
 	private void Move() throws CloneNotSupportedException {
